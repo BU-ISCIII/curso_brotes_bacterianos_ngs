@@ -21,35 +21,54 @@ Check our working directory:
 `pwd`
 
 Move to our Desktop folder: 
+
 `cd ~/Desktop`
 
-Create a directory called "myDir": 
+Create a directory called "myDir":
+
 `mkdir myDir`
 
-Move to the new folder: 
+Move to the new folder:
+
 `cd myDir`
 
 Check our working directory: 
+
 `pwd`
 
 Create the folders "asdf", "AsDf", "ASDF" and "tmp": 
+
 `mkdir asdf AsDf ASDF tmp`
 
-Create a file inside "tmp" called "myFile.txt": 
-`nano tmp/myFile.txt` 
-and write whatever you want.
+Create a file inside "tmp" called "myFile.txt":
 
-Rename "myFile.txt" to "whateverIwant": `mv tmp/myFile.txt whateverIwant`
+`nano tmp/myFile.txt`
 
-See the contents of "whateverIwant": `less tmp/whateverIwant`
+and write whatever you want and save it with __Ctrl + O__ and close the new file with __Ctrl + X__
 
-Remove the folders inside "myDir": `rmdir ./*`
+Rename "myFile.txt" to "whateverIwant":
 
-Remove the file: `rm tmp/whateverIwant`
+`mv tmp/myFile.txt whateverIwant`
 
-Go back to Desktop and remove everything you created: `cd ..; rm -rf tmp`
+See the contents of "whateverIwant": 
 
-Return to your home directory: `cd`
+`less tmp/whateverIwant`
+
+Remove the folders inside "myDir": 
+
+`rmdir ./*`
+
+Remove the file: 
+
+`rm tmp/whateverIwant`
+
+Go back to Desktop and remove everything you created: 
+
+`cd ..; rm -rf tmp`
+
+Return to your home directory: 
+
+`cd`
 
 #### How do I know which software I am using?
 
