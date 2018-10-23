@@ -66,7 +66,17 @@ trimming of reads or use a particular method, there are standalone applications 
 
 Common trimming includes removal of short reads, and cut off adapters and a number of bases, if below a threshold quality. Modern algorithms also include more complex methods, as the sliding window trimming in Trimmomatic. This is the method we will use in the exercises, and it allows to trimm a variable number of bases in each read, cutting once the average quality within the window falls below a threshold.
 
-## How do I map?
+## Mapping or assembly?
 
+After preprocessing, the next step is aligning the reads to rebuild the genomic sequence. There are two main ways of doing this: 
+
+<ul>
+<li>Mapping</li> 
+  For each of the short reads in the FASTQ file, a corresponding location in the reference sequence (or that no such region exists) needs to be determined. This is achieved by comparing the sequence of the read to that of the reference sequence. A mapping algorithm will try to locate a (hopefully unique) location in the reference sequence that matches the read, while tolerating a certain amount of mismatch to allow subsequence variation detection. 
+<li>Assembly</li> 
+  Genome assembly consists in taking a collection of sequencing reads, which are much shorter than the actual genome, and creating a genome sequence which is a likely source of all these fragments. The shorter the genome, the easier to recreate.
+ The output of an assembler is generally decomposed into contigs, or contiguous regions of the genome which are nearly completely resolved, and scaffolds, or sets of contigs which are approximately placed and oriented with respect to each other.
+  
+</ul>
 
 
