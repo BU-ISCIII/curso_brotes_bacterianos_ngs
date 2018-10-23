@@ -64,7 +64,7 @@ Remove the folders inside "myDir":
 
 Go back to Desktop and remove everything you created: 
 
-`cd ..; rm -rf tmp`
+`cd ..; rm -rf myDir`
 
 Return to your home directory: 
 
@@ -84,7 +84,7 @@ man git
 
 #### How do I use Nextflow with a Singularity image?
 
-__With nextflow__
+`nextflow`
 
 So, what now? In order to execute a nextflow pipeline, we need to tell it to `run` a project which contains a `main.nf` script written in groovy + the pipeline languages:
 
