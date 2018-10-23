@@ -48,19 +48,19 @@ and write whatever you want and save it with __Ctrl + O__ and close the new file
 
 Rename "myFile.txt" to "whateverIwant":
 
-`mv tmp/myFile.txt whateverIwant`
+`mv tmp/myFile.txt tmp/whateverIwant`
 
 See the contents of "whateverIwant": 
 
 `less tmp/whateverIwant`
 
-Remove the folders inside "myDir": 
-
-`rmdir ./*`
-
 Remove the file: 
 
 `rm tmp/whateverIwant`
+
+Remove the folders inside "myDir": 
+
+`rmdir ./*`
 
 Go back to Desktop and remove everything you created: 
 
@@ -84,7 +84,7 @@ man git
 
 #### How do I use Nextflow with a Singularity image?
 
-`nextflow`
+__With nextflow__
 
 So, what now? In order to execute a nextflow pipeline, we need to tell it to `run` a project which contains a `main.nf` script written in groovy + the pipeline languages:
 
