@@ -14,21 +14,30 @@ Open a terminal and type into it. Remember to use TAB to autocomplete and sugges
 
 #### How do I navigate the file system?
 
-Let's remember the basics: `pwd cd ls mkdir mv rm rmdir less nano`. We are going to use those commands to:
+Let's remember the basics: *pwd cd ls mkdir mv rm rmdir less nano*. We are going to use those commands to:
 
-Check our working directory: `pwd`
+Check our working directory:
 
-Move to our Desktop folder: `cd Desktop`
+`pwd`
 
-Create a directory called "myDir": `mkdir myDir`
+Move to our Desktop folder: 
+`cd ~/Desktop`
 
-Move to the new folder: `cd myDir`
+Create a directory called "myDir": 
+`mkdir myDir`
 
-Check our working directory: `pwd`
+Move to the new folder: 
+`cd myDir`
 
-Create the folders "asdf", "AsDf", "ASDF" and "tmp": `mkdir asdf AsDf ASDF tmp`
+Check our working directory: 
+`pwd`
 
-Create a file inside "tmp" called "myFile.txt": `nano tmp/myFile.txt` and write whatever you want.
+Create the folders "asdf", "AsDf", "ASDF" and "tmp": 
+`mkdir asdf AsDf ASDF tmp`
+
+Create a file inside "tmp" called "myFile.txt": 
+`nano tmp/myFile.txt` 
+and write whatever you want.
 
 Rename "myFile.txt" to "whateverIwant": `mv tmp/myFile.txt whateverIwant`
 
