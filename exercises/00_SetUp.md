@@ -45,7 +45,7 @@ rm -f training_dataset_250k.tar.gz
 ```
 
 
-
+```
 ..
 ├── bacterial_wgs_training
 │   ├── conf
@@ -95,4 +95,4 @@ rm -f training_dataset_250k.tar.gz
     │   └── RA-L2978_R2.fastq.gz
     ├── listeria_NC_021827.1_NoPhagues.fna
     └── listeria_NC_021827.1_NoPhagues.gff
-
+```
