@@ -8,7 +8,10 @@
 |**Time estimation**:| 1 h 30 min |
 |**Key points**:|<ul><li>Analysis of sequence quality.</li><li>Mapping.</li><li>Assembly.</li></ul>|
 
-# Introduction
+[Introduction](#introduction)
+[Exercise](#exercise)
+
+## Introduction
 ### Training dataset description
 This dataset was used for [external quality assessment (EQA-5)](https://ecdc.europa.eu/en/publications-data/fifth-external-quality-assessment-scheme-listeria-monocytogenes-typing) scheme for typing of
 Listeria monocytogenes (*L. monocytogenes*) organised for laboratories providing data to the Food and Waterborne
@@ -33,7 +36,7 @@ Twenty-two *L. monocytogenes* test isolates were selected to fulfil the followin
 The 11 test isolates for cluster analysis were selected to include isolates with different or varying relatedness isolates and different multi locus sequence types.
 
 
-## How do I know if my data was correctly sequenced?
+### How do I know if my data was correctly sequenced?
 
 Despite the improvement of sequencing methods, there is no error-free technique. The Phred quality score [(Ewing et al., 1998)](https://www.ncbi.nlm.nih.gov/pubmed/9521921) has been used since the late 90s as a measure of the quality of each sequenced nucleotide. Phred quality scores not only allow us to determine the accuracy of sequencing and of each individual position in an assembled consensus sequence, but it is also used to compare the efficiency of the sequencing methods.
 
@@ -60,14 +63,14 @@ There are multiple software to read and generate statistics to help with the int
 FastQC aims to provide a simple way to do some quality control checks on raw sequence data coming from high throughput sequencing pipelines. It provides a modular set of analyses which you can use to give a quick impression of whether your data has any problems of which you should be aware before doing any further analysis. Here you can compare examples of a [good sequencing output](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/good_sequence_short_fastqc.html) and a [bad one](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/bad_sequence_fastqc.html).
 
 
-## How can I improve my data quality?
+### How can I improve my data quality?
 
 Most modern aligners can filter out low quality reads and clip off low quality ends and adapters. In case it has to be done manually, because the sequencing was poor but you still need to use that data or because you want to have more control on the
 trimming of reads or use a particular method, there are standalone applications that allow you to do it. [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) (Bolger, Lohse, & Usadel, 2014) is one of the most broadly used. It is written in java and performs a variety of useful trimming tasks for illumina paired-end and single ended data.
 
 Common trimming includes removal of short reads, and cut off adapters and a number of bases, if below a threshold quality. Modern algorithms also include more complex methods, as the sliding window trimming in Trimmomatic. This is the method we will use in the exercises, and it allows to trimm a variable number of bases in each read, cutting once the average quality within the window falls below a threshold.
 
-## Mapping or assembly?
+### De novo or reference-based assembly?
 
 After preprocessing, the next step is aligning the reads to rebuild the genomic sequence. There are two main ways of doing this: 
 
@@ -80,5 +83,12 @@ After preprocessing, the next step is aligning the reads to rebuild the genomic 
   
 </ul>
 
-# Exercise
+## Exercise
 
+```Bash
+nextflow BU-ISCIII/bacterial_wgs_training run --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+  --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
+  --gtf training_dataset/listeria_NC_021827.1_NoPhagues.gff \
+  --step assembly
+
+```
