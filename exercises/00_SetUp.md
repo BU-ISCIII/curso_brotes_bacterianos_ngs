@@ -45,7 +45,7 @@ rm -f training_dataset_250k.tar.gz
 ```
 
 
-#Final folder structure:
+# Final folder structure:
 
 ```
 ..
