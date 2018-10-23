@@ -6,7 +6,7 @@
 |**Questions:**| <ul><li>How do I install the software for the course?</li><li>Where do I get the data for the exercises?</li></ul>|
 |**Objectives**:|<ul><li>In this document we will cover the working environment setup for the exercises.</li></ul>|  
 |**Time estimation**:| 5 min |
-|**Key points**:|<ul><li>Each practical is designed to work on this folder structure, so make sure you follow these steps correctly.</li></ul>|
+|**Key points**:|<ul><li>Each practical is designed to work on this [folder structure](Final folder structure:), so make sure you follow these steps correctly.</li></ul>|
 
 #### IMPORTANT: Make sure you understand and execute these commands in the right order.
 
@@ -44,6 +44,8 @@ tar -xvzf training_dataset_250k.tar.gz
 rm -f training_dataset_250k.tar.gz
 ```
 
+
+Final folder structure:
 
 ```
 ..
