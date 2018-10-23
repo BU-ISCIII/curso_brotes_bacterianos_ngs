@@ -40,7 +40,59 @@ Download training dataset:
 
 ```
 wget https://github.com/BU-ISCIII/bacterial_wgs_training/releases/download/1.0/training_dataset_250k.tar.gz
-tar -xvzf training_dataset.tar.gz
-rm -f training_dataset.tar.gz
+tar -xvzf training_dataset_250k.tar.gz
+rm -f training_dataset_250k.tar.gz
 ```
+
+
+
+..
+├── bacterial_wgs_training
+│   ├── conf
+│   │   ├── base.config
+│   │   ├── docker.config
+│   │   └── singularity.config
+│   ├── config2.file
+│   ├── config.file
+│   ├── Dockerfile
+│   ├── exercises
+│   │   ├── 00_SetUp.md
+│   │   ├── 01_LinuxNextflowSingularity.md
+│   │   ├── 02_QualityAndAssembly.md
+│   │   ├── 03_outbreakSNP.md
+│   │   └── exercise1.md
+│   ├── main.nf
+│   ├── nextflow.config
+│   ├── README.md
+│   ├── scif_app_recipes
+│   ├── Singularity
+│   └── slides
+│       └── talk1
+│           └── PITCHME.md
+└── training_dataset
+    ├── downsampling_250K
+    │   ├── RA-L2073_R1.fastq.gz
+    │   ├── RA-L2073_R2.fastq.gz
+    │   ├── RA-L2281_R1.fastq.gz
+    │   ├── RA-L2281_R2.fastq.gz
+    │   ├── RA-L2327_R1.fastq.gz
+    │   ├── RA-L2327_R2.fastq.gz
+    │   ├── RA-L2391_R1.fastq.gz
+    │   ├── RA-L2391_R2.fastq.gz
+    │   ├── RA-L2450_R1.fastq.gz
+    │   ├── RA-L2450_R2.fastq.gz
+    │   ├── RA-L2677_R1.fastq.gz
+    │   ├── RA-L2677_R2.fastq.gz
+    │   ├── RA-L2701_R1.fastq.gz
+    │   ├── RA-L2701_R2.fastq.gz
+    │   ├── RA-L2709_R1.fastq.gz
+    │   ├── RA-L2709_R2.fastq.gz
+    │   ├── RA-L2782_R1.fastq.gz
+    │   ├── RA-L2782_R2.fastq.gz
+    │   ├── RA-L2805_R1.fastq.gz
+    │   ├── RA-L2805_R2.fastq.gz
+    │   ├── RA-L2978_R1.fastq.gz
+    │   └── RA-L2978_R2.fastq.gz
+    ├── listeria_NC_021827.1_NoPhagues.fna
+    └── listeria_NC_021827.1_NoPhagues.gff
 
