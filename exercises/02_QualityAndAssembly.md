@@ -8,6 +8,7 @@
 |**Time estimation**:| 1 h 30 min |
 |**Key points**:|<ul><li>Analysis of sequence quality.</li><li>Mapping.</li><li>Assembly.</li></ul>|
 
+# Introduction
 ### Training dataset description
 This dataset was used for [external quality assessment (EQA-5)](https://ecdc.europa.eu/en/publications-data/fifth-external-quality-assessment-scheme-listeria-monocytogenes-typing) scheme for typing of
 Listeria monocytogenes (*L. monocytogenes*) organised for laboratories providing data to the Food and Waterborne
@@ -79,5 +80,5 @@ After preprocessing, the next step is aligning the reads to rebuild the genomic 
   
 </ul>
 
-
+# Exercise
 
