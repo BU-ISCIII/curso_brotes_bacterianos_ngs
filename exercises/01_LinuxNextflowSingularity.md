@@ -14,33 +14,61 @@ Open a terminal and type into it. Remember to use TAB to autocomplete and sugges
 
 #### How do I navigate the file system?
 
-Let's remember the basics: `pwd cd ls mkdir mv rm rmdir less nano`. We are going to use those commands to:
+Let's remember the basics: *pwd cd ls mkdir mv rm rmdir less nano*. We are going to use those commands to:
 
-Check our working directory: `pwd`
+Check our working directory:
 
-Move to our Desktop folder: `cd Desktop`
+`pwd`
 
-Create a directory called "myDir": `mkdir myDir`
+Move to our Desktop folder: 
 
-Move to the new folder: `cd myDir`
+`cd ~/Desktop`
 
-Check our working directory: `pwd`
+Create a directory called "myDir":
 
-Create the folders "asdf", "AsDf", "ASDF" and "tmp": `mkdir asdf AsDf ASDF tmp`
+`mkdir myDir`
 
-Create a file inside "tmp" called "myFile.txt": `nano tmp/myFile.txt` and write whatever you want.
+Move to the new folder:
 
-Rename "myFile.txt" to "whateverIwant": `mv tmp/myFile.txt whateverIwant`
+`cd myDir`
 
-See the contents of "whateverIwant": `less tmp/whateverIwant`
+Check our working directory: 
 
-Remove the folders inside "myDir": `rmdir ./*`
+`pwd`
 
-Remove the file: `rm tmp/whateverIwant`
+Create the folders "asdf", "AsDf", "ASDF" and "tmp": 
 
-Go back to Desktop and remove everything you created: `cd ..; rm -rf tmp`
+`mkdir asdf AsDf ASDF tmp`
 
-Return to your home directory: `cd`
+Create a file inside "tmp" called "myFile.txt":
+
+`nano tmp/myFile.txt`
+
+and write whatever you want and save it with __Ctrl + O__ and close the new file with __Ctrl + X__
+
+Rename "myFile.txt" to "whateverIwant":
+
+`mv tmp/myFile.txt tmp/whateverIwant`
+
+See the contents of "whateverIwant": 
+
+`less tmp/whateverIwant`
+
+Remove the file: 
+
+`rm tmp/whateverIwant`
+
+Remove the folders inside "myDir": 
+
+`rmdir ./*`
+
+Go back to Desktop and remove everything you created: 
+
+`cd ..; rm -rf myDir`
+
+Return to your home directory: 
+
+`cd`
 
 #### How do I know which software I am using?
 
@@ -49,6 +77,7 @@ Software may (and will) be installed in many different places. To discover the o
 ```
 which git
 echo $PATH
+echo $USER
 git -h
 git --version
 man git
@@ -60,11 +89,11 @@ man git
 
 So, what now? In order to execute a nextflow pipeline, we need to tell it to `run` a project which contains a `main.nf` script written in groovy + the pipeline languages:
 
-`nextflow run /home/bioinfoadm/Documents/wgs/bacterial_wgs_training`
+`nextflow run /home/$USER/Documents/wgs/bacterial_wgs_training`
 
 Optionally, we can pass a config file, and specify the .nf script inside a project:
 
-`nextflow -C /home/bioinfoadm/Documents/wgs/bacterial_wgs_training/nextflow.config  run /home/bioinfoadm/Documents/wgs/bacterial_wgs_training/main.nf`
+`nextflow -C /home/$USER/Documents/wgs/bacterial_wgs_training/nextflow.config  run /home/$USER/Documents/wgs/bacterial_wgs_training/main.nf`
 
 There is no need to download the software you want to execute, you can also execute a github repository:
 
@@ -72,8 +101,8 @@ There is no need to download the software you want to execute, you can also exec
 
 Finally, let's ask how to use the pipeline:
 
-`nextflow run /home/bioinfoadm/Documents/wgs/bacterial_wgs_training --help`
+`nextflow run /home/$USER/Documents/wgs/bacterial_wgs_training --help`
 
 There is one big detail left. The software needed to execute the pipeline is no installed in our machine. Thankfully, we have a singularity image (container) ready for this course, and our pipeline has already being configurated to know where to find it and how to use it. Use the right argument and go for it:
 
-`nextflow run /home/bioinfoadm/Documents/wgs/bacterial_wgs_training -profile singularity`
+`nextflow run /home/$USER/Documents/wgs/bacterial_wgs_training -profile singularity`
