@@ -45,7 +45,7 @@ From: centos:latest
     echo "Installing Taranis app" && \
     scif install /opt/taranis_v0.1_centos7.scif && \
     echo "Installing Download bigsdb api app" && \
-    scif install /opt/downloadbigsdb_v0.1_centos7.scif && \
+    scif install /opt/bigsdbdownload_v0.1_centos7.scif && \
     echo "Installing plasmidID app" && \
     scif install /opt/plasmidid_v1.4.1_centos7.scif
 
