@@ -309,25 +309,26 @@ try {
 /*
  * Build BWA index
  */
-if (params.step =~ /(mapping|outbreakSNP)/)
-if(!params.bwa_index && fasta_file){
-    process makeBWAindex {
-        tag "${fasta.baseName}"
-        publishDir path: { params.saveReference ? "${params.outdir}/reference_genome" : params.outdir },
-                   saveAs: { params.saveReference ? it : null }, mode: 'copy'
+if (params.step =~ /(mapping|outbreakSNP)/){
+	if(!params.bwa_index && fasta_file){
+		process makeBWAindex {
+			tag "${fasta.baseName}"
+			publishDir path: { params.saveReference ? "${params.outdir}/reference_genome" : params.outdir },
+					saveAs: { params.saveReference ? it : null }, mode: 'copy'
 
-        input:
-        file fasta from fasta_file
+			input:
+			file fasta from fasta_file
 
-        output:
-        file "${fasta}*" into bwa_index
+			output:
+			file "${fasta}*" into bwa_index
 
-        script:
-        """
-        mkdir BWAIndex
-        bwa index -a bwtsw $fasta
-        """
-    }
+			script:
+			"""
+			mkdir BWAIndex
+			bwa index -a bwtsw $fasta
+			"""
+		}
+	}
 }
 
 
@@ -386,6 +387,7 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 		"""
 	}
 }
+
 /*
  * STEP 3.1 - align with bwa
  */
@@ -469,7 +471,6 @@ if (params.step =~ /mapping/){
 	/*
 	* STEP 4 Picard
 	*/
-	/* Comment duplicated reads removal*/
 	if (!params.keepduplicates){
 
 		process picard {
@@ -644,31 +645,6 @@ if (params.step =~ /outbreakSNP/){
 }
 
 
-if (!params.keepduplicates) {  Channel.empty().set { picard_reports } }
-
-if (params.step =~ /preprocessing/){
-	Channel.empty().set { samtools_stats }
-	Channel.empty().set { picard_reports }
-	Channel.empty().set { prokka_multiqc }
-	Channel.empty().set { quast_multiqc }
-}
-
-if (params.step =~ /mapping/){
-	Channel.empty().set { prokka_multiqc }
-	Channel.empty().set { quast_multiqc }
-}
-
-if (params.step =~ /assembly/){
-	Channel.empty().set { samtools_stats }
-	Channel.empty().set { picard_reports }
-}
-
-if (params.step =~ /outbreakSNP/){
-	Channel.empty().set { samtools_stats }
-	Channel.empty().set { prokka_multiqc }
-	Channel.empty().set { quast_multiqc }
-}
-
 /*
  * STEP 9 PlasmidID
  */
@@ -740,6 +716,32 @@ if (params.step =~ /strainCharacterization/){
  * STEP 11 MultiQC
  */
 
+
+if (!params.keepduplicates) {  Channel.empty().set { picard_reports } }
+
+if (params.step =~ /preprocessing/){
+	Channel.empty().set { samtools_stats }
+	Channel.empty().set { picard_reports }
+	Channel.empty().set { prokka_multiqc }
+	Channel.empty().set { quast_multiqc }
+}
+
+if (params.step =~ /mapping/){
+	Channel.empty().set { prokka_multiqc }
+	Channel.empty().set { quast_multiqc }
+}
+
+if (params.step =~ /assembly/){
+	Channel.empty().set { samtools_stats }
+	Channel.empty().set { picard_reports }
+}
+
+if (params.step =~ /outbreakSNP/){
+	Channel.empty().set { samtools_stats }
+	Channel.empty().set { prokka_multiqc }
+	Channel.empty().set { quast_multiqc }
+}
+
 process multiqc {
     tag "$prefix"
     publishDir "${params.outdir}/MultiQC", mode: 'copy'
@@ -748,10 +750,10 @@ process multiqc {
     file multiqc_config
     file (fastqc:'fastqc/*') from fastqc_results.collect()
     file ('trimommatic/*') from trimmomatic_results.collect()
-    file ('samtools/*') from samtools_stats.collect()
-    file ('picard/*') from picard_reports.collect()
-    file ('prokka/*') from prokka_multiqc.collect()
-    file ('quast/*') from quast_multiqc.collect()
+    //file ('samtools/*') from samtools_stats.collect()
+    //file ('picard/*') from picard_reports.collect()
+    //file ('prokka/*') from prokka_multiqc.collect()
+    //file ('quast/*') from quast_multiqc.collect()
 
     output:
     file '*multiqc_report.html' into multiqc_report
@@ -761,11 +763,9 @@ process multiqc {
 
     script:
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
-    rtitle = custom_runName ? "--title \"$custom_runName\"" : ''
-    rfilename = custom_runName ? "--filename " + custom_runName.replaceAll('\\W','_').replaceAll('_+','_') + "_multiqc_report" : ''
 
     """
-    multiqc -f $rtitle $rfilename --config $multiqc_config . 2>&1
+    multiqc --config $multiqc_config . 2>&1
     """
 
 }
