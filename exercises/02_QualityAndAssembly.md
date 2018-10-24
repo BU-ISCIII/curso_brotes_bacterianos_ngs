@@ -86,7 +86,9 @@ After preprocessing, the next step is aligning the reads to rebuild the genomic 
 ## Exercise
 
 ```Bash
-nextflow BU-ISCIII/bacterial_wgs_training run --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+cd
+cd Documents/wgs
+nextflow run bacterial_wgs_training --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
   --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
   --step preprocessing
 
