@@ -546,7 +546,7 @@ if (params.step =~ /mapping/){
 	/*
 	* STEP 5 Assembly
 	*/
-if (params.step =~ /(assembly|plasmidID)/){
+if (params.step =~ /(assembly|plasmidID|outbreakMLST)/){
 
 //	process spades {
 //		tag "$prefix"
@@ -576,7 +576,7 @@ if (params.step =~ /(assembly|plasmidID)/){
 		set file(readsR1),file(readsR2) from trimmed_paired_reads
 
 		output:
-		file "${prefix}_assembly.fasta" into scaffold_quast,scaffold_prokka,scaffold_plasmidid
+		file "${prefix}_assembly.fasta" into scaffold_quast,scaffold_prokka,scaffold_plasmidid,scaffold_taranis
 
 		script:
 		prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
@@ -652,6 +652,41 @@ if (params.step =~ /outbreakSNP/){
 	}
 }
 
+if (params.step =~ /outbreakMLST/){
+
+	process scheme_download {
+	tag "SchemeDownload"
+	publishDir "${params.outdir}/ListeriaScheme", mode: 'copy'
+
+	input:
+
+	output:
+	file "cgMLST1748" into listeria_scheme
+
+	script:
+	"""
+	get_files_from_rest_api.py -output_dir cgMLST1748 schema -api_url pasteur_listeria -schema_name cgMLST1748
+	"""
+
+	}
+ 	process taranis {
+     tag "cgMLST"
+     publishDir "${params.outdir}/Taranis", mode: 'copy'
+
+     input:
+     file (assembly:"assembly/*") from scaffold_taranis.collect()
+     file listeria_scheme from listeria_scheme
+
+     output:
+     file "*.tsv" into taranis_results
+
+     script:
+     """
+     taranis.py -coregenedir $listeria_scheme -inputdir $assembly -outputdir .
+     """
+ 	}
+}
+
 
 /*
  * STEP 9 PlasmidID
@@ -660,7 +695,7 @@ if (params.step =~ /plasmidID/){
 
  process plasmidid {
      tag "PlasmidID"
-     publishDir "${params.outdir}/PlasmidID", mode 'copy'
+     publishDir "${params.outdir}/PlasmidID", mode: 'copy'
 
      input:
      set file(readsR1),file(readsR2) from trimmed_paired_reads
