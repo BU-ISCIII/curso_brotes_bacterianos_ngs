@@ -75,11 +75,11 @@ Common trimming includes removal of short reads, and cut off adapters and a numb
 After preprocessing, the next step is aligning the reads to rebuild the genomic sequence. There are two main ways of doing this: 
 
 <ul>
-<li>Mapping</li> 
-  For each of the short reads in the FASTQ file, a corresponding location in the reference sequence (or that no such region exists) needs to be determined. This is achieved by comparing the sequence of the read to that of the reference sequence. A mapping algorithm will try to locate a (hopefully unique) location in the reference sequence that matches the read, while tolerating a certain amount of mismatch to allow subsequence variation detection. 
-<li>Assembly</li> 
-  Genome assembly consists in taking a collection of sequencing reads, which are much shorter than the actual genome, and creating a genome sequence which is a likely source of all these fragments. The shorter the genome, the easier to recreate.
- The output of an assembler is generally decomposed into contigs, or contiguous regions of the genome which are nearly completely resolved, and scaffolds, or sets of contigs which are approximately placed and oriented with respect to each other.
+<li>Reference-based assembly</li> 
+  For each of the short reads in the FASTQ file, a corresponding location in the reference sequence is determined. A mapping algorithm will locate a location in the reference sequence that matches the read, while tolerating a certain amount of mismatch to allow subsequence variation detection tath correspond to the actual difference between the reference and de assembled genome. 
+<li>*De novo* assembly</li> 
+ *De novo* genome assembly consists in taking a collection of short sequencing reads and reconstruct the genome sequence, source of all these fragments.
+ The output of an assembler is decomposed into contigs: contiguous regions of the genome which are resolved, and/or scaffolds: longer sequences formed by reordered and oriented contigs with positional information but without sequence resolution.
   
 </ul>
 
