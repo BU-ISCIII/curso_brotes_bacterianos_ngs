@@ -121,5 +121,5 @@ Config Profile       : singularity
 BU-ISCIII - Pipeline complete
 ```
 
-Let's take a look to the config file for a moment: [WGS-Outbreaker config_file](config.file)
+Let's take a look to the config file for a moment: [WGS-Outbreaker config_file](../config.file)
 
