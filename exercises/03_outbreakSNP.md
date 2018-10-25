@@ -41,10 +41,20 @@ This step includes the following processes:
 Everything clear..? So let's run it. 
 First of all we need to be clear in which folder we are. We need to be in our working directory `/home/alumno/Documents/wgs` and our training dataset downloaded the first day must be there (If you had any problem the previous sessions please refere to the [setup tutorial](00_SetUp.md)).
 
+You can run this command to check where you are:
 ```Bash
-$ pwd
+pwd
+```
+Output:
+```
 /home/alumno/Documents/wgs
-$ ls
+```
+And this one to list all the files in your working directory. Check there is the training_dataset folder and the results folder from previous sessions.
+```Bash
+ls
+```
+Output:
+```
 training_dataset results work
 ```
 
