@@ -16,7 +16,7 @@ SNP-based strain typing using WGS can be performed via reference-based mapping o
 
 Variant calling is a process with a bunch of potential error sources that may lead to incorrect variant calls. Identifying and resolving this incorrect calls is critical for bacterial genomics to advance. In this exercise we will use WGS-Outbreaker a SNP-based tool developed by BU-ISCIII that uses bwa mapper, GATK variant caller and several SNP-filtering steps for SNP matrix contruction following maximun likelihood phylogeny using RAxML. Next image resumes the steps we are going to execute:
 
-<img src="https://github.com/BU-ISCIII/WGS-Outbreaker/blob/master/img/wgs_outbreaker_schema.png" width="600">
+<div style="text-align:center"><img src="https://github.com/BU-ISCIII/WGS-Outbreaker/blob/master/img/wgs_outbreaker_schema.png" width="600"></div>
 
 ## Preprocessing
 
@@ -123,12 +123,12 @@ Config Profile       : singularity
 BU-ISCIII - Pipeline complete
 ```
 
->This will take a while so we need move forward and understand what we are doing and learn how to see and interpret our results.
+>This will take a while so we need to move forward and understand what we are doing and learn how to see and interpret our results.
 
 ### Understanding WGS-Outbreaker config file
 First of all, let's take a look to the config file for a moment: [WGS-Outbreaker config_file](../config.file). This file will allow us to configure all necessary parameters for running WGS-Outbreaker.
 The file is organized in several sections.
-1. Steps configuration: in this section we can select with YES/NO which pipeline steps we would want to run, in this case we have prefilled the steps that we can run in this trainning.
+1. **Steps configuration:** in this section we can select with YES/NO which pipeline steps we would want to run, in this case we have prefilled the steps that we can run in this trainning.
 ```
 ############################# Pipeline steps: Fill in with YES or NO (capital letter) ###################################
 TRIMMING=NO
@@ -143,7 +143,7 @@ VCF_TO_MSA=YES
 RAXML=YES
 STATS=YES
 ```
-2. Input data: we can provide the path where the input files are, and the path where we want our results. Also we can include our sample names and the raw reads filenames. These reads must be in the input directory provided.
+2. **Input data:** we can provide the path where the input files are, and the path where we want our results. Also we can include our sample names and the raw reads filenames. These reads must be in the input directory provided.
 ```
 # Directory with input files
 INPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/trimming
@@ -161,7 +161,7 @@ OUTPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/wgs
 	# AAAA_01=AAAA_01_R1.fastq.gz    AAAA_01_R2.fastq.gz
 	# BBBB_02=BBBB_02_R1.fastq.gz    BBBB_02_R2.fastq.gz
 ```
-More over we have to include the path for our reference files:
+Moreover we have to include the path for our reference files:
 ```
 ######################################################### Reference Variables ###########################################
 
@@ -171,7 +171,7 @@ GENOME_REF=listeria_NC_021827.1_NoPhagues.fna
 # Path to reference genome without ".fasta"
 GENOME_NAME=listeria_NC_021827.1_NoPhagues
 ```
-3. Trimming, mapping, variant calling and phylogeny parameters: The end of the config file includes a series of default parameters we use for our analysis, mainly in foodborne bacteria, but that can be modified in order to match other analysis or other species requirements.
+3. **Trimming, mapping, variant calling and phylogeny parameters:** The end of the config file includes a series of default parameters we use for our analysis, mainly in foodborne bacteria, but that can be modified in order to match other analysis or other species requirements.
 For example the most variable parameter we can probably find is the maximum number of SNPs we are going to allow in a sequence window. This parameter is going to depend on the species variability, and also on the similarity of our reference with the isolates being analyzed.
 ```
 ##############  SNP FILTERS #########################
@@ -181,7 +181,7 @@ MAX_SNP=3
 # The length of the window in which the number of SNPs should be no more than max_num_snp
 WINDOW_SIZE=1000
 ```
-### Results analysis.
+### Results analysis
 Let's proceed to analyze the results. We can find them in:
 ```
 /home/alumno/Documents/wgs/results_def/wgs_outbreaker
@@ -197,6 +197,6 @@ This directory contains several folders including:
 ```
 Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](02_QualityAndAssembly.md) and [Mapping Section](#Mapping)), we will proceed to analyze variant calling results.
 
-#### Variant calling results.
+#### Variant calling results
 
 
