@@ -225,12 +225,20 @@ if( ! params.outbreaker_config && params.step =~ /outbreakSNP/ ){
     exit 1, "WGS-Outbreaker config file not provided for outbreakSNP step, please declare it with --outbreaker_config /path/to/config.file."
 }
 
-if( ! params.srst2_db && params.step =~ /strainCharacterization/ ){
-    exit 1, "SRST2 allele mlst database not provided for strainCharacterization step, please declare it with --srst2_db /path/to/db."
+if( ! params.srst2_db_mlst && params.step =~ /strainCharacterization/ ){
+    exit 1, "SRST2 allele mlst database not provided for strainCharacterization step, please declare it with --srst2_db_mlst /path/to/db."
 }
 
-if( ! params.srst2_def && params.step =~ /strainCharacterization/ ){
-    exit 1, "SRST2 mlst schema definitions not provided for strainCharacterization step, please declare it with --srst2_def /path/to/db."
+if( ! params.srst2_def_mlst && params.step =~ /strainCharacterization/ ){
+    exit 1, "SRST2 mlst schema definitions not provided for strainCharacterization step, please declare it with --srst2_def_mlst /path/to/db."
+}
+
+if( ! params.srst2_db_sero && params.step =~ /strainCharacterization/ ){
+    exit 1, "SRST2 allele serogroup database not provided for strainCharacterization step, please declare it with --srst2_db_sero /path/to/db."
+}
+
+if( ! params.srst2_def_sero && params.step =~ /strainCharacterization/ ){
+    exit 1, "SRST2 serogroup schema definitions not provided for strainCharacterization step, please declare it with --srst2_def_sero /path/to/db."
 }
 
 if( ! params.srst2_resistance && params.step =~ /strainCharacterization/ ){
@@ -676,12 +684,14 @@ if (params.step =~ /plasmidID/){
 
 if (params.step =~ /strainCharacterization/){
 
+  trimmed_paired_reads into { trimmed_paired_reads_mlst; trimmed_paired_reads_res; trimmed_paired_reads_sero }
+
   process srst2_mlst {
-  tag "SRST2_DB"
+  tag "SRST2_MLST"
   publishDir "${params.outdir}/SRST2_MLST", mode 'copy'
 
   input:
-  set file(readsR1),file(readsR2) from trimmed_paired_reads
+  set file(readsR1),file(readsR2) from trimmed_paired_reads_mlst
 
   output:
   file "*results.txt" into srst2_mlst_results
@@ -689,24 +699,41 @@ if (params.step =~ /strainCharacterization/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db --mlst_definitions $srst2_def
+  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst
   """
  }
 
-  process srst2_db {
-  tag "SRST2_DB"
-  publishDir "${params.outdir}/SRST2_DB", mode 'copy'
+  process srst2_resistance {
+  tag "SRST2_RES"
+  publishDir "${params.outdir}/SRST2_RES", mode 'copy'
 
   input:
-  set file(readsR1),file(readsR2) from trimmed_paired_reads
+  set file(readsR1),file(readsR2) from trimmed_paired_reads_res
 
   output:
-  file "*results.txt" into srst2_db_results
+  file "*results.txt" into srst2_res_results
 
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
   srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --gene_db $srst2_resistance
+  """
+ }
+
+  process srst2_serogroup {
+  tag "SRST2_SERO"
+  publishDir "${params.outdir}/SRST2_SERO", mode 'copy'
+
+  input:
+  set file(readsR1),file(readsR2) from trimmed_paired_reads_sero
+
+  output:
+  file "*results.txt" into srst2_sero_results
+
+  script:
+  prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
+  """
+  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero
   """
  }
 
