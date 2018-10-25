@@ -724,25 +724,8 @@ if (params.step =~ /preprocessing/){
 	Channel.empty().set { picard_reports }
 	Channel.empty().set { prokka_multiqc }
 	Channel.empty().set { quast_multiqc }
-}
 
-if (params.step =~ /mapping/){
-	Channel.empty().set { prokka_multiqc }
-	Channel.empty().set { quast_multiqc }
-}
-
-if (params.step =~ /assembly/){
-	Channel.empty().set { samtools_stats }
-	Channel.empty().set { picard_reports }
-}
-
-if (params.step =~ /outbreakSNP/){
-	Channel.empty().set { samtools_stats }
-	Channel.empty().set { prokka_multiqc }
-	Channel.empty().set { quast_multiqc }
-}
-
-process multiqc {
+ process multiqc {
     tag "$prefix"
     publishDir "${params.outdir}/MultiQC", mode: 'copy'
 
@@ -750,11 +733,6 @@ process multiqc {
     file multiqc_config
     file (fastqc:'fastqc/*') from fastqc_results.collect()
     file ('trimommatic/*') from trimmomatic_results.collect()
-    file ('fastqc_trimmed/*') from trimmomatic_fastqc_reports.collect()
-    //file ('samtools/*') from samtools_stats.collect()
-    //file ('picard/*') from picard_reports.collect()
-    //file ('prokka/*') from prokka_multiqc.collect()
-    //file ('quast/*') from quast_multiqc.collect()
 
     output:
     file '*multiqc_report.html' into multiqc_report
@@ -769,6 +747,102 @@ process multiqc {
     multiqc --config $multiqc_config . 2>&1
     """
 
+ }
+}
+
+if (params.step =~ /mapping/){
+	Channel.empty().set { prokka_multiqc }
+	Channel.empty().set { quast_multiqc }
+
+ process multiqc {
+    tag "$prefix"
+    publishDir "${params.outdir}/MultiQC", mode: 'copy'
+
+    input:
+    file multiqc_config
+    file (fastqc:'fastqc/*') from fastqc_results.collect()
+    file ('trimommatic/*') from trimmomatic_results.collect()
+
+    output:
+    file '*multiqc_report.html' into multiqc_report
+    file '*_data' into multiqc_data
+    file '.command.err' into multiqc_stderr
+    val prefix into multiqc_prefix
+
+    script:
+    prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
+
+    """
+    multiqc --config $multiqc_config . 2>&1
+    """
+
+ }
+}
+
+if (params.step =~ /assembly/){
+	Channel.empty().set { samtools_stats }
+	Channel.empty().set { picard_reports }
+
+ process multiqc {
+    tag "$prefix"
+    publishDir "${params.outdir}/MultiQC", mode: 'copy'
+
+    input:
+    file multiqc_config
+    file (fastqc:'fastqc/*') from fastqc_results.collect()
+    file ('trimommatic/*') from trimmomatic_results.collect()
+    file ('samtools/*') from samtools_stats.collect()
+    file ('picard/*') from picard_reports.collect()
+
+
+    output:
+    file '*multiqc_report.html' into multiqc_report
+    file '*_data' into multiqc_data
+    file '.command.err' into multiqc_stderr
+    val prefix into multiqc_prefix
+
+    script:
+    prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
+
+    """
+    multiqc --config $multiqc_config . 2>&1
+    """
+
+ }
+}
+
+if (params.step =~ /outbreakSNP/){
+	Channel.empty().set { samtools_stats }
+	Channel.empty().set { prokka_multiqc }
+	Channel.empty().set { quast_multiqc }
+
+process multiqc {
+    tag "$prefix"
+    publishDir "${params.outdir}/MultiQC", mode: 'copy'
+
+    input:
+    file multiqc_config
+    file (fastqc:'fastqc/*') from fastqc_results.collect()
+    file ('trimommatic/*') from trimmomatic_results.collect()
+    file ('samtools/*') from samtools_stats.collect()
+    file ('picard/*') from picard_reports.collect()
+    file ('prokka/*') from prokka_multiqc.collect()
+    file ('quast/*') from quast_multiqc.collect()
+
+    output:
+    file '*multiqc_report.html' into multiqc_report
+    file '*_data' into multiqc_data
+    file '.command.err' into multiqc_stderr
+    val prefix into multiqc_prefix
+
+    script:
+    prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
+
+    """
+    multiqc --config $multiqc_config . 2>&1
+    """
+
+ }
 }
 
 
