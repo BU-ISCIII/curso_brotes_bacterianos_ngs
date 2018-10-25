@@ -378,7 +378,7 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 		script:
 		prefix = name - ~/(_S[0-9]{2})?(_L00[1-9])?(.R1)?(_1)?(_R1)?(_trimmed)?(_val_1)?(_00*)?(\.fq)?(\.fastq)?(\.gz)?$/
 		"""
-		trimmomatic PE -phred33 $reads $prefix"_R1_paired.fastq" $prefix"_R1_unpaired.fastq" $prefix"_R2_paired.fastq" $prefix"_R2_unpaired.fastq" ILLUMINACLIP:${params.trimmomatic_adapters_file}:${params.trimmomatic_adapters_parameters} SLIDINGWINDOW:${params.trimmomatic_window_length}:${params.trimmomatic_window_value} MINLEN:${params.trimmomatic_mininum_length} 2>&1 > $name".log"
+		trimmomatic PE -phred33 $reads $prefix"_R1_paired.fastq" $prefix"_R1_unpaired.fastq" $prefix"_R2_paired.fastq" $prefix"_R2_unpaired.fastq" ILLUMINACLIP:${params.trimmomatic_adapters_file}:${params.trimmomatic_adapters_parameters} SLIDINGWINDOW:${params.trimmomatic_window_length}:${params.trimmomatic_window_value} MINLEN:${params.trimmomatic_mininum_length} 2> ${name}.log
 
 		gzip *.fastq
 
