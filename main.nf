@@ -682,7 +682,7 @@ if (params.step =~ /outbreakMLST/){
 
      script:
      """
-     taranis.py -coregenedir $listeria_scheme -inputdir $assembly -outputdir .
+     taranis.py -coregenedir $listeria_scheme -inputdir assembly -outputdir .
      """
  	}
 }
