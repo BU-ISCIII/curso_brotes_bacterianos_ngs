@@ -204,4 +204,4 @@ Since alignment and quality control results has been previously addresed in this
 
 #### Phylogeny results
 
-<p align="center"><img src="img/tree_with_bad_sample_snps.png" width="800"></p>
+<p align="center"><img src="img/tree_with_bad_sample_snps.svg" width="1000"></p>
