@@ -845,8 +845,6 @@ process multiqc {
     file multiqc_config
     file (fastqc:'fastqc/*') from fastqc_results.collect()
     file ('trimommatic/*') from trimmomatic_results.collect()
-    file ('samtools/*') from samtools_stats.collect()
-    file ('picard/*') from picard_reports.collect()
 
     output:
     file '*multiqc_report.html' into multiqc_report
