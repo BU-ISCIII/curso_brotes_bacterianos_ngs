@@ -370,19 +370,19 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 		set val(name), file(reads) from raw_reads_trimming
 
 		output:
-		file '*_paired.fastq.gz' into trimmed_paired_reads
-		file '*_unpaired.fastq.gz' into trimmed_unpaired_reads
-		file '*_fastqc.{zip,html}' into trimming_fastqc_reports
+		file '*_paired_*.fastq.gz' into trimmed_paired_reads
+		file '*_unpaired_*.fastq.gz' into trimmed_unpaired_reads
+		file '*_fastqc.{zip,html}' into trimmomatic_fastqc_reports
 		file '*.log' into trimmomatic_results
 
 		script:
 		prefix = name - ~/(_S[0-9]{2})?(_L00[1-9])?(.R1)?(_1)?(_R1)?(_trimmed)?(_val_1)?(_00*)?(\.fq)?(\.fastq)?(\.gz)?$/
 		"""
-		trimmomatic PE -phred33 $reads $prefix"_R1_paired.fastq" $prefix"_R1_unpaired.fastq" $prefix"_R2_paired.fastq" $prefix"_R2_unpaired.fastq" ILLUMINACLIP:${params.trimmomatic_adapters_file}:${params.trimmomatic_adapters_parameters} SLIDINGWINDOW:${params.trimmomatic_window_length}:${params.trimmomatic_window_value} MINLEN:${params.trimmomatic_mininum_length} 2> ${name}.log
+		trimmomatic PE -phred33 $reads $prefix"_paired_R1.fastq" $prefix"_unpaired_R1.fastq" $prefix"_paired_R2.fastq" $prefix"_unpaired_R2.fastq" ILLUMINACLIP:${params.trimmomatic_adapters_file}:${params.trimmomatic_adapters_parameters} SLIDINGWINDOW:${params.trimmomatic_window_length}:${params.trimmomatic_window_value} MINLEN:${params.trimmomatic_mininum_length} 2> ${name}.log
 
 		gzip *.fastq
 
-		fastqc -q *_paired.fastq.gz
+		fastqc -q *_paired_*.fastq.gz
 
 		"""
 	}
@@ -584,7 +584,7 @@ if (params.step =~ /(assembly|plasmidID)/){
 							saveAs: { filename -> if(filename == "quast_results") "${prefix}_quast_results"}
 
 		input:
-		file scaffold from scaffold_quast
+		file scaffolds from scaffold_quast.collect()
 		file fasta from fasta_file
 		file gtf from gtf_file
 
@@ -593,9 +593,9 @@ if (params.step =~ /(assembly|plasmidID)/){
 		file "quast_results/latest/report.tsv" into quast_multiqc
 
 		script:
-		prefix = scaffold.toString() - ~/(_scaffolds\.fasta)?$/
+		prefix = scaffolds[0].toString() - ~/(_scaffolds\.fasta)?$/
 		"""
-		quast.py -R $fasta -G $gtf $scaffold
+		quast.py -R $fasta -G $gtf $scaffolds
 		"""
 	}
 
@@ -750,6 +750,7 @@ process multiqc {
     file multiqc_config
     file (fastqc:'fastqc/*') from fastqc_results.collect()
     file ('trimommatic/*') from trimmomatic_results.collect()
+    file ('fastqc_trimmed/*') from trimmomatic_fastqc_reports.collect()
     //file ('samtools/*') from samtools_stats.collect()
     //file ('picard/*') from picard_reports.collect()
     //file ('prokka/*') from prokka_multiqc.collect()
