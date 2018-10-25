@@ -720,11 +720,6 @@ if (params.step =~ /strainCharacterization/){
 if (!params.keepduplicates) {  Channel.empty().set { picard_reports } }
 
 if (params.step =~ /preprocessing/){
-	Channel.empty().set { samtools_stats }
-	Channel.empty().set { picard_reports }
-	Channel.empty().set { prokka_multiqc }
-	Channel.empty().set { quast_multiqc }
- 
  process multiqc {
     tag "$prefix"
     publishDir "${params.outdir}/MultiQC", mode: 'copy'
@@ -751,9 +746,6 @@ if (params.step =~ /preprocessing/){
 }
 
 if (params.step =~ /mapping/){
-	Channel.empty().set { prokka_multiqc }
-	Channel.empty().set { quast_multiqc }
- 
  process multiqc {
     tag "$prefix"
     publishDir "${params.outdir}/MultiQC", mode: 'copy'
@@ -762,6 +754,8 @@ if (params.step =~ /mapping/){
     file multiqc_config
     file (fastqc:'fastqc/*') from fastqc_results.collect()
     file ('trimommatic/*') from trimmomatic_results.collect()
+    file ('samtools/*') from samtools_stats.collect()
+    file ('picard/*') from picard_reports.collect()
 
     output:
     file '*multiqc_report.html' into multiqc_report
@@ -791,9 +785,8 @@ if (params.step =~ /assembly/){
     file multiqc_config
     file (fastqc:'fastqc/*') from fastqc_results.collect()
     file ('trimommatic/*') from trimmomatic_results.collect()
-    file ('samtools/*') from samtools_stats.collect()
-    file ('picard/*') from picard_reports.collect()
-
+    file ('prokka/*') from prokka_multiqc.collect()
+    file ('quast/*') from quast_multiqc.collect()
 
     output:
     file '*multiqc_report.html' into multiqc_report
@@ -826,8 +819,6 @@ process multiqc {
     file ('trimommatic/*') from trimmomatic_results.collect()
     file ('samtools/*') from samtools_stats.collect()
     file ('picard/*') from picard_reports.collect()
-    file ('prokka/*') from prokka_multiqc.collect()
-    file ('quast/*') from quast_multiqc.collect()
 
     output:
     file '*multiqc_report.html' into multiqc_report
