@@ -87,9 +87,11 @@ def helpMessage() {
 
     Strain Characterization options
       --srst2_resistance            Fasta file/s for gene resistance databases
-      --srst2_db                    Fasta file of MLST alleles
-      --srst2_def                   ST definitions for MLST scheme
-
+      --srst2_db_mlst               Fasta file of MLST alleles
+      --srst2_def_mlst              ST definitions for MLST scheme
+      --srst2_db_sero               Fasta file of serogroup
+      --srst2_def_sero              ST definitions for serogroup scheme
+      
     OutbreakSNP options
       --outbreaker_config			Config needed by wgs-outbreaker.
 
@@ -181,15 +183,25 @@ params.trimmomatic_window_value = "20"
 params.trimmomatic_mininum_length = "50"
 
 //srst2
-params.srst2_db = false
-if ( params.srst2_db ){
-	srst2_db = file(params.srst2_db)
-	if ( !srst2_db.exists() ) exit 1, "SRST2 db file not found: ${params.srst2_db}"
+params.srst2_db_mlst = false
+if ( params.srst2_db_mlst ){
+	srst2_db_mlst = file(params.srst2_db_mlst)
+	if ( !srst2_db_mlst.exists() ) exit 1, "SRST2 db file not found: ${params.srst2_db_mlst}"
 }
-params.srst2_def = false
-if ( params.srst2_def ){
-	srst2_def = file(params.srst2_def)
-	if ( !srst2_def.exists() ) exit 1, "SRST2 mlst definitions file not found: ${params.srst2_def}"
+params.srst2_def_mlst = false
+if ( params.srst2_def_mlst ){
+	srst2_def_mlst = file(params.srst2_def_mlst)
+	if ( !srst2_def_mlst.exists() ) exit 1, "SRST2 mlst definitions file not found: ${params.srst2_def_mlst}"
+}
+params.srst2_db_sero = false
+if ( params.srst2_db_sero ){
+	srst2_db_sero = file(params.srst2_db_sero)
+	if ( !srst2_db_sero.exists() ) exit 1, "SRST2 db file not found: ${params.srst2_db_sero}"
+}
+params.srst2_def_sero = false
+if ( params.srst2_def_sero ){
+	srst2_def_sero = file(params.srst2_def_sero)
+	if ( !srst2_def_sero.exists() ) exit 1, "SRST2 mlst definitions file not found: ${params.srst2_def_sero}"
 }
 params.srst2_resistance = false
 if ( params.srst2_resistance ){
