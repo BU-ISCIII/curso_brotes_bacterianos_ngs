@@ -16,7 +16,7 @@ SNP-based strain typing using WGS can be performed via reference-based mapping o
 
 Variant calling is a process with a bunch of potential error sources that may lead to incorrect variant calls. Identifying and resolving this incorrect calls is critical for bacterial genomics to advance. In this exercise we will use WGS-Outbreaker a SNP-based tool developed by BU-ISCIII that uses bwa mapper, GATK variant caller and several SNP-filtering steps for SNP matrix contruction following maximun likelihood phylogeny using RAxML. Next image resumes the steps we are going to execute:
 
-<div style="text-align:center"><img src="https://github.com/BU-ISCIII/WGS-Outbreaker/blob/master/img/wgs_outbreaker_schema.png" width="600"></div>
+<p align="center"><img src="https://github.com/BU-ISCIII/WGS-Outbreaker/blob/master/img/wgs_outbreaker_schema.png" width="600"></p>
 
 ## Preprocessing
 
@@ -200,3 +200,8 @@ Since alignment and quality control results has been previously addresed in this
 #### Variant calling results
 
 
+
+
+#### Phylogeny results
+
+<p align="center"><img src="img/tree_with_bad_sample_snps.png" width="800"></p>
