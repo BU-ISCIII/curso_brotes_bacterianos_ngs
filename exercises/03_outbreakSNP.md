@@ -59,9 +59,13 @@ training_dataset results work
 ```
 
 Once our localization is correct we will launch nextflow with the next parameters:
+  - Raw reads
+  - step outbreakSNP
+  - saveTrimmed -> this parameters saves the fastq files trimmed in our results dir.
+  - outbreaker_config <- config file with all the parameters required by WGS-Outbreaker
 
 ```Bash
-$ nextflow BU-ISCIII/bacterial_wgs_training run --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+nextflow BU-ISCIII/bacterial_wgs_training run --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
   --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
   --step outbreakSNP \
   -profile singularity \
@@ -70,6 +74,52 @@ $ nextflow BU-ISCIII/bacterial_wgs_training run --reads 'training_dataset/downsa
   -resume
 ```
 
+Output:
 
-        
+```Bash
+N E X T F L O W  ~  version 0.29.0                                                                                                                   
+Launching `main.nf` [distracted_magritte] - revision: 3508cbd2da                                                                                     
+WARN: Process `multiqc` is defined two or more times                                                                                                 
+WARN: Process `multiqc` is defined two or more times                                                                                                 
+WARN: Process `multiqc` is defined two or more times                                                                                                 
+=========================================                                                                                                            
+ BU-ISCIII/bacterial_wgs_training : WGS analysis practice v1.0                                                                                       
+=========================================                                                                                                            
+Reads                : test/full_dataset/*_R{1,2}*.fastq.gz                                                                 
+Data Type            : Paired-End                         
+Fasta Ref            : test/listeria_NC_021827.1_NoPhagues.fna                                                             
+Keep Duplicates      : false                                                                                                 
+Step                 : outbreakSNP                                                                                           
+Container            : ./wgs_bacterial.simg                                            
+Current home         : /home/smonzon                                                                                         
+Current user         : smonzon                                                                                               
+Current path         : /home/smonzon/Documents/desarrollo/bacterial_wgs_training                                             
+Working dir          : /home/smonzon/Documents/desarrollo/bacterial_wgs_training/work                                        
+Output dir           : results                                                                                               
+Script dir           : /home/smonzon/Documents/desarrollo/bacterial_wgs_training                                             
+Save Reference       : false                                                                                               
+Save Trimmed         : true
+Save Intermeds       : false
+Trimmomatic adapters file: $TRIMMOMATIC_PATH/adapters/NexteraPE-PE.fa
+Trimmomatic adapters parameters: 2:30:10
+Trimmomatic window length: 4
+Trimmomatic window value: 20
+Trimmomatic minimum length: 50
+Config Profile       : singularity
+====================================
+[warm up] executor > local
+[ca/cbb117] Submitted process > fastqc (RA-L2805)
+[4b/65f7a1] Submitted process > fastqc (RA-L2450)
+[32/8ebe88] Submitted process > fastqc (RA-L2281)
+[23/04ab41] Submitted process > fastqc (RA-L2073)
+[a7/f9e938] Submitted process > fastqc (RA-L2391)
+[75/709471] Submitted process > trimming (RA-L2073)
+[94/87b2b5] Submitted process > makeBWAindex (listeria_NC_021827.1_NoPhagues)
+[94/b39b86] Submitted process > trimming (RA-L2805)
+[df/e01505] Submitted process > fastqc (RA-L2709)
+..................
+BU-ISCIII - Pipeline complete
+```
+
+Let's take a look to the config file for a moment: [WGS-Outbreaker config_file](config.file)
 
