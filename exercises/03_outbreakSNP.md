@@ -125,7 +125,7 @@ BU-ISCIII - Pipeline complete
 
 >This will take a while so we need move forward and understand what we are doing and learn how to see and interpret our results.
 
-### Understand WGS-Outbreaker config file
+### Understanding WGS-Outbreaker config file
 First of all, let's take a look to the config file for a moment: [WGS-Outbreaker config_file](../config.file). This file will allow us to configure all necessary parameters for running WGS-Outbreaker.
 The file is organized in several sections.
 1. Steps configuration: in this section we can select with YES/NO which pipeline steps we would want to run, in this case we have prefilled the steps that we can run in this trainning.
@@ -181,4 +181,22 @@ MAX_SNP=3
 # The length of the window in which the number of SNPs should be no more than max_num_snp
 WINDOW_SIZE=1000
 ```
+### Results analysis.
+Let's proceed to analyze the results. We can find them in:
+```
+/home/alumno/Documents/wgs/results_def/wgs_outbreaker
+```
+This directory contains several folders including:
+```
+├── Alignment -> already analyzed 
+├── QC -> already analyzed
+├── raw -> symbolic links to raw reads
+├── RAXML -> phylogenetic results
+├── stats -> alignment and variant calling stats.
+└── variant_calling -> variant calling files.
+```
+Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](02_QualityAndAssembly.md) and [Mapping Section](#Mapping)), we will proceed to analyze variant calling results.
+
+#### Variant calling results.
+
 
