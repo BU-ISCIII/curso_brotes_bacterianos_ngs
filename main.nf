@@ -695,11 +695,13 @@ if (params.step =~ /strainCharacterization/){
 
   output:
   file "*results.txt" into srst2_mlst_results
+  file "*.pdf" into srst2_mlst_tree
 
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
   srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst
+  Rscript plotTreeHeatmap.R
   """
  }
 
@@ -712,11 +714,13 @@ if (params.step =~ /strainCharacterization/){
 
   output:
   file "*results.txt" into srst2_res_results
+  file "*.pdf" into srst2_res_tree
 
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
   srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --gene_db $srst2_resistance
+  Rscript plotTreeHeatmap.R
   """
  }
 
