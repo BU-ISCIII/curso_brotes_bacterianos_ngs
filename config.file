@@ -73,7 +73,7 @@ OUTPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/test/output
 	# AAAA_01=AAAA_01_R1.fastq.gz    AAAA_01_R2.fastq.gz
 	# BBBB_02=BBBB_02_R1.fastq.gz    BBBB_02_R2.fastq.gz
 
-SAMPLES=RA-L2073:RA-L2281:RA-L2327:RA-L2391:RA-L2450:RA-L2677:RA-L2701:RA-L2709:RA-L2782:RA-L2805:RA-L2978
+SAMPLES=RA-L2073:RA-L2281:RA-L2327:RA-L2391:RA-L2450:RA-L2677:RA-L2701:RA-L2782:RA-L2805:RA-L2978
 
 RA-L2073=RA-L2073_R1_paired.fastq.gz	RA-L2073_R2_paired.fastq.gz
 RA-L2281=RA-L2281_R1_paired.fastq.gz	RA-L2281_R1_paired.fastq.gz
@@ -82,7 +82,6 @@ RA-L2391=RA-L2391_R1_paired.fastq.gz	RA-L2391_R2_paired.fastq.gz
 RA-L2450=RA-L2450_R1_paired.fastq.gz	RA-L2450_R2_paired.fastq.gz
 RA-L2677=RA-L2677_R1_paired.fastq.gz	RA-L2677_R2_paired.fastq.gz
 RA-L2701=RA-L2701_R1_paired.fastq.gz	RA-L2701_R2_paired.fastq.gz
-RA-L2709=RA-L2709_R1_paired.fastq.gz	RA-L2709_R2_paired.fastq.gz
 RA-L2782=RA-L2782_R1_paired.fastq.gz	RA-L2782_R2_paired.fastq.gz
 RA-L2805=RA-L2805_R1_paired.fastq.gz	RA-L2805_R2_paired.fastq.gz
 RA-L2978=RA-L2978_R1_paired.fastq.gz	RA-L2978_R2_paired.fastq.gz
