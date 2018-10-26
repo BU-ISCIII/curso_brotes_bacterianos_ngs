@@ -16,7 +16,7 @@ SNP-based strain typing using WGS can be performed via reference-based mapping o
 
 Variant calling is a process with a bunch of potential error sources that may lead to incorrect variant calls. Identifying and resolving this incorrect calls is critical for bacterial genomics to advance. In this exercise we will use WGS-Outbreaker a SNP-based tool developed by BU-ISCIII that uses bwa mapper, GATK variant caller and several SNP-filtering steps for SNP matrix contruction following maximun likelihood phylogeny using RAxML. Next image resumes the steps we are going to execute:
 
-<img src="https://github.com/BU-ISCIII/WGS-Outbreaker/blob/master/img/wgs_outbreaker_schema.png" width="600">
+<p align="center"><img src="https://github.com/BU-ISCIII/WGS-Outbreaker/blob/master/img/wgs_outbreaker_schema.png" width="600"></p>
 
 ## Preprocessing
 
@@ -39,19 +39,35 @@ This step includes the following processes:
         * SNP cluster, < 3 SNPs / 1000 pb
         
 Everything clear..? So let's run it. 
+
+### Run the exercise
 First of all we need to be clear in which folder we are. We need to be in our working directory `/home/alumno/Documents/wgs` and our training dataset downloaded the first day must be there (If you had any problem the previous sessions please refere to the [setup tutorial](00_SetUp.md)).
 
+You can run this command to check where you are:
 ```Bash
-$ pwd
+pwd
+```
+Output:
+```
 /home/alumno/Documents/wgs
-$ ls
+```
+And this one to list all the files in your working directory. Check there is the training_dataset folder and the results folder from previous sessions.
+```Bash
+ls
+```
+Output:
+```
 training_dataset results work
 ```
 
 Once our localization is correct we will launch nextflow with the next parameters:
+  - Raw reads
+  - step outbreakSNP
+  - saveTrimmed -> this parameters saves the fastq files trimmed in our results dir.
+  - outbreaker_config <- config file with all the parameters required by WGS-Outbreaker
 
 ```Bash
-$ nextflow BU-ISCIII/bacterial_wgs_training run --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+nextflow BU-ISCIII/bacterial_wgs_training run --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
   --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
   --step outbreakSNP \
   -profile singularity \
@@ -60,6 +76,145 @@ $ nextflow BU-ISCIII/bacterial_wgs_training run --reads 'training_dataset/downsa
   -resume
 ```
 
+Output:
 
-        
+```Bash
+N E X T F L O W  ~  version 0.29.0                                                                                                                   
+Launching `main.nf` [distracted_magritte] - revision: 3508cbd2da                                                                                     
+WARN: Process `multiqc` is defined two or more times                                                                                                 
+WARN: Process `multiqc` is defined two or more times                                                                                                 
+WARN: Process `multiqc` is defined two or more times                                                                                                 
+=========================================                                                                                                            
+ BU-ISCIII/bacterial_wgs_training : WGS analysis practice v1.0                                                                                       
+=========================================                                                                                                            
+Reads                : test/full_dataset/*_R{1,2}*.fastq.gz                                                                 
+Data Type            : Paired-End                         
+Fasta Ref            : test/listeria_NC_021827.1_NoPhagues.fna                                                             
+Keep Duplicates      : false                                                                                                 
+Step                 : outbreakSNP                                                                                           
+Container            : ./wgs_bacterial.simg                                            
+Current home         : /home/smonzon                                                                                         
+Current user         : smonzon                                                                                               
+Current path         : /home/smonzon/Documents/desarrollo/bacterial_wgs_training                                             
+Working dir          : /home/smonzon/Documents/desarrollo/bacterial_wgs_training/work                                        
+Output dir           : results                                                                                               
+Script dir           : /home/smonzon/Documents/desarrollo/bacterial_wgs_training                                             
+Save Reference       : false                                                                                               
+Save Trimmed         : true
+Save Intermeds       : false
+Trimmomatic adapters file: $TRIMMOMATIC_PATH/adapters/NexteraPE-PE.fa
+Trimmomatic adapters parameters: 2:30:10
+Trimmomatic window length: 4
+Trimmomatic window value: 20
+Trimmomatic minimum length: 50
+Config Profile       : singularity
+====================================
+[warm up] executor > local
+[ca/cbb117] Submitted process > fastqc (RA-L2805)
+[4b/65f7a1] Submitted process > fastqc (RA-L2450)
+[32/8ebe88] Submitted process > fastqc (RA-L2281)
+[23/04ab41] Submitted process > fastqc (RA-L2073)
+[a7/f9e938] Submitted process > fastqc (RA-L2391)
+[75/709471] Submitted process > trimming (RA-L2073)
+[94/87b2b5] Submitted process > makeBWAindex (listeria_NC_021827.1_NoPhagues)
+[94/b39b86] Submitted process > trimming (RA-L2805)
+[df/e01505] Submitted process > fastqc (RA-L2709)
+..................
+BU-ISCIII - Pipeline complete
+```
 
+>This will take a while so we need to move forward and understand what we are doing and learn how to see and interpret our results.
+
+### Understanding WGS-Outbreaker config file
+First of all, let's take a look to the config file for a moment: [WGS-Outbreaker config_file](../config.file). This file will allow us to configure all necessary parameters for running WGS-Outbreaker.
+The file is organized in several sections.
+1. **Steps configuration:** in this section we can select with YES/NO which pipeline steps we would want to run, in this case we have prefilled the steps that we can run in this trainning.
+```
+############################# Pipeline steps: Fill in with YES or NO (capital letter) ###################################
+TRIMMING=NO
+CHECK_REFERENCES=YES
+MAPPING=YES
+DUPLICATE_FILTER=YES
+VARIANT_CALLING=YES
+KMERFINDER=NO
+SRST2=NO
+CFSAN=NO
+VCF_TO_MSA=YES
+RAXML=YES
+STATS=YES
+```
+2. **Input data:** we can provide the path where the input files are, and the path where we want our results. Also we can include our sample names and the raw reads filenames. These reads must be in the input directory provided.
+```
+# Directory with input files
+INPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/trimming
+
+# Directory for output files
+OUTPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/wgs_outbreaker
+
+########################################## INPUT VARIABLES########################################################
+
+# Samples info:
+# All samples ID must be separated by ":", then for each sample there must be a line with the names for
+# R1 and R2 separated by tabulator
+# Example:
+	#=AAAA_01:BBBB_02
+	# AAAA_01=AAAA_01_R1.fastq.gz    AAAA_01_R2.fastq.gz
+	# BBBB_02=BBBB_02_R1.fastq.gz    BBBB_02_R2.fastq.gz
+```
+Moreover we have to include the path for our reference files:
+```
+######################################################### Reference Variables ###########################################
+
+# Path to reference genome
+GENOME_REF=listeria_NC_021827.1_NoPhagues.fna
+
+# Path to reference genome without ".fasta"
+GENOME_NAME=listeria_NC_021827.1_NoPhagues
+```
+3. **Trimming, mapping, variant calling and phylogeny parameters:** The end of the config file includes a series of default parameters we use for our analysis, mainly in foodborne bacteria, but that can be modified in order to match other analysis or other species requirements.
+For example the most variable parameter we can probably find is the maximum number of SNPs we are going to allow in a sequence window. This parameter is going to depend on the species variability, and also on the similarity of our reference with the isolates being analyzed.
+```
+##############  SNP FILTERS #########################
+# The maximum number of SNPs allowed in a window.
+MAX_SNP=3
+
+# The length of the window in which the number of SNPs should be no more than max_num_snp
+WINDOW_SIZE=1000
+```
+### Results analysis
+Let's proceed to analyze the results. We can find them in:
+```
+/home/alumno/Documents/wgs/results_def/wgs_outbreaker
+```
+This directory contains several folders including:
+```
+├── Alignment -> already analyzed 
+├── QC -> already analyzed
+├── raw -> symbolic links to raw reads
+├── RAXML -> phylogenetic results
+├── stats -> alignment and variant calling stats.
+└── variant_calling -> variant calling files.
+```
+Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](02_QualityAndAssembly.md) and [Mapping Section](#Mapping)), we will proceed to analyze variant calling results.
+
+#### Variant calling results
+Variants are stored in plain text files in vcf format (variant calling format). Vcf files can be found in:
+```
+wgs_outbreaker/variant_calling/variants_gatk/variants
+```
+Here we can find a bunch of vcf files for each filtering steps we made:
+- *.g.vcf <- this file contains a special vcf format that includes both variant and invariants sites information.
+- snps_indels.vcf <- contains raw variants, both indels and snps found by GATK in the samples. This is a multisample vcf file and contains genotype information for all the samples at the same time.
+- In order to follow GATK's best practice protocol for high quality variant filtering, snps and indels must be treated separately, so we have snps_only_flags.vcf and indels_only_flags.vcf with quality flags for each type of variants.
+```
+
+```
+- Finally we continue to filter snps calls for our SNP matrix, and we filter SNPs which are included in a window of 1000 pb with an acumulation of more than 3 snps. We process two files snps_Pass.fasta and snps_PassCluster.fasta, one including only SNPs that PASS all the filters, and one that includes PASS snps and also those filtered by our cluster filter. We do this because usually we haven't select the window size and max snps properly for our samples and we need to analyze the complete set of SNPs.
+
+
+
+
+
+#### Phylogeny results
+
+<p align="center"><img src="img/tree_with_bad_sample_snps.png" width="1000"></p>
