@@ -748,7 +748,7 @@ if (params.step =~ /strainCharacterization/){
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
   srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst
-  Rscript plotTreeHeatmap.R
+  Rscript bin/plotTreeHeatmap.R
   """
  }
 
@@ -767,7 +767,7 @@ if (params.step =~ /strainCharacterization/){
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
   srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --gene_db $srst2_resistance
-  Rscript plotTreeHeatmap.R
+  Rscript bin/plotTreeHeatmap.R
   """
  }
 
@@ -818,7 +818,7 @@ if (params.step =~ /preprocessing/){
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
 
     """
-    multiqc --config $multiqc_config . 2>&1
+    multiqc -d . --config $multiqc_config
     """
 
  }
@@ -847,7 +847,7 @@ if (params.step =~ /mapping/){
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
 
     """
-    multiqc --config $multiqc_config . 2>&1
+    multiqc -d . --config $multiqc_config
     """
 
  }
@@ -876,7 +876,7 @@ if (params.step =~ /assembly/){
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
 
     """
-    multiqc --config $multiqc_config . 2>&1
+    multiqc -d . --config $multiqc_config
     """
 
  }
@@ -903,7 +903,7 @@ process multiqc {
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
 
     """
-    multiqc --config $multiqc_config . 2>&1
+    multiqc -d . --config $multiqc_config
     """
 
  }
