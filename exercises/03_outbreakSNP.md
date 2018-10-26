@@ -216,5 +216,22 @@ Here we can find a bunch of vcf files for each filtering steps we made:
 
 
 #### Phylogeny results
+Phylogenetic tree reconstruction is performed using RAxML with 100 inferences and 100 bootstrap repetitions. RAxML results can be checked in RAxML folder:
+```
+/home/Alumno/Documents/wgs/results/RAxML/{variant_caller}
+```
+Two different trees are generated one with only SNPs passing all filters (preser) and one with all snps (all_snp). Both trees are outputed for evaluation. In this case we are going to use the tree with the filtered SNPs because snp cluster filter has performed correctly.
+
+RAxML outputs one file per inference and per bootstrap so the folder is full of files. Don't worry we only need the final tree file, which is in newick format for visualization. The file is called:
+```
+RAxML_bipartitions.RAXML_TREE_ANNOT
+```
+Now we are going to open firefox browser and go to [iTOL website](https://itol.embl.de/). This web allows us to visualize and annotate phylogenetics trees with a very user-friendly interface. Also, it has good exporting options for publication.
+
+Once in iTOL website we click in Upload in the top menu. Next we upload our tree as shown in the image:
+<p align="center"><img src="img/itol_web1.png" width="1000"></p>
+
+Now we are visualizing our tree and we can manipulate it. First of all, as we are facing an unrooted tree with long and small branches, we are going to perform a midpoint rooting method for improve the visualization. For this we choose the longest branch an we click on it. We have to get a menu like this image:
+<p align="center"><img src="img/itol_web2.png" width="1000"></p>
 
 <p align="center"><img src="img/tree_with_bad_sample_snps.png" width="1000"></p>
