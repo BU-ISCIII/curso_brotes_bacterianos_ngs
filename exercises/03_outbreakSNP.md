@@ -198,6 +198,19 @@ This directory contains several folders including:
 Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](02_QualityAndAssembly.md) and [Mapping Section](#Mapping)), we will proceed to analyze variant calling results.
 
 #### Variant calling results
+Variants are stored in plain text files in vcf format (variant calling format). Vcf files can be found in:
+```
+wgs_outbreaker/variant_calling/variants_gatk/variants
+```
+Here we can find a bunch of vcf files for each filtering steps we made:
+- *.g.vcf <- this file contains a special vcf format that includes both variant and invariants sites information.
+- snps_indels.vcf <- contains raw variants, both indels and snps found by GATK in the samples. This is a multisample vcf file and contains genotype information for all the samples at the same time.
+- In order to follow GATK's best practice protocol for high quality variant filtering, snps and indels must be treated separately, so we have snps_only_flags.vcf and indels_only_flags.vcf with quality flags for each type of variants.
+```
+
+```
+- Finally we continue to filter snps calls for our SNP matrix, and we filter SNPs which are included in a window of 1000 pb with an acumulation of more than 3 snps. We process two files snps_Pass.fasta and snps_PassCluster.fasta, one including only SNPs that PASS all the filters, and one that includes PASS snps and also those filtered by our cluster filter. We do this because usually we haven't select the window size and max snps properly for our samples and we need to analyze the complete set of SNPs.
+
 
 
 
