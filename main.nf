@@ -748,7 +748,7 @@ if (params.step =~ /strainCharacterization/){
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
   srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst
-  Rscript plotTreeHeatmap.R
+  Rscript bin/plotTreeHeatmap.R
   """
  }
 
@@ -767,7 +767,7 @@ if (params.step =~ /strainCharacterization/){
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
   srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --gene_db $srst2_resistance
-  Rscript plotTreeHeatmap.R
+  Rscript bin/plotTreeHeatmap.R
   """
  }
 
