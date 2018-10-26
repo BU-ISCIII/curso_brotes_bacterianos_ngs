@@ -818,7 +818,7 @@ if (params.step =~ /preprocessing/){
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
 
     """
-    multiqc --config $multiqc_config . 2>&1
+    multiqc -d . --config $multiqc_config
     """
 
  }
@@ -847,7 +847,7 @@ if (params.step =~ /mapping/){
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
 
     """
-    multiqc --config $multiqc_config . 2>&1
+    multiqc -d . --config $multiqc_config
     """
 
  }
@@ -876,7 +876,7 @@ if (params.step =~ /assembly/){
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
 
     """
-    multiqc --config $multiqc_config . 2>&1
+    multiqc -d . --config $multiqc_config
     """
 
  }
@@ -903,7 +903,7 @@ process multiqc {
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
 
     """
-    multiqc --config $multiqc_config . 2>&1
+    multiqc -d . --config $multiqc_config
     """
 
  }
