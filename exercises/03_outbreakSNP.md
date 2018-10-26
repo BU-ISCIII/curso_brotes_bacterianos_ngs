@@ -234,4 +234,28 @@ Once in iTOL website we click in Upload in the top menu. Next we upload our tree
 Now we are visualizing our tree and we can manipulate it. First of all, as we are facing an unrooted tree with long and small branches, we are going to perform a midpoint rooting method for improve the visualization. For this we choose the longest branch an we click on it. We have to get a menu like this image:
 <p align="center"><img src="img/itol_web2.png" width="1000"></p>
 
+iTOL offers multiple annotation and maniputation options. We can selecto for example the display of bootstrap in the advance tab.
+<p align="center"><img src="img/itol_web3.png" width="1000"></p>
+
+You can play with all the options iTOL offers reading its [documentation](https://itol.embl.de/help.cgi), and export the tree in the export tab. 
+
+<p align="center"><img src="img/itol_web2.png" width="1000"></p>
+
+Now we are going to focus on our results. Our final tree should look something like this:
+
 <p align="center"><img src="img/tree_with_bad_sample_snps.png" width="1000"></p>
+
+Which strains do you think belong to the outbreak?
+Tips: At this point you should focus on the bootstrap and the branch lenght.
+
+#### SNPs distance
+As we have studied in the theory class, maximum likelihood methods for phylogeny only offers as branch lenght the average nucleotide substitution rate, this means the branch lenght is only a estimation of the number of nucleotide changes a strain has suffer respect to another.
+In order to know exactly the SNPs differences between the strains WGS-Outbreaker outputs a distance matrix showing the paired diffences among the samples.
+We can check this file in:
+```
+/home/alumno/Documents/wgs/results/wgs_outbreaker/stats
+```
+Include here the file....
+
+
+As we see the SNP difference cutoff is important here, and it will depend on the strain and the case. If we stablish 3-5 snps as our cutoff we can detect that the strains belonging to the outbreak are: 2978, 2805 and 2073
