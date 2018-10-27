@@ -748,7 +748,7 @@ if (params.step =~ /strainCharacterization/){
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
   srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst
-  Rscript plotTreeHeatmap.R
+  Rscript bin/plotTreeHeatmap.R
   """
  }
 
@@ -767,7 +767,7 @@ if (params.step =~ /strainCharacterization/){
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
   srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --gene_db $srst2_resistance
-  Rscript plotTreeHeatmap.R
+  Rscript bin/plotTreeHeatmap.R
   """
  }
 
@@ -807,6 +807,7 @@ if (params.step =~ /preprocessing/){
     file multiqc_config
     file (fastqc:'fastqc/*') from fastqc_results.collect()
     file ('trimommatic/*') from trimmomatic_results.collect()
+    file ('trimommatic/*') from trimmomatic_fastqc_reports.collect()
 
     output:
     file '*multiqc_report.html' into multiqc_report
@@ -818,7 +819,7 @@ if (params.step =~ /preprocessing/){
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
 
     """
-    multiqc --config $multiqc_config . 2>&1
+    multiqc -d . --config $multiqc_config
     """
 
  }
@@ -834,6 +835,7 @@ if (params.step =~ /mapping/){
     file multiqc_config
     file (fastqc:'fastqc/*') from fastqc_results.collect()
     file ('trimommatic/*') from trimmomatic_results.collect()
+    file ('trimommatic/*') from trimmomatic_fastqc_reports.collect()
     file ('samtools/*') from samtools_stats.collect()
     file ('picard/*') from picard_reports.collect()
 
@@ -847,7 +849,7 @@ if (params.step =~ /mapping/){
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
 
     """
-    multiqc --config $multiqc_config . 2>&1
+    multiqc -d . --config $multiqc_config
     """
 
  }
@@ -863,6 +865,7 @@ if (params.step =~ /assembly/){
     file multiqc_config
     file (fastqc:'fastqc/*') from fastqc_results.collect()
     file ('trimommatic/*') from trimmomatic_results.collect()
+    file ('trimommatic/*') from trimmomatic_fastqc_reports.collect()
     file ('prokka/*') from prokka_multiqc.collect()
     file ('quast/*') from quast_multiqc.collect()
 
@@ -876,7 +879,7 @@ if (params.step =~ /assembly/){
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
 
     """
-    multiqc --config $multiqc_config . 2>&1
+    multiqc -d . --config $multiqc_config
     """
 
  }
@@ -892,6 +895,9 @@ process multiqc {
     file multiqc_config
     file (fastqc:'fastqc/*') from fastqc_results.collect()
     file ('trimommatic/*') from trimmomatic_results.collect()
+    file ('trimommatic/*') from trimmomatic_fastqc_reports.collect()
+    file ('samtools/*') from samtools_stats.collect()
+    file ('picard/*') from picard_reports.collect()
 
     output:
     file '*multiqc_report.html' into multiqc_report
@@ -903,7 +909,7 @@ process multiqc {
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
 
     """
-    multiqc --config $multiqc_config . 2>&1
+    multiqc -d . --config $multiqc_config
     """
 
  }
