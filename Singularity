@@ -22,6 +22,8 @@ From: centos:latest
     scif install /opt/trimmomatic_v0.38_centos7.scif && \
     echo "Installing samtools app" && \
     scif install /opt/samtools_v1.9_centos7.scif && \
+    echo "Installing htslib app" && \
+    scif install /opt/htslib_v1.9_centos7.scif && \
     echo "Installing picard app" && \
     scif install /opt/picard_v1.140_centos7.scif && \
     echo "Installing spades app" && \
@@ -43,7 +45,7 @@ From: centos:latest
     echo "Installing Unicycler app" && \
     scif install /opt/unicycler_v0.4.7_centos7.scif && \
     echo "Installing Taranis app" && \
-    scif install /opt/taranis_v0.1_centos7.scif && \
+    scif install /opt/taranis_v0.3_centos7.scif && \
     echo "Installing Download bigsdb api app" && \
     scif install /opt/bigsdbdownload_v0.1_centos7.scif && \
     echo "Installing plasmidID app" && \

@@ -76,7 +76,7 @@ OUTPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/test/output
 SAMPLES=RA-L2073:RA-L2281:RA-L2327:RA-L2391:RA-L2450:RA-L2677:RA-L2701:RA-L2782:RA-L2805:RA-L2978
 
 RA-L2073=RA-L2073_R1_paired.fastq.gz	RA-L2073_R2_paired.fastq.gz
-RA-L2281=RA-L2281_R1_paired.fastq.gz	RA-L2281_R1_paired.fastq.gz
+RA-L2281=RA-L2281_R1_paired.fastq.gz	RA-L2281_R2_paired.fastq.gz
 RA-L2327=RA-L2327_R1_paired.fastq.gz	RA-L2327_R2_paired.fastq.gz
 RA-L2391=RA-L2391_R1_paired.fastq.gz	RA-L2391_R2_paired.fastq.gz
 RA-L2450=RA-L2450_R1_paired.fastq.gz	RA-L2450_R2_paired.fastq.gz

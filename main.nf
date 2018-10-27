@@ -91,7 +91,7 @@ def helpMessage() {
       --srst2_def_mlst              ST definitions for MLST scheme
       --srst2_db_sero               Fasta file of serogroup
       --srst2_def_sero              ST definitions for serogroup scheme
-      
+
     OutbreakSNP options
       --outbreaker_config			Config needed by wgs-outbreaker.
 
@@ -398,7 +398,7 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 		script:
 		prefix = name - ~/(_S[0-9]{2})?(_L00[1-9])?(.R1)?(_1)?(_R1)?(_trimmed)?(_val_1)?(_00*)?(\.fq)?(\.fastq)?(\.gz)?$/
 		"""
-		trimmomatic PE -phred33 $reads $prefix"_paired_R1.fastq" $prefix"_unpaired_R1.fastq" $prefix"_paired_R2.fastq" $prefix"_unpaired_R2.fastq" ILLUMINACLIP:${params.trimmomatic_adapters_file}:${params.trimmomatic_adapters_parameters} SLIDINGWINDOW:${params.trimmomatic_window_length}:${params.trimmomatic_window_value} MINLEN:${params.trimmomatic_mininum_length} 2> ${name}.log
+		trimmomatic PE -phred33 $reads -threads 1 $prefix"_paired_R1.fastq" $prefix"_unpaired_R1.fastq" $prefix"_paired_R2.fastq" $prefix"_unpaired_R2.fastq" ILLUMINACLIP:${params.trimmomatic_adapters_file}:${params.trimmomatic_adapters_parameters} SLIDINGWINDOW:${params.trimmomatic_window_length}:${params.trimmomatic_window_value} MINLEN:${params.trimmomatic_mininum_length} 2> ${name}.log
 
 		gzip *.fastq
 
