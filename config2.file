@@ -19,15 +19,15 @@ SEQ_TYPE=paired
 
 TRIMMING=NO
 CHECK_REFERENCES=YES
-MAPPING=NO
-DUPLICATE_FILTER=NO
-VARIANT_CALLING=NO
+MAPPING=YES
+DUPLICATE_FILTER=YES
+VARIANT_CALLING=YES
 KMERFINDER=NO
 SRST2=NO
-CFSAN=YES
-VCF_TO_MSA=NO
+CFSAN=NO
+VCF_TO_MSA=YES
 RAXML=YES
-STATS=NO
+STATS=YES
 
 ############################################# System variables #######################################################
 
@@ -58,10 +58,10 @@ SCRIPTS_DIR=/home/smonzon/tmp_singularity/WGS-Outbreaker/lib
 TEMP_DIR=/home/smonzon/tmp
 
 # Directory with input files
-INPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/trimming
+INPUT_DIR=/home/smonzon/Documents/bacterial_wgs_training/results/trimming/trimmed
 
 # Directory for output files
-OUTPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/wgs_outbreaker
+OUTPUT_DIR=/home/smonzon/Documents/bacterial_wgs_training/results/wgs_outbreaker
 
 ########################################## INPUT VARIABLES########################################################
 
@@ -75,16 +75,16 @@ OUTPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/wgs
 
 SAMPLES=RA-L2073:RA-L2281:RA-L2327:RA-L2391:RA-L2450:RA-L2677:RA-L2701:RA-L2782:RA-L2805:RA-L2978
 
-RA-L2073=RA-L2073_R1_paired.fastq.gz	RA-L2073_R2_paired.fastq.gz
-RA-L2281=RA-L2281_R1_paired.fastq.gz	RA-L2281_R2_paired.fastq.gz
-RA-L2327=RA-L2327_R1_paired.fastq.gz	RA-L2327_R2_paired.fastq.gz
-RA-L2391=RA-L2391_R1_paired.fastq.gz	RA-L2391_R2_paired.fastq.gz
-RA-L2450=RA-L2450_R1_paired.fastq.gz	RA-L2450_R2_paired.fastq.gz
-RA-L2677=RA-L2677_R1_paired.fastq.gz	RA-L2677_R2_paired.fastq.gz
-RA-L2701=RA-L2701_R1_paired.fastq.gz	RA-L2701_R2_paired.fastq.gz
-RA-L2782=RA-L2782_R1_paired.fastq.gz	RA-L2782_R2_paired.fastq.gz
-RA-L2805=RA-L2805_R1_paired.fastq.gz	RA-L2805_R2_paired.fastq.gz
-RA-L2978=RA-L2978_R1_paired.fastq.gz	RA-L2978_R2_paired.fastq.gz
+RA-L2073=RA-L2073_paired_R1.fastq.gz	RA-L2073_paired_R2.fastq.gz
+RA-L2281=RA-L2281_paired_R1.fastq.gz	RA-L2281_paired_R2.fastq.gz
+RA-L2327=RA-L2327_paired_R1.fastq.gz	RA-L2327_paired_R2.fastq.gz
+RA-L2391=RA-L2391_paired_R1.fastq.gz	RA-L2391_paired_R2.fastq.gz
+RA-L2450=RA-L2450_paired_R1.fastq.gz	RA-L2450_paired_R2.fastq.gz
+RA-L2677=RA-L2677_paired_R1.fastq.gz	RA-L2677_paired_R2.fastq.gz
+RA-L2701=RA-L2701_paired_R1.fastq.gz	RA-L2701_paired_R2.fastq.gz
+RA-L2782=RA-L2782_paired_R1.fastq.gz	RA-L2782_paired_R2.fastq.gz
+RA-L2805=RA-L2805_paired_R1.fastq.gz	RA-L2805_paired_R2.fastq.gz
+RA-L2978=RA-L2978_paired_R1.fastq.gz	RA-L2978_paired_R2.fastq.gz
 
 
 ######################################################### Reference Variables ###########################################
