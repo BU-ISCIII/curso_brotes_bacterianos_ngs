@@ -629,12 +629,13 @@ if (params.step =~ /(assembly|plasmidID|outbreakMLST)/){
 
 		output:
 		file "prokka_results" into prokka_results
-		file "prokka_results/prokka.txt" into prokka_multiqc
+		file "prokka_results/${prefix}_prokka.txt" into prokka_multiqc
 
 		script:
 		prefix = scaffold.toString() - ~/(_scaffolds\.fasta)?$/
 		"""
 		prokka --force --outdir prokka_results --prefix prokka --genus Listeria --species monocytogenes --strain $prefix --locustag BU-ISCIII --compliant --kingdom Bacteria $scaffold
+		mv prokka_results/prokka.txt prokka_results/${prefix}_prokka.txt
 		"""
 	}
 
