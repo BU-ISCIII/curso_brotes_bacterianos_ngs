@@ -10,6 +10,8 @@
 
 - [Introduction](#introduction)
 - [Exercise](#exercise)
+    - [Preprocessing](#preprocessing)
+    - [Assembly](#assembly)
 
 ## Introduction
 ### Training dataset description
@@ -81,12 +83,14 @@ After preprocessing, the next step is aligning the reads to rebuild the genomic 
   
 - *De novo* assembly
 
- *De novo* genome assembly consists in taking a collection of short sequencing reads and reconstruct the genome sequence, source of all these fragments.
- The output of an assembler is decomposed into contigs: contiguous regions of the genome which are resolved, and/or scaffolds: longer sequences formed by reordered and oriented contigs with positional information but without sequence resolution.
+ *De novo* genome assembly consists in taking a collection of short sequencing reads and reconstruct the genome sequence, source of all these fragments.The output of an assembler is decomposed into contigs: contiguous regions of the genome which are resolved, and/or scaffolds: longer sequences formed by reordered and oriented contigs with positional information but without sequence resolution.
   
 
 
 ## Exercise
+
+### Preprocessing
+
 As we have seen in the introduction, the first step is to know the quality of our sequences. Those with an unnaceptable quality will be trimmed in order to remove the nucleotides with bad quality to ease future analysis algorithms such assembly.
 In order to check quality and trim the reads wee have to execute this command:
 
@@ -135,6 +139,9 @@ Here we can see the quality of the R1 reads before and after trimming
 
 <p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_3.png" alt="Fastqc_4" width="900"></p>
 And this is the MultiQC output comparing the quality of trimmed and raw reads
+
+
+### Assembly
 
 ```Bash
 cd
