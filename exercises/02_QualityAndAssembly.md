@@ -95,6 +95,11 @@ nextflow run bacterial_wgs_training --reads 'training_dataset/downsampling_250K/
 
 ```
 
+| Before trimming |After trimming |
+| --- | --- | 
+| ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_2.png) | 
+
+
 ```Bash
 cd
 cd Documents/wgs
