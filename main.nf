@@ -87,8 +87,10 @@ def helpMessage() {
 
     Strain Characterization options
       --srst2_resistance            Fasta file/s for gene resistance databases
-      --srst2_db                    Fasta file of MLST alleles
-      --srst2_def                   ST definitions for MLST scheme
+      --srst2_db_mlst               Fasta file of MLST alleles
+      --srst2_def_mlst              ST definitions for MLST scheme
+      --srst2_db_sero               Fasta file of serogroup
+      --srst2_def_sero              ST definitions for serogroup scheme
 
     OutbreakSNP options
       --outbreaker_config			Config needed by wgs-outbreaker.
@@ -181,15 +183,25 @@ params.trimmomatic_window_value = "20"
 params.trimmomatic_mininum_length = "50"
 
 //srst2
-params.srst2_db = false
-if ( params.srst2_db ){
-	srst2_db = file(params.srst2_db)
-	if ( !srst2_db.exists() ) exit 1, "SRST2 db file not found: ${params.srst2_db}"
+params.srst2_db_mlst = false
+if ( params.srst2_db_mlst ){
+	srst2_db_mlst = file(params.srst2_db_mlst)
+	if ( !srst2_db_mlst.exists() ) exit 1, "SRST2 db file not found: ${params.srst2_db_mlst}"
 }
-params.srst2_def = false
-if ( params.srst2_def ){
-	srst2_def = file(params.srst2_def)
-	if ( !srst2_def.exists() ) exit 1, "SRST2 mlst definitions file not found: ${params.srst2_def}"
+params.srst2_def_mlst = false
+if ( params.srst2_def_mlst ){
+	srst2_def_mlst = file(params.srst2_def_mlst)
+	if ( !srst2_def_mlst.exists() ) exit 1, "SRST2 mlst definitions file not found: ${params.srst2_def_mlst}"
+}
+params.srst2_db_sero = false
+if ( params.srst2_db_sero ){
+	srst2_db_sero = file(params.srst2_db_sero)
+	if ( !srst2_db_sero.exists() ) exit 1, "SRST2 db file not found: ${params.srst2_db_sero}"
+}
+params.srst2_def_sero = false
+if ( params.srst2_def_sero ){
+	srst2_def_sero = file(params.srst2_def_sero)
+	if ( !srst2_def_sero.exists() ) exit 1, "SRST2 mlst definitions file not found: ${params.srst2_def_sero}"
 }
 params.srst2_resistance = false
 if ( params.srst2_resistance ){
@@ -225,12 +237,20 @@ if( ! params.outbreaker_config && params.step =~ /outbreakSNP/ ){
     exit 1, "WGS-Outbreaker config file not provided for outbreakSNP step, please declare it with --outbreaker_config /path/to/config.file."
 }
 
-if( ! params.srst2_db && params.step =~ /strainCharacterization/ ){
-    exit 1, "SRST2 allele mlst database not provided for strainCharacterization step, please declare it with --srst2_db /path/to/db."
+if( ! params.srst2_db_mlst && params.step =~ /strainCharacterization/ ){
+    exit 1, "SRST2 allele mlst database not provided for strainCharacterization step, please declare it with --srst2_db_mlst /path/to/db."
 }
 
-if( ! params.srst2_def && params.step =~ /strainCharacterization/ ){
-    exit 1, "SRST2 mlst schema definitions not provided for strainCharacterization step, please declare it with --srst2_def /path/to/db."
+if( ! params.srst2_def_mlst && params.step =~ /strainCharacterization/ ){
+    exit 1, "SRST2 mlst schema definitions not provided for strainCharacterization step, please declare it with --srst2_def_mlst /path/to/db."
+}
+
+if( ! params.srst2_db_sero && params.step =~ /strainCharacterization/ ){
+    exit 1, "SRST2 allele serogroup database not provided for strainCharacterization step, please declare it with --srst2_db_sero /path/to/db."
+}
+
+if( ! params.srst2_def_sero && params.step =~ /strainCharacterization/ ){
+    exit 1, "SRST2 serogroup schema definitions not provided for strainCharacterization step, please declare it with --srst2_def_sero /path/to/db."
 }
 
 if( ! params.srst2_resistance && params.step =~ /strainCharacterization/ ){
@@ -309,25 +329,26 @@ try {
 /*
  * Build BWA index
  */
-if (params.step =~ /(mapping|outbreakSNP)/)
-if(!params.bwa_index && fasta_file){
-    process makeBWAindex {
-        tag "${fasta.baseName}"
-        publishDir path: { params.saveReference ? "${params.outdir}/reference_genome" : params.outdir },
-                   saveAs: { params.saveReference ? it : null }, mode: 'copy'
+if (params.step =~ /(mapping|outbreakSNP)/){
+	if(!params.bwa_index && fasta_file){
+		process makeBWAindex {
+			tag "${fasta.baseName}"
+			publishDir path: { params.saveReference ? "${params.outdir}/reference_genome" : params.outdir },
+					saveAs: { params.saveReference ? it : null }, mode: 'copy'
 
-        input:
-        file fasta from fasta_file
+			input:
+			file fasta from fasta_file
 
-        output:
-        file "${fasta}*" into bwa_index
+			output:
+			file "${fasta}*" into bwa_index
 
-        script:
-        """
-        mkdir BWAIndex
-        bwa index -a bwtsw $fasta
-        """
-    }
+			script:
+			"""
+			mkdir BWAIndex
+			bwa index -a bwtsw $fasta
+			"""
+		}
+	}
 }
 
 
@@ -361,6 +382,7 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 			saveAs: {filename ->
 				if (filename.indexOf("_fastqc") > 0) "FastQC/$filename"
 				else if (filename.indexOf(".log") > 0) "logs/$filename"
+    else if (filename.indexOf(".fastq.gz") > 0) "trimmed/$filename"
 				else params.saveTrimmed ? filename : null
 		}
 
@@ -368,23 +390,24 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 		set val(name), file(reads) from raw_reads_trimming
 
 		output:
-		file '*_paired.fastq.gz' into trimmed_paired_reads
-		file '*_unpaired.fastq.gz' into trimmed_unpaired_reads
-		file '*_fastqc.{zip,html}' into trimming_fastqc_reports
+		file '*_paired_*.fastq.gz' into trimmed_paired_reads
+		file '*_unpaired_*.fastq.gz' into trimmed_unpaired_reads
+		file '*_fastqc.{zip,html}' into trimmomatic_fastqc_reports
 		file '*.log' into trimmomatic_results
 
 		script:
 		prefix = name - ~/(_S[0-9]{2})?(_L00[1-9])?(.R1)?(_1)?(_R1)?(_trimmed)?(_val_1)?(_00*)?(\.fq)?(\.fastq)?(\.gz)?$/
 		"""
-		trimmomatic PE -phred33 $reads $prefix"_R1_paired.fastq" $prefix"_R1_unpaired.fastq" $prefix"_R2_paired.fastq" $prefix"_R2_unpaired.fastq" ILLUMINACLIP:${params.trimmomatic_adapters_file}:${params.trimmomatic_adapters_parameters} SLIDINGWINDOW:${params.trimmomatic_window_length}:${params.trimmomatic_window_value} MINLEN:${params.trimmomatic_mininum_length} 2>&1 > $name".log"
+		trimmomatic PE -phred33 $reads -threads 1 $prefix"_paired_R1.fastq" $prefix"_unpaired_R1.fastq" $prefix"_paired_R2.fastq" $prefix"_unpaired_R2.fastq" ILLUMINACLIP:${params.trimmomatic_adapters_file}:${params.trimmomatic_adapters_parameters} SLIDINGWINDOW:${params.trimmomatic_window_length}:${params.trimmomatic_window_value} MINLEN:${params.trimmomatic_mininum_length} 2> ${name}.log
 
 		gzip *.fastq
 
-		fastqc -q *_paired.fastq.gz
+		fastqc -q *_paired_*.fastq.gz
 
 		"""
 	}
 }
+
 /*
  * STEP 3.1 - align with bwa
  */
@@ -468,7 +491,6 @@ if (params.step =~ /mapping/){
 	/*
 	* STEP 4 Picard
 	*/
-	/* Comment duplicated reads removal*/
 	if (!params.keepduplicates){
 
 		process picard {
@@ -486,21 +508,8 @@ if (params.step =~ /mapping/){
 
 			script:
 			prefix = bam[0].toString() - ~/(\.sorted)?(\.bam)?$/
-			if( task.memory == null ){
-				log.warn "[Picard MarkDuplicates] Available memory not known - defaulting to 6GB ($prefix)"
-				avail_mem = 6000
-			} else {
-				avail_mem = task.memory.toMega()
-				if( avail_mem <= 0){
-					avail_mem = 6000
-					log.warn "[Picard MarkDuplicates] Available memory 0 - defaulting to 6GB ($prefix)"
-				} else if( avail_mem < 250){
-					avail_mem = 250
-					log.warn "[Picard MarkDuplicates] Available memory under 250MB - defaulting to 250MB ($prefix)"
-				}
-			}
 			"""
-			java -Xmx${avail_mem}m -jar \$PICARD_HOME/picard.jar MarkDuplicates \\
+			java -jar \$PICARD_HOME/picard.jar MarkDuplicates \\
 				INPUT=$bam \\
 				OUTPUT=${prefix}.dedup.bam \\
 				ASSUME_SORTED=true \\
@@ -515,28 +524,13 @@ if (params.step =~ /mapping/){
 			"""
 		}
 		//Change variables to dedup variables
-		bam_spp = bam_dedup_spp
-		bam_ngsplot = bam_dedup_ngsplot
-		bam_deepTools = bam_dedup_deepTools
-		bam_macs = bam_dedup_macs
-		bam_epic = bam_dedup_epic
-		bam_for_saturation = bam_dedup_saturation
-		bed_total = bed_dedup
-		bed_epic = bed_epic_dedup
-
-		bai_spp = bai_dedup_spp
-		bai_ngsplot = bai_dedup_ngsplot
-		bai_deepTools = bai_dedup_deepTools
-		bai_macs = bai_dedup_macs
-		bai_epic = bai_dedup_epic
-		bai_for_saturation = bai_dedup_saturation
 	}
 }
 
 	/*
 	* STEP 5 Assembly
 	*/
-if (params.step =~ /(assembly|plasmidID)/){
+if (params.step =~ /(assembly|plasmidID|outbreakMLST)/){
 
 //	process spades {
 //		tag "$prefix"
@@ -566,7 +560,7 @@ if (params.step =~ /(assembly|plasmidID)/){
 		set file(readsR1),file(readsR2) from trimmed_paired_reads
 
 		output:
-		file "${prefix}_assembly.fasta" into scaffold_quast,scaffold_prokka,scaffold_plasmidid
+		file "${prefix}_assembly.fasta" into scaffold_quast,scaffold_prokka,scaffold_plasmidid,scaffold_taranis
 
 		script:
 		prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
@@ -582,7 +576,7 @@ if (params.step =~ /(assembly|plasmidID)/){
 							saveAs: { filename -> if(filename == "quast_results") "${prefix}_quast_results"}
 
 		input:
-		file scaffold from scaffold_quast
+		file scaffolds from scaffold_quast.collect()
 		file fasta from fasta_file
 		file gtf from gtf_file
 
@@ -591,9 +585,9 @@ if (params.step =~ /(assembly|plasmidID)/){
 		file "quast_results/latest/report.tsv" into quast_multiqc
 
 		script:
-		prefix = scaffold.toString() - ~/(_scaffolds\.fasta)?$/
+		prefix = scaffolds[0].toString() - ~/(_scaffolds\.fasta)?$/
 		"""
-		quast.py -R $fasta -G $gtf $scaffold
+		quast.py -R $fasta -G $gtf $scaffolds
 		"""
 	}
 
@@ -607,12 +601,13 @@ if (params.step =~ /(assembly|plasmidID)/){
 
 		output:
 		file "prokka_results" into prokka_results
-		file "prokka_results/prokka.txt" into prokka_multiqc
+		file "prokka_results/${prefix}_prokka.txt" into prokka_multiqc
 
 		script:
 		prefix = scaffold.toString() - ~/(_scaffolds\.fasta)?$/
 		"""
 		prokka --force --outdir prokka_results --prefix prokka --genus Listeria --species monocytogenes --strain $prefix --locustag BU-ISCIII --compliant --kingdom Bacteria $scaffold
+		mv prokka_results/prokka.txt prokka_results/${prefix}_prokka.txt
 		"""
 	}
 
@@ -642,31 +637,41 @@ if (params.step =~ /outbreakSNP/){
 	}
 }
 
+if (params.step =~ /outbreakMLST/){
 
-if (!params.keepduplicates) {  Channel.empty().set { picard_reports } }
+	process scheme_download {
+	tag "SchemeDownload"
+	publishDir "${params.outdir}/ListeriaScheme", mode: 'copy'
 
-if (params.step =~ /preprocessing/){
-	Channel.empty().set { samtools_stats }
-	Channel.empty().set { picard_reports }
-	Channel.empty().set { prokka_multiqc }
-	Channel.empty().set { quast_multiqc }
+	input:
+
+	output:
+	file "cgMLST1748" into listeria_scheme
+
+	script:
+	"""
+	get_files_from_rest_api.py -output_dir cgMLST1748 schema -api_url pasteur_listeria -schema_name cgMLST1748
+	"""
+
+	}
+ 	process taranis {
+     tag "cgMLST"
+     publishDir "${params.outdir}/Taranis", mode: 'copy'
+
+     input:
+     file (assembly:"assembly/*") from scaffold_taranis.collect()
+     file listeria_scheme from listeria_scheme
+
+     output:
+     file "*.tsv" into taranis_results
+
+     script:
+     """
+     taranis.py -coregenedir $listeria_scheme -inputdir assembly -outputdir .
+     """
+ 	}
 }
 
-if (params.step =~ /mapping/){
-	Channel.empty().set { prokka_multiqc }
-	Channel.empty().set { quast_multiqc }
-}
-
-if (params.step =~ /assembly/){
-	Channel.empty().set { samtools_stats }
-	Channel.empty().set { picard_reports }
-}
-
-if (params.step =~ /outbreakSNP/){
-	Channel.empty().set { samtools_stats }
-	Channel.empty().set { prokka_multiqc }
-	Channel.empty().set { quast_multiqc }
-}
 
 /*
  * STEP 9 PlasmidID
@@ -675,7 +680,7 @@ if (params.step =~ /plasmidID/){
 
  process plasmidid {
      tag "PlasmidID"
-     publishDir "${params.outdir}/PlasmidID", mode 'copy'
+     publishDir "${params.outdir}/PlasmidID", mode: 'copy'
 
      input:
      set file(readsR1),file(readsR2) from trimmed_paired_reads
@@ -699,37 +704,60 @@ if (params.step =~ /plasmidID/){
 
 if (params.step =~ /strainCharacterization/){
 
+  trimmed_paired_reads into { trimmed_paired_reads_mlst; trimmed_paired_reads_res; trimmed_paired_reads_sero }
+
   process srst2_mlst {
-  tag "SRST2_DB"
+  tag "SRST2_MLST"
   publishDir "${params.outdir}/SRST2_MLST", mode 'copy'
 
   input:
-  set file(readsR1),file(readsR2) from trimmed_paired_reads
+  set file(readsR1),file(readsR2) from trimmed_paired_reads_mlst
 
   output:
   file "*results.txt" into srst2_mlst_results
+  file "*.pdf" into srst2_mlst_tree
 
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db --mlst_definitions $srst2_def
+  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst
+  Rscript bin/plotTreeHeatmap.R
   """
  }
 
-  process srst2_db {
-  tag "SRST2_DB"
-  publishDir "${params.outdir}/SRST2_DB", mode 'copy'
+  process srst2_resistance {
+  tag "SRST2_RES"
+  publishDir "${params.outdir}/SRST2_RES", mode 'copy'
 
   input:
-  set file(readsR1),file(readsR2) from trimmed_paired_reads
+  set file(readsR1),file(readsR2) from trimmed_paired_reads_res
 
   output:
-  file "*results.txt" into srst2_db_results
+  file "*results.txt" into srst2_res_results
+  file "*.pdf" into srst2_res_tree
 
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
   srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --gene_db $srst2_resistance
+  Rscript bin/plotTreeHeatmap.R
+  """
+ }
+
+  process srst2_serogroup {
+  tag "SRST2_SERO"
+  publishDir "${params.outdir}/SRST2_SERO", mode 'copy'
+
+  input:
+  set file(readsR1),file(readsR2) from trimmed_paired_reads_sero
+
+  output:
+  file "*results.txt" into srst2_sero_results
+
+  script:
+  prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
+  """
+  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero
   """
  }
 
@@ -739,7 +767,12 @@ if (params.step =~ /strainCharacterization/){
  * STEP 11 MultiQC
  */
 
-process multiqc {
+
+if (!params.keepduplicates) {  Channel.empty().set { picard_reports } }
+
+if (params.step =~ /preprocessing/){
+
+ process multiqc {
     tag "$prefix"
     publishDir "${params.outdir}/MultiQC", mode: 'copy'
 
@@ -747,8 +780,65 @@ process multiqc {
     file multiqc_config
     file (fastqc:'fastqc/*') from fastqc_results.collect()
     file ('trimommatic/*') from trimmomatic_results.collect()
+    file ('trimommatic/*') from trimmomatic_fastqc_reports.collect()
+
+    output:
+    file '*multiqc_report.html' into multiqc_report
+    file '*_data' into multiqc_data
+    file '.command.err' into multiqc_stderr
+    val prefix into multiqc_prefix
+
+    script:
+    prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
+
+    """
+    multiqc -d . --config $multiqc_config
+    """
+
+ }
+}
+
+if (params.step =~ /mapping/){
+
+ process multiqc {
+    tag "$prefix"
+    publishDir "${params.outdir}/MultiQC", mode: 'copy'
+
+    input:
+    file multiqc_config
+    file (fastqc:'fastqc/*') from fastqc_results.collect()
+    file ('trimommatic/*') from trimmomatic_results.collect()
+    file ('trimommatic/*') from trimmomatic_fastqc_reports.collect()
     file ('samtools/*') from samtools_stats.collect()
     file ('picard/*') from picard_reports.collect()
+
+    output:
+    file '*multiqc_report.html' into multiqc_report
+    file '*_data' into multiqc_data
+    file '.command.err' into multiqc_stderr
+    val prefix into multiqc_prefix
+
+    script:
+    prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
+
+    """
+    multiqc -d . --config $multiqc_config
+    """
+
+ }
+}
+
+if (params.step =~ /assembly/){
+
+ process multiqc {
+    tag "$prefix"
+    publishDir "${params.outdir}/MultiQC", mode: 'copy'
+
+    input:
+    file multiqc_config
+    file (fastqc:'fastqc/*') from fastqc_results.collect()
+    file ('trimommatic/*') from trimmomatic_results.collect()
+    file ('trimommatic/*') from trimmomatic_fastqc_reports.collect()
     file ('prokka/*') from prokka_multiqc.collect()
     file ('quast/*') from quast_multiqc.collect()
 
@@ -760,13 +850,40 @@ process multiqc {
 
     script:
     prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
-    rtitle = custom_runName ? "--title \"$custom_runName\"" : ''
-    rfilename = custom_runName ? "--filename " + custom_runName.replaceAll('\\W','_').replaceAll('_+','_') + "_multiqc_report" : ''
 
     """
-    multiqc -f $rtitle $rfilename --config $multiqc_config . 2>&1
+    multiqc -d . --config $multiqc_config
     """
 
+ }
+}
+
+if (params.step =~ /outbreakSNP/){
+
+process multiqc {
+    tag "$prefix"
+    publishDir "${params.outdir}/MultiQC", mode: 'copy'
+
+    input:
+    file multiqc_config
+    file (fastqc:'fastqc/*') from fastqc_results.collect()
+    file ('trimommatic/*') from trimmomatic_results.collect()
+    file ('trimommatic/*') from trimmomatic_fastqc_reports.collect()
+
+    output:
+    file '*multiqc_report.html' into multiqc_report
+    file '*_data' into multiqc_data
+    file '.command.err' into multiqc_stderr
+    val prefix into multiqc_prefix
+
+    script:
+    prefix = fastqc[0].toString() - '_fastqc.html' - 'fastqc/'
+
+    """
+    multiqc -d . --config $multiqc_config
+    """
+
+ }
 }
 
 

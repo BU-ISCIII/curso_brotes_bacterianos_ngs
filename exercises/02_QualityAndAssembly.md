@@ -8,8 +8,8 @@
 |**Time estimation**:| 1 h 30 min |
 |**Key points**:|<ul><li>Analysis of sequence quality.</li><li>Mapping.</li><li>Assembly.</li></ul>|
 
-[Introduction](#introduction)
-[Exercise](#exercise)
+- [Introduction](#introduction)
+- [Exercise](#exercise)
 
 ## Introduction
 ### Training dataset description
@@ -54,13 +54,13 @@ A correct measuring of the sequencing quality is essential for identifying probl
 |40|1/10000|99.99%|
 |50|1/100000|99.999%|
 |60|1/1000000|99.99999%|
-|70|1/10000000|99.999999%|
 
-There are multiple software to read and generate statistics to help with the interpretation of the quality of a sequence. One of the most commonly used methods for this task is [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) (Andrews, 2010), a java program that run on any system and has both command line and graphic interface. 
+There are multiple software to read and generate statistics to help with the interpretation of the quality of a sequence. One of the most commonly used methods for this task is [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) (Andrews, 2010), a java program that run on any system and has both command line and graphic interface.
 
-![](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc.png)
+<p align="center"><img src="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc.png" alt="Fastqc_1" width="500"></p>
+<br>
 
-FastQC aims to provide a simple way to do some quality control checks on raw sequence data coming from high throughput sequencing pipelines. It provides a modular set of analyses which you can use to give a quick impression of whether your data has any problems of which you should be aware before doing any further analysis. Here you can compare examples of a [good sequencing output](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/good_sequence_short_fastqc.html) and a [bad one](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/bad_sequence_fastqc.html).
+FastQC aims to provide a simple way to do some quality control checks on raw sequence data coming from high throughput sequencing. It provides a modular set of analyses which you can use to give a quick impression of whether your data has any problems of which you should be aware before doing any further analysis. Here you can compare examples of a [good sequencing output](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/good_sequence_short_fastqc.html) and a [bad one](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/bad_sequence_fastqc.html).
 
 
 ### How can I improve my data quality?
@@ -75,18 +75,32 @@ Common trimming includes removal of short reads, and cut off adapters and a numb
 After preprocessing, the next step is aligning the reads to rebuild the genomic sequence. There are two main ways of doing this: 
 
 <ul>
-<li>Mapping</li> 
-  For each of the short reads in the FASTQ file, a corresponding location in the reference sequence (or that no such region exists) needs to be determined. This is achieved by comparing the sequence of the read to that of the reference sequence. A mapping algorithm will try to locate a (hopefully unique) location in the reference sequence that matches the read, while tolerating a certain amount of mismatch to allow subsequence variation detection. 
-<li>Assembly</li> 
-  Genome assembly consists in taking a collection of sequencing reads, which are much shorter than the actual genome, and creating a genome sequence which is a likely source of all these fragments. The shorter the genome, the easier to recreate.
- The output of an assembler is generally decomposed into contigs, or contiguous regions of the genome which are nearly completely resolved, and scaffolds, or sets of contigs which are approximately placed and oriented with respect to each other.
+<li>Reference-based assembly</li> 
+  For each of the short reads in the FASTQ file, a corresponding location in the reference sequence is determined. A mapping algorithm will locate a location in the reference sequence that matches the read, while tolerating a certain amount of mismatch to allow subsequence variation detection tath correspond to the actual difference between the reference and de assembled genome. 
+<li>*De novo* assembly</li> 
+ *De novo* genome assembly consists in taking a collection of short sequencing reads and reconstruct the genome sequence, source of all these fragments.
+ The output of an assembler is decomposed into contigs: contiguous regions of the genome which are resolved, and/or scaffolds: longer sequences formed by reordered and oriented contigs with positional information but without sequence resolution.
   
 </ul>
 
 ## Exercise
 
 ```Bash
-nextflow BU-ISCIII/bacterial_wgs_training run --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+cd
+cd Documents/wgs
+nextflow run bacterial_wgs_training --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+  -profile singularity \
+  --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
+  --step preprocessing
+
+```
+
+```Bash
+cd
+cd Documents/wgs
+nextflow run bacterial_wgs_training --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+  -profile singularity \
+  --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
   --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
   --gtf training_dataset/listeria_NC_021827.1_NoPhagues.gff \
   --step assembly
