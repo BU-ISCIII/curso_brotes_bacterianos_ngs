@@ -79,12 +79,12 @@ After preprocessing, the next step is aligning the reads to rebuild the genomic 
 
 - Reference-based assembly
 
-  For each of the short reads in the FASTQ file, a corresponding location in the reference sequence is determined. A mapping algorithm will locate a location in the reference sequence that matches the read, while tolerating a certain amount of mismatch to allow subsequence variation detection tath correspond to the actual difference between the reference and de assembled genome. 
+    For each of the short reads in the FASTQ file, a corresponding location in the reference sequence is determined. A mapping algorithm will locate a location in the reference sequence that matches the read, while tolerating a certain amount of mismatch to allow subsequence variation detection tath correspond to the actual difference between the reference and de assembled genome. 
   
 - *De novo* assembly
 
- *De novo* genome assembly consists in taking a collection of short sequencing reads and reconstruct the genome sequence, source of all these fragments.The output of an assembler is decomposed into contigs: contiguous regions of the genome which are resolved, and/or scaffolds: longer sequences formed by reordered and oriented contigs with positional information but without sequence resolution.
-  
+    *De novo* genome assembly consists in taking a collection of short sequencing reads and reconstruct the genome sequence, source of all these fragments.The output of an assembler is decomposed into contigs: contiguous regions of the genome which are resolved, and/or scaffolds: longer sequences formed by reordered and oriented contigs with positional information but without sequence resolution.
+
 
 
 ## Exercise
@@ -93,6 +93,8 @@ After preprocessing, the next step is aligning the reads to rebuild the genomic 
 
 As we have seen in the introduction, the first step is to know the quality of our sequences. Those with an unnaceptable quality will be trimmed in order to remove the nucleotides with bad quality to ease future analysis algorithms such assembly.
 In order to check quality and trim the reads wee have to execute this command:
+
+------
 
 ```Bash
 cd
@@ -103,6 +105,8 @@ nextflow run bacterial_wgs_training --reads 'training_dataset/downsampling_250K/
   --step preprocessing
 
 ```
+------
+
 
 This execution runs internally three programs: FastQC, Trimmomatic and MultiQC as follow:
 
@@ -142,6 +146,7 @@ And this is the MultiQC output comparing the quality of trimmed and raw reads
 
 
 ### Assembly
+------
 
 ```Bash
 cd
@@ -154,3 +159,6 @@ nextflow run bacterial_wgs_training --reads 'training_dataset/downsampling_250K/
   --step assembly
 
 ```
+
+------
+
