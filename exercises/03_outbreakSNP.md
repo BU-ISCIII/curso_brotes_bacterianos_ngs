@@ -269,7 +269,7 @@ You can play with all the options iTOL offers reading its [documentation](https:
 
 Now we are going to focus on our results. Our final tree should look something like this:
 
-<p align="center"><img src="img/tree_with_bad_sample_snps.png" width="1000"></p>
+<p align="center"><img src="img/tree_snps_final.png" width="1000"></p>
 
 Which strains do you think belong to the outbreak?
 Tips: At this point you should focus on the bootstrap and the branch lenght.
