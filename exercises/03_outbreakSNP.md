@@ -207,13 +207,39 @@ Here we can find a bunch of vcf files for each filtering steps we made:
 - snps_indels.vcf <- contains raw variants, both indels and snps found by GATK in the samples. This is a multisample vcf file and contains genotype information for all the samples at the same time.
 - In order to follow GATK's best practice protocol for high quality variant filtering, snps and indels must be treated separately, so we have snps_only_flags.vcf and indels_only_flags.vcf with quality flags for each type of variants.
 ```
-
+##fileformat=VCFv4.2
+##FILTER=<ID="p-value StrandBias",Description="FS > 60.0">
+##FILTER=<ID=LowQD,Description="QD < 2.0">
+##FILTER=<ID=LowQual,Description="Low quality">
+##FILTER=<ID=MaxDepth,Description="DP < 5">
+##FILTER=<ID=RMSMappingQuality,Description="MQ < 40.0">
+##FILTER=<ID=SnpCluster,Description="SNPs found in clusters">
+##FILTER=<ID=StandOddRatio,Description="SOR > 3.0">
+##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Allelic depths for the ref and alt alleles in the order listed">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth (reads with MQ=255 or with bad mates are filtered)">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##INFO=<ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes, for each ALT allele, in the same order as listed">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency, for each ALT allele, in the same order as listed">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##INFO=<ID=BaseQRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt Vs. Ref base qualities">
+##INFO=<ID=QD,Number=1,Type=Float,Description="Variant Confidence/Quality by Depth">
+##INFO=<ID=RAW_MQ,Number=1,Type=Float,Description="Raw data for RMS Mapping Quality">
+##INFO=<ID=ReadPosRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt vs. Ref read position bias">
+##INFO=<ID=SOR,Number=1,Type=Float,Description="Symmetric Odds Ratio of 2x2 contingency table to detect strand bias">
+##contig=<ID=NC_021827.1,length=2953716>
+##contig=<ID=NC_022047.1,length=55804>
+##reference=file:///home/smonzon/Documents/bacterial_wgs_training/work/ba/20837f0b9838403205e62589d7ac8b/listeria_NC_021827.1_NoPhagues.fna
+##source=SelectVariants
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	RA-L2073	
+NC_021827.1	276	.	C	A	291.68	RMSMappingQuality;SnpCluster;StandOddRatio	AC=1;AF=0.100;AN=10;DP=35;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=38.49;QD=34.24;SOR=4.407	GT:AD:DP:GQ:PL	0:3,0:3:99:0,117
+NC_021827.1	731	.	A	G	2313.68	SnpCluster	AC=1;AF=0.100;AN=10;DP=101;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=60.00;QD=33.05;SOR=0.811	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
+NC_021827.1	921	.	C	T	1841.68	SnpCluster	AC=1;AF=0.100;AN=10;DP=110;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=60.00;QD=29.70;SOR=0.826	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
+NC_021827.1	1067	.	C	T	2250.68	SnpCluster	AC=1;AF=0.100;AN=10;DP=168;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=60.00;QD=31.70;SOR=0.779	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
+NC_021827.1	2114	.	C	T	8324.89	SnpCluster	AC=3;AF=0.300;AN=10;DP=341;FS=0.000;MLEAC=3;MLEAF=0.300;MQ=60.00;QD=30.49;SOR=0.841	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
+NC_021827.1	2180	.	G	A	7855.89	SnpCluster	AC=3;AF=0.300;AN=10;DP=342;FS=0.000;MLEAC=3;MLEAF=0.300;MQ=60.00;QD=28.67;SOR=0.832	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
 ```
 - Finally we continue to filter snps calls for our SNP matrix, and we filter SNPs which are included in a window of 1000 pb with an acumulation of more than 3 snps. We process two files snps_Pass.fasta and snps_PassCluster.fasta, one including only SNPs that PASS all the filters, and one that includes PASS snps and also those filtered by our cluster filter. We do this because usually we haven't select the window size and max snps properly for our samples and we need to analyze the complete set of SNPs.
-
-
-
-
 
 #### Phylogeny results
 Phylogenetic tree reconstruction is performed using RAxML with 100 inferences and 100 bootstrap repetitions. RAxML results can be checked in RAxML folder:
@@ -243,7 +269,7 @@ You can play with all the options iTOL offers reading its [documentation](https:
 
 Now we are going to focus on our results. Our final tree should look something like this:
 
-<p align="center"><img src="img/tree_with_bad_sample_snps.png" width="1000"></p>
+<p align="center"><img src="img/tree_snps_final.png" width="1000"></p>
 
 Which strains do you think belong to the outbreak?
 Tips: At this point you should focus on the bootstrap and the branch lenght.
@@ -255,7 +281,19 @@ We can check this file in:
 ```
 /home/alumno/Documents/wgs/results/wgs_outbreaker/stats
 ```
-Include here the file....
+
+|dis_matrix.names|RA.L2073|RA.L2281|RA.L2327|RA.L2391|RA.L2450|RA.L2677|RA.L2701|RA.L2782|RA.L2805|RA.L2978|
+|----------------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+|RA-L2073|0|9403|9028|80|46|46|49|9120|4|2|
+|RA-L2281|9403|0|8777|9415|9397|9397|9402|9183|9403|9401|
+|RA-L2327|9028|8777|0|9040|9022|9022|9027|4277|9028|9026|
+|RA-L2391|80|9415|9040|0|74|74|79|9132|80|78|
+|RA-L2450|46|9397|9022|74|0|38|45|9114|46|44|
+|RA-L2677|46|9397|9022|74|38|0|45|9114|46|44|
+|RA-L2701|49|9402|9027|79|45|45|0|9119|49|47|
+|RA-L2782|9120|9183|4277|9132|9114|9114|9119|0|9120|9118|
+|RA-L2805|4|9403|9028|80|46|46|49|9120|0|2|
+|RA-L2978|2|9401|9026|78|44|44|47|9118|2|0|
 
 
 As we see the SNP difference cutoff is important here, and it will depend on the strain and the case. If we stablish 3-5 snps as our cutoff we can detect that the strains belonging to the outbreak are: 2978, 2805 and 2073

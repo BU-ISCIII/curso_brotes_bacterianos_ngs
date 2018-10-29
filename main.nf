@@ -768,7 +768,7 @@ if (params.step =~ /strainCharacterization/){
  */
 
 
-if (!params.keepduplicates) {  Channel.empty().set { picard_reports } }
+//if (!params.keepduplicates) {  Channel.empty().set { picard_reports } }
 
 if (params.step =~ /preprocessing/){
 
