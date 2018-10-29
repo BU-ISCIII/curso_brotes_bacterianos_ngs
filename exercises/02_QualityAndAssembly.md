@@ -74,16 +74,21 @@ Common trimming includes removal of short reads, and cut off adapters and a numb
 
 After preprocessing, the next step is aligning the reads to rebuild the genomic sequence. There are two main ways of doing this: 
 
-<ul>
-<li>Reference-based assembly</li> 
+
+- Reference-based assembly
+
   For each of the short reads in the FASTQ file, a corresponding location in the reference sequence is determined. A mapping algorithm will locate a location in the reference sequence that matches the read, while tolerating a certain amount of mismatch to allow subsequence variation detection tath correspond to the actual difference between the reference and de assembled genome. 
-<li>*De novo* assembly</li> 
+  
+- *De novo* assembly
+
  *De novo* genome assembly consists in taking a collection of short sequencing reads and reconstruct the genome sequence, source of all these fragments.
  The output of an assembler is decomposed into contigs: contiguous regions of the genome which are resolved, and/or scaffolds: longer sequences formed by reordered and oriented contigs with positional information but without sequence resolution.
   
-</ul>
+
 
 ## Exercise
+As we have seen in the introduction, the first step is to know the quality of our sequences. Those with an unnaceptable quality will be trimmed in order to remove the nucleotides with bad quality to ease future analysis algorithms such assembly.
+In order to check quality and trim the reads wee have to execute this command:
 
 ```Bash
 cd
@@ -95,10 +100,41 @@ nextflow run bacterial_wgs_training --reads 'training_dataset/downsampling_250K/
 
 ```
 
+This execution runs internally three programs: FastQC, Trimmomatic and MultiQC as follow:
+
+For each sample those command are executed:
+- `fastqc reads_R1.fastq.gz reads_R2.fastq.gz`
+    - reads_R1.fastq.gz and reads_R2.fastq.gz are the input Illumina reads which quality is analyzed
+- `java -jar trimmomatic.jar PE -phred33 reads_R1.fastq.gz reads_R2.fastq.gz \
+reads_paired_R1.fastq reads_unpaired_R1.fastq \
+reads_paired_R2.fastq reads_unpaired_R2.fastq \
+ILLUMINACLIP:Truseq3-PE.fa:2:30:10 \
+SLIDINGWINDOW:4:20 \
+MINLEN:50`
+    - reads_R1.fastq.gz and reads_R2.fastq.gz are the input Illumina reads which will be trimmed
+    - reads_paired_R[1|2].fastq reads_unpaired_R[1|2].fastq
+        - paired refer to sequences trimmed that passed the quality filter
+        - unpaired refer to sequences that did not pass the quality filter
+    - ILLUMINACLIP: cut adapter and other illumina-specific sequences from the read
+    - SLIDINGWINDOW: Perform a sliding window trimming, cutting once the average quality within the window falls below a threshold
+    - MINLEN: Drop the read if it is below a specified length
+    
+- `fastqc reads_paired_R[1|2].fastq reads_unpaired_R[1|2].fastq`
+    - reads_paired_R[1|2].fastq reads_unpaired_R[1|2].fastq are sequences after trimming step which quality will be assesed
+    
+- `multiqc RESULTS_DIRECTORY`
+    - MultiQC will automatically search for raw and trimmed reads quality results and will compare them in user-friendly graphs
+    
+#### Final results should look like those:
+
 | Before trimming |After trimming |
 | --- | --- | 
 | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_2.png) | 
 
+Here we can see the quality of the R1 reads before and after trimming
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_3.png" alt="Fastqc_4" width="900"></p>
+And this is the MultiQC output comparing the quality of trimmed and raw reads
 
 ```Bash
 cd
