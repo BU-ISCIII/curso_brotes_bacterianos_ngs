@@ -121,7 +121,7 @@ SLIDINGWINDOW:4:20 \
 MINLEN:50`
     - reads_R1.fastq.gz and reads_R2.fastq.gz are the input Illumina reads which will be trimmed
     - reads_paired_R[1|2].fastq reads_unpaired_R[1|2].fastq
-        - paired refer to sequences trimmed that passed the quality filter
+        - paired refer to sequences trimmed that passed the quality filter for both R1 and R2
         - unpaired refer to sequences that did not pass the quality filter
     - ILLUMINACLIP: cut adapter and other illumina-specific sequences from the read
     - SLIDINGWINDOW: Perform a sliding window trimming, cutting once the average quality within the window falls below a threshold
