@@ -508,21 +508,8 @@ if (params.step =~ /mapping/){
 
 			script:
 			prefix = bam[0].toString() - ~/(\.sorted)?(\.bam)?$/
-			if( task.memory == null ){
-				log.warn "[Picard MarkDuplicates] Available memory not known - defaulting to 6GB ($prefix)"
-				avail_mem = 6000
-			} else {
-				avail_mem = task.memory.toMega()
-				if( avail_mem <= 0){
-					avail_mem = 6000
-					log.warn "[Picard MarkDuplicates] Available memory 0 - defaulting to 6GB ($prefix)"
-				} else if( avail_mem < 250){
-					avail_mem = 250
-					log.warn "[Picard MarkDuplicates] Available memory under 250MB - defaulting to 250MB ($prefix)"
-				}
-			}
 			"""
-			java -Xmx${avail_mem}m -jar \$PICARD_HOME/picard.jar MarkDuplicates \\
+			java -jar \$PICARD_HOME/picard.jar MarkDuplicates \\
 				INPUT=$bam \\
 				OUTPUT=${prefix}.dedup.bam \\
 				ASSUME_SORTED=true \\
@@ -537,21 +524,6 @@ if (params.step =~ /mapping/){
 			"""
 		}
 		//Change variables to dedup variables
-		bam_spp = bam_dedup_spp
-		bam_ngsplot = bam_dedup_ngsplot
-		bam_deepTools = bam_dedup_deepTools
-		bam_macs = bam_dedup_macs
-		bam_epic = bam_dedup_epic
-		bam_for_saturation = bam_dedup_saturation
-		bed_total = bed_dedup
-		bed_epic = bed_epic_dedup
-
-		bai_spp = bai_dedup_spp
-		bai_ngsplot = bai_dedup_ngsplot
-		bai_deepTools = bai_dedup_deepTools
-		bai_macs = bai_dedup_macs
-		bai_epic = bai_dedup_epic
-		bai_for_saturation = bai_dedup_saturation
 	}
 }
 
