@@ -281,7 +281,19 @@ We can check this file in:
 ```
 /home/alumno/Documents/wgs/results/wgs_outbreaker/stats
 ```
-Include here the file....
+
+|dis_matrix.names|RA.L2073|RA.L2281|RA.L2327|RA.L2391|RA.L2450|RA.L2677|RA.L2701|RA.L2782|RA.L2805|RA.L2978|
+|----------------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+|RA-L2073|0|9403|9028|80|46|46|49|9120|4|2|
+|RA-L2281|9403|0|8777|9415|9397|9397|9402|9183|9403|9401|
+|RA-L2327|9028|8777|0|9040|9022|9022|9027|4277|9028|9026|
+|RA-L2391|80|9415|9040|0|74|74|79|9132|80|78|
+|RA-L2450|46|9397|9022|74|0|38|45|9114|46|44|
+|RA-L2677|46|9397|9022|74|38|0|45|9114|46|44|
+|RA-L2701|49|9402|9027|79|45|45|0|9119|49|47|
+|RA-L2782|9120|9183|4277|9132|9114|9114|9119|0|9120|9118|
+|RA-L2805|4|9403|9028|80|46|46|49|9120|0|2|
+|RA-L2978|2|9401|9026|78|44|44|47|9118|2|0|
 
 
 As we see the SNP difference cutoff is important here, and it will depend on the strain and the case. If we stablish 3-5 snps as our cutoff we can detect that the strains belonging to the outbreak are: 2978, 2805 and 2073
