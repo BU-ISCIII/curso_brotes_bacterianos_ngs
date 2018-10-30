@@ -142,7 +142,10 @@ MINLEN:50`
 Here we can see the quality of the R1 reads before and after trimming
 
 <p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_3.png" alt="Fastqc_4" width="900"></p>
-And this is the MultiQC output comparing the quality of trimmed and raw reads
+This is the MultiQC output comparing the quality of trimmed and raw reads
+<br>
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_4.png" alt="Trimmomatic_1" width="900"></p>
+This is the MultiQC output sumarizing reads that have been filtered after trimming step
 
 
 ### Assembly
