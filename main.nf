@@ -406,6 +406,8 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 
 		"""
 	}
+ 
+ trimmed_paired_reads into { trimmed_paired_reads_bwa; trimmed_paired_reads_unicycler; trimmed_paired_reads_wgsoutbreaker; trimmed_paired_reads_plasmidid; trimmed_paired_reads_mlst; trimmed_paired_reads_res; trimmed_paired_reads_sero }
 }
 
 /*
@@ -419,7 +421,7 @@ if (params.step =~ /mapping/){
 				saveAs: {filename -> params.saveAlignedIntermediates ? filename : null }
 
 		input:
-		file reads from trimmed_paired_reads
+		file reads from trimmed_paired_reads_bwa
 		file index from bwa_index
 		file fasta from fasta_file
 
@@ -557,7 +559,7 @@ if (params.step =~ /(assembly|plasmidID|outbreakMLST)/){
 		publishDir path: { "${params.outdir}/unicycler" }, mode: 'copy'
 
 		input:
-		set file(readsR1),file(readsR2) from trimmed_paired_reads
+		set file(readsR1),file(readsR2) from trimmed_paired_reads_unicycler
 
 		output:
 		file "${prefix}_assembly.fasta" into scaffold_quast,scaffold_prokka,scaffold_plasmidid,scaffold_taranis
@@ -620,7 +622,7 @@ if (params.step =~ /outbreakSNP/){
 	publishDir "${params.outdir}/WGS-Outbreaker", mode: 'copy'
 
 	input:
-	file reads from trimmed_paired_reads.collect()
+	file reads from trimmed_paired_reads_wgsoutbreaker.collect()
 	file index from bwa_index
 	file fasta from fasta_file
 	file config from outbreaker_config_file
@@ -683,7 +685,7 @@ if (params.step =~ /plasmidID/){
      publishDir "${params.outdir}/PlasmidID", mode: 'copy'
 
      input:
-     set file(readsR1),file(readsR2) from trimmed_paired_reads
+     set file(readsR1),file(readsR2) from trimmed_paired_reads_plasmidid
      file assembly from scaffold_plasmidid
 
      output:
@@ -703,8 +705,6 @@ if (params.step =~ /plasmidID/){
  */
 
 if (params.step =~ /strainCharacterization/){
-
-  trimmed_paired_reads into { trimmed_paired_reads_mlst; trimmed_paired_reads_res; trimmed_paired_reads_sero }
 
   process srst2_mlst {
   tag "SRST2_MLST"
