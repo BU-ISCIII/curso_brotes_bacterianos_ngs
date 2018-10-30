@@ -44,15 +44,24 @@ tar -xvzf training_dataset_250k.tar.gz
 rm -f training_dataset_250k.tar.gz
 ```
 
+Download singularity image:
+
+```
+wget ...
+```
+
 
 ##### Final folder structure
 
 ```
-..
+.
 ├── bacterial_wgs_training
+│   ├── bin
+│   │   └── plotTreeHeatmap.R
 │   ├── conf
 │   │   ├── base.config
 │   │   ├── docker.config
+│   │   ├── multiqc_config.yaml
 │   │   └── singularity.config
 │   ├── config2.file
 │   ├── config.file
@@ -62,7 +71,14 @@ rm -f training_dataset_250k.tar.gz
 │   │   ├── 01_LinuxNextflowSingularity.md
 │   │   ├── 02_QualityAndAssembly.md
 │   │   ├── 03_outbreakSNP.md
-│   │   └── exercise1.md
+│   │   ├── 04_outbreakcgMLST
+│   │   └── img
+│   │       ├── Ex_2_1.png
+│   │       ├── Ex_2_2.png
+│   │       ├── itol_web1.png
+│   │       ├── itol_web2.png
+│   │       ├── tree_with_bad_sample_snps.png
+│   │       └── tree_with_bad_sample_snps.svg
 │   ├── main.nf
 │   ├── nextflow.config
 │   ├── README.md
@@ -71,30 +87,34 @@ rm -f training_dataset_250k.tar.gz
 │   └── slides
 │       └── talk1
 │           └── PITCHME.md
-└── training_dataset
-    ├── downsampling_250K
-    │   ├── RA-L2073_R1.fastq.gz
-    │   ├── RA-L2073_R2.fastq.gz
-    │   ├── RA-L2281_R1.fastq.gz
-    │   ├── RA-L2281_R2.fastq.gz
-    │   ├── RA-L2327_R1.fastq.gz
-    │   ├── RA-L2327_R2.fastq.gz
-    │   ├── RA-L2391_R1.fastq.gz
-    │   ├── RA-L2391_R2.fastq.gz
-    │   ├── RA-L2450_R1.fastq.gz
-    │   ├── RA-L2450_R2.fastq.gz
-    │   ├── RA-L2677_R1.fastq.gz
-    │   ├── RA-L2677_R2.fastq.gz
-    │   ├── RA-L2701_R1.fastq.gz
-    │   ├── RA-L2701_R2.fastq.gz
-    │   ├── RA-L2709_R1.fastq.gz
-    │   ├── RA-L2709_R2.fastq.gz
-    │   ├── RA-L2782_R1.fastq.gz
-    │   ├── RA-L2782_R2.fastq.gz
-    │   ├── RA-L2805_R1.fastq.gz
-    │   ├── RA-L2805_R2.fastq.gz
-    │   ├── RA-L2978_R1.fastq.gz
-    │   └── RA-L2978_R2.fastq.gz
-    ├── listeria_NC_021827.1_NoPhagues.fna
-    └── listeria_NC_021827.1_NoPhagues.gff
+├── training_dataset
+│   ├── ARGannot.r1.fasta
+│   ├── downsampling_250K
+│   │   ├── RA-L2073_R1.fastq.gz
+│   │   ├── RA-L2073_R2.fastq.gz
+│   │   ├── RA-L2281_R1.fastq.gz
+│   │   ├── RA-L2281_R2.fastq.gz
+│   │   ├── RA-L2327_R1.fastq.gz
+│   │   ├── RA-L2327_R2.fastq.gz
+│   │   ├── RA-L2391_R1.fastq.gz
+│   │   ├── RA-L2391_R2.fastq.gz
+│   │   ├── RA-L2450_R1.fastq.gz
+│   │   ├── RA-L2450_R2.fastq.gz
+│   │   ├── RA-L2677_R1.fastq.gz
+│   │   ├── RA-L2677_R2.fastq.gz
+│   │   ├── RA-L2701_R1.fastq.gz
+│   │   ├── RA-L2701_R2.fastq.gz
+│   │   ├── RA-L2709_R1.fastq.gz
+│   │   ├── RA-L2709_R2.fastq.gz
+│   │   ├── RA-L2782_R1.fastq.gz
+│   │   ├── RA-L2782_R2.fastq.gz
+│   │   ├── RA-L2805_R1.fastq.gz
+│   │   ├── RA-L2805_R2.fastq.gz
+│   │   ├── RA-L2978_R1.fastq.gz
+│   │   └── RA-L2978_R2.fastq.gz
+│   ├── listeria_NC_021827.1_NoPhagues.fna
+│   ├── listeria_NC_021827.1_NoPhagues.gff
+│   ├── pcr_serogroup_listeria.fas
+│   └── pcr_serogroup_listeria.scheme
+└── wgs_bacterial.simg
 ```

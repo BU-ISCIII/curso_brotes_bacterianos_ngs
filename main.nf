@@ -390,8 +390,8 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 		set val(name), file(reads) from raw_reads_trimming
 
 		output:
-		file '*_paired_*.fastq.gz' into trimmed_paired_reads_unicycler,trimmed_paired_reads,trimmed_paired_reads_plasmidid
-		file '*_unpaired_*.fastq.gz' into trimmed_unpaired_reads
+		file '*_paired_*.fastq.gz' into trimmed_paired_reads
+		file '*_unpaired_*.fastq.gz' into trimmed_unpaired_reads, trimmed_paired_reads_bwa, trimmed_paired_reads_unicycler, trimmed_paired_reads_wgsoutbreaker, trimmed_paired_reads_plasmidid, trimmed_paired_reads_mlst, trimmed_paired_reads_res, trimmed_paired_reads_sero
 		file '*_fastqc.{zip,html}' into trimmomatic_fastqc_reports
 		file '*.log' into trimmomatic_results
 
@@ -406,6 +406,7 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 
 		"""
 	}
+
 }
 
 /*
@@ -419,7 +420,7 @@ if (params.step =~ /mapping/){
 				saveAs: {filename -> params.saveAlignedIntermediates ? filename : null }
 
 		input:
-		file reads from trimmed_paired_reads
+		file reads from trimmed_paired_reads_bwa
 		file index from bwa_index
 		file fasta from fasta_file
 
@@ -620,7 +621,7 @@ if (params.step =~ /outbreakSNP/){
 	publishDir "${params.outdir}/WGS-Outbreaker", mode: 'copy'
 
 	input:
-	file reads from trimmed_paired_reads.collect()
+	file reads from trimmed_paired_reads_wgsoutbreaker.collect()
 	file index from bwa_index
 	file fasta from fasta_file
 	file config from outbreaker_config_file
@@ -703,8 +704,6 @@ if (params.step =~ /plasmidID/){
  */
 
 if (params.step =~ /strainCharacterization/){
-
-  trimmed_paired_reads into { trimmed_paired_reads_mlst; trimmed_paired_reads_res; trimmed_paired_reads_sero }
 
   process srst2_mlst {
   tag "SRST2_MLST"
@@ -869,6 +868,8 @@ process multiqc {
     file (fastqc:'fastqc/*') from fastqc_results.collect()
     file ('trimommatic/*') from trimmomatic_results.collect()
     file ('trimommatic/*') from trimmomatic_fastqc_reports.collect()
+    file ('samtools/*') from samtools_stats.collect()
+    file ('picard/*') from picard_reports.collect()
 
     output:
     file '*multiqc_report.html' into multiqc_report
