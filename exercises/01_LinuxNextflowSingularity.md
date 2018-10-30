@@ -18,57 +18,83 @@ Let's remember the basics: *pwd cd ls mkdir mv rm rmdir less nano*. We are going
 
 Check our working directory:
 
-`pwd`
+```
+pwd
+```
 
-Move to our Desktop folder: 
+Move to our Desktop folder (using the absolute path and the alias "~", which means "path to your home folder"): 
 
-`cd ~/Desktop`
+```
+cd ~/Desktop
+```
 
-Create a directory called "myDir":
+Create a directory called "myDir" (Linux is case sensitive and does not like white spaces in names):
 
-`mkdir myDir`
+```
+mkdir myDir
+```
 
-Move to the new folder:
+Move to the new folder (using a relative pathway):
 
-`cd myDir`
+```
+cd myDir
+```
 
-Check our working directory: 
+Check our working directory (always do it before executing something): 
 
-`pwd`
+```
+pwd
+```
 
-Create the folders "asdf", "AsDf", "ASDF" and "tmp": 
+Create the folders "asdf", "AsDf", "ASDF" and "tmp" (at once, commands change their behavior depending on the parameters): 
 
-`mkdir asdf AsDf ASDF tmp`
+```
+mkdir asdf AsDf ASDF tmp
+```
 
-Create a file inside "tmp" called "myFile.txt":
+Create a file inside "tmp" called "myFile.txt" (using a relative pathway, you can work with files outside your working directory):
 
-`nano tmp/myFile.txt`
+```
+nano tmp/myFile.txt
+```
 
 and write whatever you want and save it with __Ctrl + O__ and close the new file with __Ctrl + X__
 
-Rename "myFile.txt" to "whateverIwant":
+Rename "myFile.txt" to "whateverIwant" (Linux does not require file extensions):
 
-`mv tmp/myFile.txt tmp/whateverIwant`
+```
+mv tmp/myFile.txt tmp/whateverIwant
+```
 
 See the contents of "whateverIwant": 
 
-`less tmp/whateverIwant`
+```
+less tmp/whateverIwant
+```
 
 Remove the file: 
 
-`rm tmp/whateverIwant`
+```
+rm tmp/whateverIwant
+```
 
-Remove the folders inside "myDir": 
+Remove the folders inside "myDir" (wildcard character "\*" means "any character once or more times, or nothing"): 
 
-`rmdir ./*`
+```
+rmdir ./*
+```
 
-Go back to Desktop and remove everything you created: 
+Go back to Desktop and remove everything you created (".." means parente directory, while "." refers to the directory itself): 
 
-`cd ..; rm -rf myDir`
+```
+cd ..; rm -rf myDir
+```
 
-Return to your home directory: 
+Return to your home directory (without parameters, the behavior of the command changes): 
 
-`cd`
+```
+cd
+```
 
 #### How do I know which software I am using?
 
@@ -85,24 +111,36 @@ man git
 
 #### How do I use Nextflow with a Singularity image?
 
-`nextflow`
+```
+nextflow
+```
 
 So, what now? In order to execute a nextflow pipeline, we need to tell it to `run` a project which contains a `main.nf` script written in groovy + the pipeline languages:
 
-`nextflow run /home/$USER/Documents/wgs/bacterial_wgs_training`
+```
+nextflow run /home/$USER/Documents/wgs/bacterial_wgs_training
+```
 
 Optionally, we can pass a config file, and specify the .nf script inside a project:
 
-`nextflow -C /home/$USER/Documents/wgs/bacterial_wgs_training/nextflow.config  run /home/$USER/Documents/wgs/bacterial_wgs_training/main.nf`
+```
+nextflow -C /home/$USER/Documents/wgs/bacterial_wgs_training/nextflow.config  run /home/$USER/Documents/wgs/bacterial_wgs_training/main.nf
+```
 
 There is no need to download the software you want to execute, you can also execute a github repository:
 
-`nextflow run BU-ISCIII/bacterial_wgs_training `
+```
+nextflow run BU-ISCIII/bacterial_wgs_training 
+```
 
 Finally, let's ask how to use the pipeline:
 
-`nextflow run /home/$USER/Documents/wgs/bacterial_wgs_training --help`
+```
+nextflow run /home/$USER/Documents/wgs/bacterial_wgs_training --help
+```
 
 There is one big detail left. The software needed to execute the pipeline is no installed in our machine. Thankfully, we have a singularity image (container) ready for this course, and our pipeline has already being configurated to know where to find it and how to use it. Use the right argument and go for it:
 
-`nextflow run /home/$USER/Documents/wgs/bacterial_wgs_training -profile singularity`
+```
+nextflow run /home/$USER/Documents/wgs/bacterial_wgs_training -profile singularity
+```
