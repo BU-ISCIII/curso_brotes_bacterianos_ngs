@@ -223,9 +223,9 @@ params.singleEnd = false
 params.reads = false
 if (! params.reads ) exit 1, "Missing reads: $params.reads. Specify path with --reads"
 
-if( ! params.fasta ) exit 1, "Missing Reference genome: '$params.fasta'. Specify path with --fasta"
+if( params.step =~ /mapping|outbreakSNP/ && ! params.fasta ) exit 1, "Missing Reference genome: '$params.fasta'. Specify path with --fasta"
 
-if (params.step =~ /assembly/ && ! params.gtf ){
+if (params.step =~ /assembly|plasmidID/ && ! params.gtf ){
     exit 1, "GTF file not provided for assembly step, please declare it with --gtf /path/to/gtf_file"
 }
 
@@ -390,7 +390,7 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 		set val(name), file(reads) from raw_reads_trimming
 
 		output:
-		file '*_paired_*.fastq.gz' into trimmed_paired_reads
+		file '*_paired_*.fastq.gz' into trimmed_paired_reads_unicycler,trimmed_paired_reads,trimmed_paired_reads_plasmidid
 		file '*_unpaired_*.fastq.gz' into trimmed_unpaired_reads
 		file '*_fastqc.{zip,html}' into trimmomatic_fastqc_reports
 		file '*.log' into trimmomatic_results
@@ -557,7 +557,7 @@ if (params.step =~ /(assembly|plasmidID|outbreakMLST)/){
 		publishDir path: { "${params.outdir}/unicycler" }, mode: 'copy'
 
 		input:
-		set file(readsR1),file(readsR2) from trimmed_paired_reads
+		set file(readsR1),file(readsR2) from trimmed_paired_reads_unicycler
 
 		output:
 		file "${prefix}_assembly.fasta" into scaffold_quast,scaffold_prokka,scaffold_plasmidid,scaffold_taranis
@@ -683,7 +683,7 @@ if (params.step =~ /plasmidID/){
      publishDir "${params.outdir}/PlasmidID", mode: 'copy'
 
      input:
-     set file(readsR1),file(readsR2) from trimmed_paired_reads
+     set file(readsR1),file(readsR2) from trimmed_paired_reads_plasmidid
      file assembly from scaffold_plasmidid
 
      output:
