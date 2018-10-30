@@ -83,7 +83,7 @@ def helpMessage() {
 
     PlasmidID options
       --plasmidid_database          Plasmids database
-      --plasmidid_options           Command line options for PlasmidID
+      --plasmidid_config            PlasmidID annotation config file
 
     Strain Characterization options
       --srst2_resistance            Fasta file/s for gene resistance databases
@@ -216,6 +216,12 @@ if( params.plasmidid_database && params.step =~ /plasmidID/ ){
     if( !plasmidid_database.exists() ) exit 1, "PlasmidID database file not found: ${params.plasmidid_database}."
 }
 
+params.plasmidid_config = false
+if( params.plasmidid_config && params.step =~ /plasmidID/ ){
+    plasmidid_config = file(params.plasmidid_config)
+    if( !plasmidid_config.exists() ) exit 1, "PlasmidID config file not found: ${params.plasmidid_config}."
+}
+
 // SingleEnd option
 params.singleEnd = false
 
@@ -231,6 +237,10 @@ if (params.step =~ /assembly|plasmidID/ && ! params.gtf ){
 
 if( ! params.plasmidid_database && params.step =~ /plasmidID/ ){
     exit 1, "PlasmidID database file must be declared with --plasmidid_database /path/to/database.fasta"
+}
+
+if( ! params.plasmidid_config && params.step =~ /plasmidID/ ){
+    exit 1, "PlasmidID annotation config file must be declared with --plasmidid_database /path/to/database.fasta"
 }
 
 if( ! params.outbreaker_config && params.step =~ /outbreakSNP/ ){
@@ -693,7 +703,7 @@ if (params.step =~ /plasmidID/){
      script:
      prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
      """
-     plasmidID.sh -1 $readsR1 -2 $readsR2 -d $plasmidid_database -s $prefix --no-trim -c $assembly -o plasmidid_results
+     plasmidID.sh -1 $readsR1 -2 $readsR2 -d $plasmidid_database -s $prefix --no-trim -c $assembly -o plasmidid_results -a $plasmidid_config
      """
  }
 
