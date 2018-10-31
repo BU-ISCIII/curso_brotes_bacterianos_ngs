@@ -400,8 +400,8 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 		set val(name), file(reads) from raw_reads_trimming
 
 		output:
-		file '*_paired_*.fastq.gz' into trimmed_paired_reads
-		file '*_unpaired_*.fastq.gz' into trimmed_unpaired_reads, trimmed_paired_reads_bwa, trimmed_paired_reads_unicycler, trimmed_paired_reads_wgsoutbreaker, trimmed_paired_reads_plasmidid, trimmed_paired_reads_mlst, trimmed_paired_reads_res, trimmed_paired_reads_sero
+		file '*_paired_*.fastq.gz' into trimmed_paired_reads,trimmed_paired_reads_bwa,trimmed_paired_reads_unicycler,trimmed_paired_reads_wgsoutbreaker,trimmed_paired_reads_plasmidid,trimmed_paired_reads_mlst,trimmed_paired_reads_res,trimmed_paired_reads_sero
+		file '*_unpaired_*.fastq.gz' into trimmed_unpaired_reads
 		file '*_fastqc.{zip,html}' into trimmomatic_fastqc_reports
 		file '*.log' into trimmomatic_results
 
