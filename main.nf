@@ -717,7 +717,7 @@ if (params.step =~ /strainCharacterization/){
 
   process srst2_mlst {
   tag "SRST2_MLST"
-  publishDir "${params.outdir}/SRST2_MLST", mode 'copy'
+  publishDir "${params.outdir}/SRST2_MLST", mode: 'copy'
 
   input:
   set file(readsR1),file(readsR2) from trimmed_paired_reads_mlst
@@ -736,7 +736,7 @@ if (params.step =~ /strainCharacterization/){
 
   process srst2_resistance {
   tag "SRST2_RES"
-  publishDir "${params.outdir}/SRST2_RES", mode 'copy'
+  publishDir "${params.outdir}/SRST2_RES", mode: 'copy'
 
   input:
   set file(readsR1),file(readsR2) from trimmed_paired_reads_res
@@ -755,7 +755,7 @@ if (params.step =~ /strainCharacterization/){
 
   process srst2_serogroup {
   tag "SRST2_SERO"
-  publishDir "${params.outdir}/SRST2_SERO", mode 'copy'
+  publishDir "${params.outdir}/SRST2_SERO", mode: 'copy'
 
   input:
   set file(readsR1),file(readsR2) from trimmed_paired_reads_sero
