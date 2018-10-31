@@ -729,7 +729,13 @@ if (params.step =~ /strainCharacterization/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst
+  R1=$readsR1
+  R1=${R1%_R1.fastq.gz}_1.fastq.gz
+  mv $readsR1 $R1
+  R2=$readsR2
+  R2=${R2%_R2.fastq.gz}_2.fastq.gz
+  mv $readsR2 $R2
+  srst2 --input_pe $R1 $R2 --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst
   Rscript $baseDir/bin/plotTreeHeatmap.R
   """
  }
@@ -748,7 +754,13 @@ if (params.step =~ /strainCharacterization/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --gene_db $srst2_resistance
+  R1=$readsR1
+  R1=${R1%_R1.fastq.gz}_1.fastq.gz
+  mv $readsR1 $R1
+  R2=$readsR2
+  R2=${R2%_R2.fastq.gz}_2.fastq.gz
+  mv $readsR2 $R2
+  srst2 --input_pe $R1 $R2 --output $prefix --log --gene_db $srst2_resistance
   Rscript $baseDir/bin/plotTreeHeatmap.R
   """
  }
@@ -766,7 +778,13 @@ if (params.step =~ /strainCharacterization/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero
+  R1=$readsR1
+  R1=${R1%_R1.fastq.gz}_1.fastq.gz
+  mv $readsR1 $R1
+  R2=$readsR2
+  R2=${R2%_R2.fastq.gz}_2.fastq.gz
+  mv $readsR2 $R2
+  srst2 --input_pe $R1 $R2 --output $prefix --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero
   """
  }
 
