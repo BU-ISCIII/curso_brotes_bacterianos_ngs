@@ -723,8 +723,7 @@ if (params.step =~ /strainCharacterization/){
   set file(readsR1),file(readsR2) from trimmed_paired_reads_mlst
 
   output:
-  file "*results.txt" into srst2_mlst_results
-  file "*.pdf" into srst2_mlst_tree
+  file "*results.txt" into srst2_mlst_results, srst2_mlst_plots
 
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
@@ -761,7 +760,6 @@ if (params.step =~ /strainCharacterization/){
   R2=${R2%_R2.fastq.gz}_2.fastq.gz
   mv $readsR2 $R2
   srst2 --input_pe $R1 $R2 --output $prefix --log --gene_db $srst2_resistance
-  Rscript $baseDir/bin/plotTreeHeatmap.R
   """
  }
 
@@ -773,7 +771,7 @@ if (params.step =~ /strainCharacterization/){
   set file(readsR1),file(readsR2) from trimmed_paired_reads_sero
 
   output:
-  file "*results.txt" into srst2_sero_results
+  file "*results.txt" into srst2_sero_results, srst2_sero_plots
 
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
@@ -785,6 +783,24 @@ if (params.step =~ /strainCharacterization/){
   R2=${R2%_R2.fastq.gz}_2.fastq.gz
   mv $readsR2 $R2
   srst2 --input_pe $R1 $R2 --output $prefix --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero
+  """
+ }
+ 
+ process srst2_Rplots {
+  tag "SRST2_PLOTS"
+  publishDir "${params.outdir}/SRST2_PLOTS", mode: 'copy'
+  
+  input:
+  set file(mlst) from srst2_mlst_plots
+  set file(sero) from srst2_sero_plots
+  
+  output:
+  file "*.pdf" into srst2_tree
+  
+  script:
+  """
+  srst2 --prev_output $mlst $sero --output all
+  Rscript $baseDir/bin/plotTreeHeatmap.R
   """
  }
 
