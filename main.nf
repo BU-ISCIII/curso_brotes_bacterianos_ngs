@@ -205,7 +205,7 @@ if ( params.srst2_def_sero ){
 }
 params.srst2_resistance = false
 if ( params.srst2_resistance ){
-	srst2_srst2_resistance = file(params.srst2_resistance)
+	srst2_resistance = file(params.srst2_resistance)
 	if ( !srst2_resistance.exists() ) exit 1, "SRST2 resistance database not found: ${params.srst2_resistance}"
 }
 
