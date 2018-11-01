@@ -28,9 +28,33 @@ In the previous lecture we covered how to assamble the reads in the fastq file t
 
 For this reason, when the objective is to compare genomes of different samples, we use another method for rebuilding the genome called mapping. This technique consists in using a previously assembled genome as reference against which sequenced reads will be independently aligned against. Every read will be placed in the most likely position, ignoring any synergies between reads. This produces genomes with the same structure and coordinates that can be easily compared.
 
-There are multiple mapping algorithms and softwares, but for this exercise we will use only bowtie2. Bowtie2 is a hash-based mapping algorithm which uses a variable number of random seeds to quickly find the best alignment for each read in a pre-build index of the reference genome, making it very fast and memory-efficient.
+There are multiple mapping algorithms and softwares, but for this exercise we will use only [bwa](http://bio-bwa.sourceforge.net/) ([H. Li and R. Durbin, 2010](https://www.ncbi.nlm.nih.gov/pubmed/20080505)). bwa is implements a backward search with Burrows-Wheeler Transform to efficiently align short sequencing reads against a large reference sequence such as the human genome, allowing mismatches and gaps. For longer reads, it combines its algorthm with a modified Smith-Waterman's alignment, achieving the same results as the starndard algorithm but thousands of times faster. While still slower than BLAST for long query sequences, it is able to find all matches without heuristics, which makes it able to detect chimeras potentially caused by structural variations or reference misassemblies.
 
+To mapp our samples with bwa, we only have to execute this command:
+```
+cd
+cd Documents/wgs
+nextflow run bacterial_wgs_training \
+  -profile singularity \
+  --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+  --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
+  --step mapping
+```
 
+This command will internally execute the following programs with our samples:
+<lu>
+	<li>Preprocessiong
+	<\li>
+	
+	<li>Building bwa index
+	<\li>
+	
+	<li>Mapping
+	<\li>
+	
+	<li>Post-processing and statistics
+	<\li>
+<\lu>
 
 ## Variant Calling
 We are using WGS-Outbreaker as the main software for variant calling, SNP-matrix creation and phylogeny performance. Following the development of the former exercises we are using nextflow, in this case using `outbreakSNP` step.
