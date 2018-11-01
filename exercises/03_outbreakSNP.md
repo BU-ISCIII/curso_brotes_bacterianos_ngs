@@ -102,6 +102,8 @@ This command will internally execute the following programs with our samples:
 	```
 </ul>
 
+Finally, we have our mapped genomes. Now we can open them with IGV to see how they have mapped against the reference genome, and which variants are.
+
 ## Variant Calling
 We are using WGS-Outbreaker as the main software for variant calling, SNP-matrix creation and phylogeny performance. Following the development of the former exercises we are using nextflow, in this case using `outbreakSNP` step.
 This step includes the following processes:
