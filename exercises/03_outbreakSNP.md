@@ -24,6 +24,12 @@ We have already done our data prerpocesing in the [previous exercise](https://gi
 For mapping our reads, we will need to preprocess our data in the same way as we did for the assembly. As the results will be exactly the same we reviewed in that exercise, we will not spend more time and will move to exiting new topics.
 
 ## Mapping
+In the previous lecture we covered how to assamble the reads in the fastq file to recreate the original genome, or at least contigs of it. This technique requieres high sequence coverage, high read lenght reads and good read quality, plus being highly computationally demanding. This means that it is an expensive and slow method, plus having one big dissavantage when trying to compare assambled genomes: different algorithms (and even different versions of the same software) may produce different assambles from the same input.
+
+For this reason, when the objective is to compare genomes of different samples, we use another method for rebuilding the genome called mapping. This technique consists in using a previously assembled genome as reference against which sequenced reads will be independently aligned against. Every read will be placed in the most likely position, ignoring any synergies between reads. This produces genomes with the same structure and coordinates that can be easily compared.
+
+There are multiple mapping algorithms and softwares, but for this exercise we will use only bowtie2. Bowtie2 is a hash-based mapping algorithm which uses a variable number of random seeds to quickly find the best alignment for each read in a pre-build index of the reference genome, making it very fast and memory-efficient.
+
 
 
 ## Variant Calling
