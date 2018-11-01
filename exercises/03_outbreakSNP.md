@@ -43,9 +43,7 @@ nextflow run bacterial_wgs_training \
 
 This command will internally execute the following programs with our samples:
 <ul>
-	<li>Preprocessiong
-	</li>
-	
+	<li>Preprocessiong</li>
 	Quality control and read trimming with FastQC and Trimmomatic:
 	```
 	fastqc reads_R1.fastq.gz reads_R2.fastq.gz
@@ -53,22 +51,19 @@ This command will internally execute the following programs with our samples:
 	fastqc reads_paired_R[1|2].fastq reads_unpaired_R[1|2].fastq
 	```
 	
-	<li>Building bwa index
-	</li>
+	<li>Building bwa index</li>
 	Bwa needs to build an index from the reference genome in order to now how to map the reads.
 	```
 	bwa index -a bwtsw $fasta
 	```
 	
-	<li>Mapping
-	</li>
+	<li>Mapping</li>
 	Map each read against the reference genome.
 	```
 	bwa mem -M $fasta $reads | samtools view -bT $fasta - > ${prefix}.bam
 	```
 	
-	<li>Post-processing and statistics
-	</li>
+	<li>Post-processing and statistics</li>
 	A handful of steps have to be executed before using the bam files resulting from the mapping. 
 	
 	First, bam files have to be sorted and indexed:
@@ -100,8 +95,7 @@ This command will internally execute the following programs with our samples:
 	bedtools bamtobed -i ${prefix}.dedup.sorted.bam | sort -k 1,1 -k 2,2n -k 3,3n -k 6,6 > ${prefix}.dedup.sorted.bed
 	```
 	
-	<li>MultiQC report
-	</li>
+	<li>MultiQC report</li>
 	MultiQC will automatically search for the stats files and will compare them in user-friendly graphs
 	```
 	multiqc RESULTS_DIRECTORY
