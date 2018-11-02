@@ -684,7 +684,7 @@ if (params.step =~ /outbreakMLST/){
 }
 
 
-/*
+/#*
  * STEP 9 PlasmidID
  */
 if (params.step =~ /plasmidID/){
@@ -728,14 +728,8 @@ if (params.step =~ /strainCharacterization/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  R1=$readsR1
-  R1=${R1%_R1.fastq.gz}_1.fastq.gz
-  mv $readsR1 $R1
-  R2=$readsR2
-  R2=${R2%_R2.fastq.gz}_2.fastq.gz
-  mv $readsR2 $R2
-  srst2 --input_pe $R1 $R2 --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst
-  Rscript $baseDir/bin/plotTreeHeatmap.R
+  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst
+  #Rscript $baseDir/bin/plotTreeHeatmap.R
   """
  }
 
@@ -748,18 +742,11 @@ if (params.step =~ /strainCharacterization/){
 
   output:
   file "*results.txt" into srst2_res_results
-  file "*.pdf" into srst2_res_tree
 
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  R1=$readsR1
-  R1=${R1%_R1.fastq.gz}_1.fastq.gz
-  mv $readsR1 $R1
-  R2=$readsR2
-  R2=${R2%_R2.fastq.gz}_2.fastq.gz
-  mv $readsR2 $R2
-  srst2 --input_pe $R1 $R2 --output $prefix --log --gene_db $srst2_resistance
+  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --gene_db $srst2_resistance
   """
  }
 
@@ -776,34 +763,27 @@ if (params.step =~ /strainCharacterization/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  R1=$readsR1
-  R1=${R1%_R1.fastq.gz}_1.fastq.gz
-  mv $readsR1 $R1
-  R2=$readsR2
-  R2=${R2%_R2.fastq.gz}_2.fastq.gz
-  mv $readsR2 $R2
-  srst2 --input_pe $R1 $R2 --output $prefix --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero
+  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero
   """
  }
- 
+
  process srst2_Rplots {
   tag "SRST2_PLOTS"
   publishDir "${params.outdir}/SRST2_PLOTS", mode: 'copy'
-  
+
   input:
-  set file(mlst) from srst2_mlst_plots
-  set file(sero) from srst2_sero_plots
-  
+  file mlst from srst2_mlst_plots
+  file sero from srst2_sero_plots
+
   output:
   file "*.pdf" into srst2_tree
-  
+
   script:
   """
   srst2 --prev_output $mlst $sero --output all
   Rscript $baseDir/bin/plotTreeHeatmap.R
   """
  }
-
 }
 
 /*
