@@ -19,8 +19,90 @@ Variant calling is a process with a bunch of potential error sources that may le
 <p align="center"><img src="https://github.com/BU-ISCIII/WGS-Outbreaker/blob/master/img/wgs_outbreaker_schema.png" width="600"></p>
 
 ## Preprocessing
+We have already done our data prerpocesing in the [previous exercise](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/02_QualityAndAssembly.md#exercise). If you remember, we executed a nextflow order which trimmed our raw reads and reutned a quality report for both pre- and post-trimming files. We used FastQC for checking the data quality, Trimmomatic for the trimming and MultiQC for building the statitstics report. 
+
+For mapping our reads, we will need to preprocess our data in the same way as we did for the assembly. As the results will be exactly the same we reviewed in that exercise, we will not spend more time and will move to exiting new topics.
 
 ## Mapping
+In the previous lecture we covered how to assamble the reads in the fastq file to recreate the original genome, or at least contigs of it. This technique requieres high sequence coverage, high read lenght reads and good read quality, plus being highly computationally demanding. This means that it is an expensive and slow method, plus having one big dissavantage when trying to compare assambled genomes: different algorithms (and even different versions of the same software) may produce different assambles from the same input.
+
+For this reason, when the objective is to compare genomes of different samples, we use another method for rebuilding the genome called mapping. This technique consists in using a previously assembled genome as reference against which sequenced reads will be independently aligned against. Every read will be placed in the most likely position, ignoring any synergies between reads. This produces genomes with the same structure and coordinates that can be easily compared.
+
+There are multiple mapping algorithms and softwares, but for this exercise we will use only [bwa](http://bio-bwa.sourceforge.net/) ([H. Li and R. Durbin, 2010](https://www.ncbi.nlm.nih.gov/pubmed/20080505)). bwa is implements a backward search with Burrows-Wheeler Transform to efficiently align short sequencing reads against a large reference sequence such as the human genome, allowing mismatches and gaps. For longer reads, it combines its algorthm with a modified Smith-Waterman's alignment, achieving the same results as the starndard algorithm but thousands of times faster. While still slower than BLAST for long query sequences, it is able to find all matches without heuristics, which makes it able to detect chimeras potentially caused by structural variations or reference misassemblies.
+
+To mapp our samples with bwa, we only have to execute this command:
+```
+cd
+cd Documents/wgs
+nextflow run bacterial_wgs_training \
+  -profile singularity \
+  --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+  --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
+  --step mapping
+```
+
+This command will internally execute the following programs with our samples:
+<ul>
+	<li>Preprocessiong</li>
+	Quality control and read trimming with FastQC and Trimmomatic:
+	```
+	fastqc reads_R1.fastq.gz reads_R2.fastq.gz
+	java -jar trimmomatic.jar PE -phred33 reads_R1.fastq.gz reads_R2.fastq.gz \ reads_paired_R1.fastq reads_unpaired_R1.fastq \ reads_paired_R2.fastq reads_unpaired_R2.fastq \ ILLUMINACLIP:Truseq3-PE.fa:2:30:10 \ SLIDINGWINDOW:4:20 \ MINLEN:50
+	fastqc reads_paired_R[1|2].fastq reads_unpaired_R[1|2].fastq
+	```
+	
+	<li>Building bwa index</li>
+	Bwa needs to build an index from the reference genome in order to now how to map the reads.
+	```
+	bwa index -a bwtsw $fasta
+	```
+	
+	<li>Mapping</li>
+	Map each read against the reference genome.
+	```
+	bwa mem -M $fasta $reads | samtools view -bT $fasta - > ${prefix}.bam
+	```
+	
+	<li>Post-processing and statistics</li>
+	A handful of steps have to be executed before using the bam files resulting from the mapping. 
+	
+	First, bam files have to be sorted and indexed:
+	```
+	samtools sort $bam -o ${bam.baseName}.sorted.bam
+	samtools index ${bam.baseName}.sorted.bam
+	```
+	A bed file can now be generated from the bam file:
+	```
+	bedtools bamtobed -i ${bam.baseName}.sorted.bam | sort -k 1,1 -k 2,2n -k 3,3n -k 6,6 > ${bam.baseName}.sorted.bed
+	```
+	And mapping stats generated:
+	```
+	samtools stats ${bam.baseName}.sorted.bam > ${bam.baseName}.stats.txt
+	samtools idxstats \${i} | awk -v filename="\${i}" '{mapped+=\$3; unmapped+=\$4} END {print filename,"\t",mapped,"\t",unmapped}'
+	```
+	And finally we can remove some sequencing and mapping artifacts, as the duplicated reads:
+	```
+	java -jar \$PICARD_HOME/picard.jar MarkDuplicates \\
+				INPUT=$bam \\
+				OUTPUT=${prefix}.dedup.bam \\
+				ASSUME_SORTED=true \\
+				REMOVE_DUPLICATES=true \\
+				METRICS_FILE=${prefix}.picardDupMetrics.txt \\
+				VALIDATION_STRINGENCY=LENIENT \\
+				PROGRAM_RECORD_ID='null'
+	samtools sort ${prefix}.dedup.bam -o ${prefix}.dedup.sorted.bam
+	samtools index ${prefix}.dedup.sorted.bam
+	bedtools bamtobed -i ${prefix}.dedup.sorted.bam | sort -k 1,1 -k 2,2n -k 3,3n -k 6,6 > ${prefix}.dedup.sorted.bed
+	```
+	
+	<li>MultiQC report</li>
+	MultiQC will automatically search for the stats files and will compare them in user-friendly graphs
+	```
+	multiqc RESULTS_DIRECTORY
+	```
+</ul>
+
+Finally, we have our mapped genomes. Now we can open them with IGV to see how they have mapped against the reference genome, and which variants are.
 
 ## Variant Calling
 We are using WGS-Outbreaker as the main software for variant calling, SNP-matrix creation and phylogeny performance. Following the development of the former exercises we are using nextflow, in this case using `outbreakSNP` step.
