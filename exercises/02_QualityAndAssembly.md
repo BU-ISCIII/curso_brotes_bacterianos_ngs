@@ -14,6 +14,10 @@
     - [Assembly](#assembly)
 
 ## Introduction
+### Training summary
+
+<p align="center"><img src="img/bacterial_wgs_training.png" alt="Fastqc_1" width="500"></p>
+
 ### Training dataset description
 This dataset was used for [external quality assessment (EQA-5)](https://ecdc.europa.eu/en/publications-data/fifth-external-quality-assessment-scheme-listeria-monocytogenes-typing) scheme for typing of
 Listeria monocytogenes (*L. monocytogenes*) organised for laboratories providing data to the Food and Waterborne
