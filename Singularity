@@ -45,7 +45,7 @@ From: centos:latest
     echo "Installing Unicycler app" && \
     scif install /opt/unicycler_v0.4.7_centos7.scif && \
     echo "Installing Taranis app" && \
-    scif install /opt/taranis_v0.3.1_centos7.scif && \
+    scif install /opt/taranis_v0.3.2_centos7.scif && \
     echo "Installing Download bigsdb api app" && \
     scif install /opt/bigsdbdownload_v0.1_centos7.scif && \
     echo "Installing plasmidID app" && \
