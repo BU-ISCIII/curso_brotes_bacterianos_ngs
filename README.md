@@ -7,7 +7,7 @@ The material includes slides with theory concepts and a bunch of practical exerc
 
 ## Slides
 ### Day 1
-- **Talk 1:** [Massive sequencing of bacterial genomes. State-of-the-art](slides/talk1/curso_SeqGenBac_session1.1_xx.pdf)
+- **Talk 1:** [Massive sequencing of bacterial genomes. State-of-the-art](slides/talk1/curso_SeqGenBac_session1.1_Introduccion_ICuesta_v3.pdf)
 - **Talk 2:** [Linux environment review.Shell usage and basic commands.](slides/talk2/curso_SeqGenBac_session1.2_linux.pdf)
 - **Talk 3:** [The computing revolution in Biosciences. Nextflow and Singularity introduction.](slides/talk3/curso_SeqGenBac_session1.3_linux.pdf)
 - [**Exercise 1**](exercises/00_SetUp.md)
