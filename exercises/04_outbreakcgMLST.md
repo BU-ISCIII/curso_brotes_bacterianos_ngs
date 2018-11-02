@@ -33,3 +33,5 @@ nextflow -C nextflow.config run main.nf \
 --gtf test/listeria_NC_021827.1_NoPhagues.gff \
 -profile singularity
 ```
+
+
