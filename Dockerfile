@@ -1,7 +1,16 @@
 FROM centos:latest
 
-COPY ./scif_app_recipes/*  /opt/
+COPY ./scif_app_recipes/* /opt/
 
+
+RUN echo "Install basic development tools" && \
+    yum -y groupinstall "Development Tools" && \
+    yum -y update && yum -y install wget curl && \
+    echo "Install python2.7 setuptools and pip" && \
+    yum -y install python-setuptools && \
+    easy_install pip && \
+    echo "Installing SCI-F" && \
+    pip install scif ipython
 
 RUN echo "Installing FastQC app" && \
     scif install /opt/fastqc_v0.11.7_centos7.scif
