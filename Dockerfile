@@ -13,7 +13,7 @@ RUN echo "Install basic development tools" && \
     pip install scif ipython
 
 RUN echo "Installing FastQC app" && \
-    scif install /opt/fastqc_v0.11.7_centos7.scif
+    scif install /opt/fastqc_v0.11.7_centos7.scif && \
     echo "Installing trimmomatic app" && \
     scif install /opt/trimmomatic_v0.38_centos7.scif && \
     echo "Installing samtools app" && \
