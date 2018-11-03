@@ -71,7 +71,7 @@ From: centos:latest
 	echo "r <- getOption('repos'); r['CRAN'] <- 'https://ftp.acc.umu.se/mirror/CRAN/'; options(repos = r);" > ~/.Rprofile && \
 	Rscript -e "install.packages('ggplot2',dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
 	Rscript -e "install.packages('ape',dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
-	Rscript -e "source('https://bioconductor.org/biocLite.R');biocLite("ggtree",dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
+	Rscript -e "source('https://bioconductor.org/biocLite.R');biocLite('ggtree',dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
 	Rscript -e "install.packages('tidyr',dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
 	Rscript -e "install.packages('plyr',dependencies=TRUE,lib='/usr/local/lib64/R/library')"
 

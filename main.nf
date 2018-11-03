@@ -728,7 +728,7 @@ if (params.step =~ /strainCharacterization/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst
+  srst2 --input_pe $readsR1 $readsR2 --forward "_paired_R1" --reverse "_paired_R2" --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst
   #Rscript $baseDir/bin/plotTreeHeatmap.R
   """
  }
@@ -746,7 +746,7 @@ if (params.step =~ /strainCharacterization/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --gene_db $srst2_resistance
+  srst2 --input_pe $readsR1 $readsR2 --forward "_paired_R1" --reverse "_paired_R2" --output $prefix --log --gene_db $srst2_resistance
   """
  }
 
@@ -763,7 +763,7 @@ if (params.step =~ /strainCharacterization/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --output $prefix --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero
+  srst2 --input_pe $readsR1 $readsR2 --output $prefix --forward "_paired_R1" --reverse "_paired_R2" --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero
   """
  }
 
