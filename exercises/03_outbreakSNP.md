@@ -34,74 +34,66 @@ To mapp our samples with bwa, we only have to execute this command:
 ```
 cd
 cd Documents/wgs
-nextflow run bacterial_wgs_training \
+nextflow run BU-ISCIII/bacterial_wgs_training \
   -profile singularity \
-  --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+  --reads 'training_dataset/*_R{1,2}.fastq.gz' \
   --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
   --step mapping
 ```
 
 This command will internally execute the following programs with our samples:
-<ul>
-	<li>Preprocessiong</li>
-	Quality control and read trimming with FastQC and Trimmomatic:
-	```
-	fastqc reads_R1.fastq.gz reads_R2.fastq.gz
-	java -jar trimmomatic.jar PE -phred33 reads_R1.fastq.gz reads_R2.fastq.gz \ reads_paired_R1.fastq reads_unpaired_R1.fastq \ reads_paired_R2.fastq reads_unpaired_R2.fastq \ ILLUMINACLIP:Truseq3-PE.fa:2:30:10 \ SLIDINGWINDOW:4:20 \ MINLEN:50
-	fastqc reads_paired_R[1|2].fastq reads_unpaired_R[1|2].fastq
-	```
-	
-	<li>Building bwa index</li>
-	Bwa needs to build an index from the reference genome in order to now how to map the reads.
-	```
-	bwa index -a bwtsw $fasta
-	```
-	
-	<li>Mapping</li>
-	Map each read against the reference genome.
-	```
-	bwa mem -M $fasta $reads | samtools view -bT $fasta - > ${prefix}.bam
-	```
-	
-	<li>Post-processing and statistics</li>
-	A handful of steps have to be executed before using the bam files resulting from the mapping. 
-	
-	First, bam files have to be sorted and indexed:
-	```
-	samtools sort $bam -o ${bam.baseName}.sorted.bam
-	samtools index ${bam.baseName}.sorted.bam
-	```
-	A bed file can now be generated from the bam file:
-	```
-	bedtools bamtobed -i ${bam.baseName}.sorted.bam | sort -k 1,1 -k 2,2n -k 3,3n -k 6,6 > ${bam.baseName}.sorted.bed
-	```
-	And mapping stats generated:
-	```
-	samtools stats ${bam.baseName}.sorted.bam > ${bam.baseName}.stats.txt
-	samtools idxstats \${i} | awk -v filename="\${i}" '{mapped+=\$3; unmapped+=\$4} END {print filename,"\t",mapped,"\t",unmapped}'
-	```
-	And finally we can remove some sequencing and mapping artifacts, as the duplicated reads:
-	```
-	java -jar \$PICARD_HOME/picard.jar MarkDuplicates \\
-				INPUT=$bam \\
-				OUTPUT=${prefix}.dedup.bam \\
-				ASSUME_SORTED=true \\
-				REMOVE_DUPLICATES=true \\
-				METRICS_FILE=${prefix}.picardDupMetrics.txt \\
-				VALIDATION_STRINGENCY=LENIENT \\
-				PROGRAM_RECORD_ID='null'
+ 1. Preprocessiong
+Quality control and read trimming with FastQC and Trimmomatic:	
+```
+fastqc reads_R1.fastq.gz reads_R2.fastq.gz
+java -jar trimmomatic.jar PE -phred33 reads_R1.fastq.gz reads_R2.fastq.gz \ reads_paired_R1.fastq reads_unpaired_R1.fastq \ reads_paired_R2.fastq reads_unpaired_R2.fastq \ ILLUMINACLIP:Truseq3-PE.fa:2:30:10 \ SLIDINGWINDOW:4:20 \ MINLEN:50
+fastqc reads_paired_R[1|2].fastq reads_unpaired_R[1|2].fastq
+```
+2. Building bwa index
+Bwa needs to build an index from the reference genome in order to now how to map the reads.
+```
+bwa index -a bwtsw $fasta
+```
+3. Mapping
+Map each read against the reference genome.
+```
+bwa mem -M $fasta $reads | samtools view -bT $fasta - > ${prefix}.bam
+```
+4. Post-processing and statistics</li>
+A handful of steps have to be executed before using the bam files resulting from the mapping. 
+First, bam files have to be sorted and indexed:
+```
+samtools sort $bam -o ${bam.baseName}.sorted.bam
+samtools index ${bam.baseName}.sorted.bam
+```
+A bed file can now be generated from the bam file:
+```
+bedtools bamtobed -i ${bam.baseName}.sorted.bam | sort -k 1,1 -k 2,2n -k 3,3n -k 6,6 > ${bam.baseName}.sorted.bed
+```
+And mapping stats generated:
+```
+samtools stats ${bam.baseName}.sorted.bam > ${bam.baseName}.stats.txt
+samtools idxstats \${i} | awk -v filename="\${i}" '{mapped+=\$3; unmapped+=\$4} END {print filename,"\t",mapped,"\t",unmapped}'
+```
+And finally we can remove some sequencing and mapping artifacts, as the duplicated reads:
+```
+java -jar \$PICARD_HOME/picard.jar MarkDuplicates \\
+	INPUT=$bam \\
+	OUTPUT=${prefix}.dedup.bam \\
+	ASSUME_SORTED=true \\
+	REMOVE_DUPLICATES=true \\
+	METRICS_FILE=${prefix}.picardDupMetrics.txt \\
+	VALIDATION_STRINGENCY=LENIENT \\
+	PROGRAM_RECORD_ID='null'
 	samtools sort ${prefix}.dedup.bam -o ${prefix}.dedup.sorted.bam
 	samtools index ${prefix}.dedup.sorted.bam
 	bedtools bamtobed -i ${prefix}.dedup.sorted.bam | sort -k 1,1 -k 2,2n -k 3,3n -k 6,6 > ${prefix}.dedup.sorted.bed
-	```
-	
-	<li>MultiQC report</li>
-	MultiQC will automatically search for the stats files and will compare them in user-friendly graphs
-	```
-	multiqc RESULTS_DIRECTORY
-	```
-</ul>
-
+```
+4. MultiQC report
+MultiQC will automatically search for the stats files and will compare them in user-friendly graphs
+```
+multiqc RESULTS_DIRECTORY
+```
 Finally, we have our mapped genomes. Now we can open them with IGV to see how they have mapped against the reference genome, and which variants are.
 
 ## Variant Calling
@@ -149,13 +141,13 @@ Once our localization is correct we will launch nextflow with the next parameter
   - outbreaker_config <- config file with all the parameters required by WGS-Outbreaker
 
 ```Bash
-nextflow run bacterial_wgs_training \
+nextflow run BU-ISCIII/bacterial_wgs_training \
   -profile singularity \
-  --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+  --reads 'training_dataset/*_R{1,2}.fastq.gz' \
   --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
   --step outbreakSNP \
   --saveTrimmed \
-  --outbreaker_config training_dataset/outbreaker.config
+  --outbreaker_config training_dataset/wgsoutbreaker.config
 ```
 
 Output:
