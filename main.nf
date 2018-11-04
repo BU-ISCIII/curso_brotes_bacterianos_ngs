@@ -716,7 +716,7 @@ if (params.step =~ /plasmidID/){
 if (params.step =~ /strainCharacterization/){
 
   process srst2_mlst {
-  tag "SRST2_MLST"
+  tag "$prefix"
   publishDir "${params.outdir}/SRST2_MLST", mode: 'copy'
 
   input:
@@ -728,13 +728,13 @@ if (params.step =~ /strainCharacterization/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --forward "_paired_R1" --reverse "_paired_R2" --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst
+  srst2 --input_pe $readsR1 $readsR2 --forward "_paired_R1" --reverse "_paired_R2" --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst --mlst_delimiter "_"
   #Rscript $baseDir/bin/plotTreeHeatmap.R
   """
  }
 
   process srst2_resistance {
-  tag "SRST2_RES"
+  tag "$prefix"
   publishDir "${params.outdir}/SRST2_RES", mode: 'copy'
 
   input:
@@ -751,7 +751,7 @@ if (params.step =~ /strainCharacterization/){
  }
 
   process srst2_serogroup {
-  tag "SRST2_SERO"
+  tag "$prefix"
   publishDir "${params.outdir}/SRST2_SERO", mode: 'copy'
 
   input:
@@ -763,7 +763,7 @@ if (params.step =~ /strainCharacterization/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --output $prefix --forward "_paired_R1" --reverse "_paired_R2" --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero
+  srst2 --input_pe $readsR1 $readsR2 --output $prefix --forward "_paired_R1" --reverse "_paired_R2" --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero --mlst_delimiter "_"
   """
  }
 
@@ -772,8 +772,8 @@ if (params.step =~ /strainCharacterization/){
   publishDir "${params.outdir}/SRST2_PLOTS", mode: 'copy'
 
   input:
-  file mlst from srst2_mlst_plots
-  file sero from srst2_sero_plots
+  file mlst from srst2_mlst_plots.collect()
+  file sero from srst2_sero_plots.collect()
 
   output:
   file "*.pdf" into srst2_tree
@@ -892,8 +892,6 @@ process multiqc {
     file (fastqc:'fastqc/*') from fastqc_results.collect()
     file ('trimommatic/*') from trimmomatic_results.collect()
     file ('trimommatic/*') from trimmomatic_fastqc_reports.collect()
-    file ('samtools/*') from samtools_stats.collect()
-    file ('picard/*') from picard_reports.collect()
 
     output:
     file '*multiqc_report.html' into multiqc_report
