@@ -103,7 +103,7 @@ In order to check quality and trim the reads wee have to execute this command:
 ```Bash
 cd
 cd Documents/wgs
-nextflow run bacterial_wgs_training --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+nextflow run BU-ISCIII/bacterial_wgs_training --reads 'training_dataset/*_R{1,2}.fastq.gz' \
   -profile singularity \
   --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
   --step preprocessing
@@ -158,9 +158,9 @@ This is the MultiQC output sumarizing reads that have been filtered after trimmi
 ```Bash
 cd
 cd Documents/wgs
-nextflow run bacterial_wgs_training \
+nextflow run BU-ISCIII/bacterial_wgs_training \
   -profile singularity \
-  --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+  --reads 'training_dataset/*_R{1,2}.fastq.gz' \
   --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
   --gtf training_dataset/listeria_NC_021827.1_NoPhagues.gff \
   --step assembly
