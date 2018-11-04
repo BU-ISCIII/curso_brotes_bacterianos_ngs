@@ -17,7 +17,7 @@ RUN echo "Installing FastQC app" && \
     echo "Installing trimmomatic app" && \
     scif install /opt/trimmomatic_v0.38_centos7.scif && \
     echo "Installing samtools app" && \
-    scif install /opt/samtools_v1.9_centos7.scif && \
+    scif install /opt/samtools_v1.2_centos7.scif && \
     echo "Installing htslib app" && \
     scif install /opt/htslib_v1.9_centos7.scif && \
     echo "Installing picard app" && \
