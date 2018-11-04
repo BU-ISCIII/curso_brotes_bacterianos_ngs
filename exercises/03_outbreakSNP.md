@@ -141,13 +141,13 @@ Once our localization is correct we will launch nextflow with the next parameter
   - outbreaker_config <- config file with all the parameters required by WGS-Outbreaker
 
 ```Bash
-nextflow run bacterial_wgs_training \
+nextflow run BU-ISCIII/bacterial_wgs_training \
   -profile singularity \
-  --reads 'training_dataset/downsampling_250K/*_R{1,2}.fastq.gz' \
+  --reads 'training_dataset/*_R{1,2}.fastq.gz' \
   --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
   --step outbreakSNP \
   --saveTrimmed \
-  --outbreaker_config training_dataset/outbreaker.config
+  --outbreaker_config training_dataset/wgsoutbreaker.config
 ```
 
 Output:
