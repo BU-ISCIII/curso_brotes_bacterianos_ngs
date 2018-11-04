@@ -1,4 +1,4 @@
 [submodule "scif_app_recipes"]
 	path = scif_app_recipes
 	#url = git@github.com:BU-ISCIII/scif_app_recipes.git
-	url = https://github.com/BU-ISCIII/bacterial_wgs_training.git
+	url = https://github.com/BU-ISCIII/scif_app_recipes.git
