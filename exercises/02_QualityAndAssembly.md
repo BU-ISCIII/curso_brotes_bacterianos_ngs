@@ -185,6 +185,7 @@ Software for preprocessing are executed as noted before. This step includes an a
 Once assembled, the file containing the contigs (SAMPLE_paired_assembly.fasta) will be checked by [Quast](http://quast.sourceforge.net/quast), using a [reference fasta and gff](https://www.ncbi.nlm.nih.gov/nuccore/NC_021827) from *Listeria monocytogenes* strain J1817. Quast was executed as follow:
 
 `quast.py -R reference.fasta -G reference_genes.gff *_paired_assembly.fasta`
+
     - R is the fasta file with the reference sequence
     - G refers to the gff file for the same sequence
     - All sequences are used as input with a wildcard that includes all fasta files with assembled contigs
