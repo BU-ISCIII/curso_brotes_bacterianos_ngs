@@ -148,8 +148,12 @@ Here we can see the quality of the R1 reads before and after trimming
 <p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_3.png" alt="Fastqc_4" width="900"></p>
 This is the MultiQC output comparing the quality of trimmed and raw reads
 <br>
+<br>
+
 <p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_4.png" alt="Trimmomatic_1" width="900"></p>
 This is the MultiQC output sumarizing reads that have been filtered after trimming step
+<br>
+<br>
 
 
 ### Assembly
@@ -190,15 +194,23 @@ Once assembled, the file containing the contigs (SAMPLE_paired_assembly.fasta) w
 
 <p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_6.png" alt="Trimmomatic_1" width="900"></p>
 This is the MultiQC output sumarizing the number of contigs assembled for each sample, sorting them by size
+<br>
+<br>
 
 <p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_5.png" alt="Trimmomatic_1" width="900"></p>
 This is the MultiQC output sumarizing basic assembly statistics for each sample  
+<br>
+<br>
 
 <p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_7.png" alt="Trimmomatic_1" width="900"></p>
 This is the Quast output sumarizing all detailed assembly statistics, comparing all the assemblies in one table
+<br>
+<br>
 
 <p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_8.png" alt="Trimmomatic_1" width="900"></p>
 This is Quast Icarus viewer where contigs are aligned to the reference supplied in order to check how similar the assembled contigs are to the genome from the database. 
+<br>
+<br>
 
 
 
