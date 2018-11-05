@@ -133,14 +133,20 @@ There is no need to download the software you want to execute, you can also exec
 nextflow run BU-ISCIII/bacterial_wgs_training 
 ```
 
+This is how we will execute the exercises during this course, so let's remove the downloaded repository to fre some space:
+
+```
+rm -rf /home/$USER/Documents/wgs/bacterial_wgs_training
+```
+
 Finally, let's ask how to use the pipeline:
 
 ```
-nextflow run /home/$USER/Documents/wgs/bacterial_wgs_training --help
+nextflow run BU-ISCIII/bacterial_wgs_training --help
 ```
 
 There is one big detail left. The software needed to execute the pipeline is no installed in our machine. Thankfully, we have a singularity image (container) ready for this course, and our pipeline has already being configurated to know where to find it and how to use it. Use the right argument and go for it:
 
 ```
-nextflow run /home/$USER/Documents/wgs/bacterial_wgs_training -profile singularity
+nextflow run BU-ISCIII/bacterial_wgs_training -profile singularity
 ```

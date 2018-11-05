@@ -11,7 +11,7 @@
 
 ## Introduction
 
-<p align="center"><img src="https://github.com/BU-ISCIII/WGS-Outbreaker/blob/master/img/wgs_outbreaker_schema.png" width="600"></p>
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/taranis_diagram_identify_alleles.jpg" width="1000"></p>
 
 ## Preprocessing
 Addressed in previous exercises.
@@ -26,12 +26,27 @@ This step includes the following processes:
   - cgMLST analysis using Taranis app.
   
 ```
-nextflow -C nextflow.config run main.nf \
---reads 'test/downsampling_250K/*R{1,2}*.fastq.gz' \
+nextflow BU-ISCIII/bacterial_wgs_training \
+--reads 'training_dataset/*R{1,2}*.fastq.gz' \
 --fasta test/listeria_NC_021827.1_NoPhagues.fna \
 --step outbreakMLST \
 --gtf test/listeria_NC_021827.1_NoPhagues.gff \
 -profile singularity
 ```
+
+## Minimum spanning tree visualization
+In order to generate the minimum spanning tree from our ```results.tsv``` file we are going to use [Phyloviz](https://online.phyloviz.net/index), an online tool for MST visualization.
+
+So..open click [here](https://online.phyloviz.net/index) and phyloviz website should open
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz1.PNG" width="1000"></p>
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz2.PNG" width="1000"></p>
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz3.PNG" width="1000"></p>
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz4.PNG" width="1000"></p>
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz5.PNG" width="1000"></p>
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz6.PNG" width="1000"></p>
 
 
