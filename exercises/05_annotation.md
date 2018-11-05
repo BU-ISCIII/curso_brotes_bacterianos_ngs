@@ -49,8 +49,9 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 ```
 ### Results
 
+
 | Sample | DB | gene | allele | coverage | depth | diffs | uncertainty | divergence | length | maxMAF | clusterid | seqid | annotation |
-| :...: | :...: | :...: | :...: | :...: | :...: | :...: | :...: | :...: | :...: | :...: | :...: | :...: | :...: |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | KPN_TEST_R | ARGannot.r1 | RmtB_AGly | RmtB_1580 | 100.0 | 12.09 | 1snp |  | 0.132 | 756 | 0.125 | 309 | 1580 | no;no;RmtB;AGly;AB263754;2843-3598;756 |
 | KPN_TEST_R | ARGannot.r1 | TEM-1D_Bla | TEM-117_968 | 100.0 | 33.386 | 2snp |  | 0.262 | 764 | 0.382 | 205 | 968 | no;no;TEM-117;Bla;AY130282;1-764;764 |
 | KPN_TEST_R | ARGannot.r1 | KPC-1_Bla | KPC-14_809 | 100.0 | 5.412 | 1indel |  | 0.0 | 876 | 0.333 | 184 | 809 | no;no;KPC-14;Bla;JX524191;396-1271;876 |
