@@ -19,11 +19,7 @@
 <p align="center"><img src="img/bacterial_wgs_training.png" alt="Fastqc_1" width="500"></p>
 
 ### Training dataset description
-This dataset was used for [external quality assessment (EQA-5)](https://ecdc.europa.eu/en/publications-data/fifth-external-quality-assessment-scheme-listeria-monocytogenes-typing) scheme for typing of
-Listeria monocytogenes (*L. monocytogenes*) organised for laboratories providing data to the Food and Waterborne
-Diseases and Zoonoses Network (FWD-Net) managed by ECDC. Since 2012, the Section for Foodborne Infections
-at the Statens Serum Institut (SSI) in Denmark has arranged this EQA under a framework contract with ECDC. The
-EQA-5 contain serotyping and molecular typing-based cluster analysis.
+This dataset is an *in silico* dataset obtained with wg-sim usint a sample from [*Klebsiella pneumoniae subsp. pneumoniae HS11286*](https://www.ncbi.nlm.nih.gov/genome/?term=klebsiella+pneumoniae).
 
 
 <p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/map_vs_assembly.png" width="900"></p>
