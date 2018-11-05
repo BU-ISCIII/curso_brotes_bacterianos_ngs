@@ -153,6 +153,9 @@ This is the MultiQC output sumarizing reads that have been filtered after trimmi
 
 
 ### Assembly
+
+Reconstruct the source genome is a mandatory step for latter analysis such annotation, comparative analysis and cgMLST. In order to assemble all samples we need to run this command:
+
 ------
 
 ```Bash
@@ -168,4 +171,36 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 ```
 
 ------
+
+This execution runs internally four programs: FastQC, Trimmomatic, __Unicycler__ , MultiQC and Quast:
+
+Software for preprocessing are executed as noted before. This step includes an aditional assembly process that uses [Unicycler](https://github.com/rrwick/Unicycler) to assemble all samples. Nextflow runs Unicycler for each sample as follow:
+
+`unicycler -1 reads_R1.fastq.gz -2 reads_R2.fastq.gz`
+
+Once assembled, the file containing the contigs (SAMPLE_paired_assembly.fasta) will be checked by [Quast](http://quast.sourceforge.net/quast), using a [reference fasta and gff](https://www.ncbi.nlm.nih.gov/nuccore/NC_021827) from *Listeria monocytogenes* strain J1817. Quast was executed as follow:
+
+`quast.py -R reference.fasta -G reference_genes.gff *_paired_assembly.fasta`
+    - R is the fasta file with the reference sequence
+    - G refers to the gff file for the same sequence
+    - All sequences are used as input with a wildcard that includes all fasta files with assembled contigs
+
+
+#### Final results should look like those:
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_6.png" alt="Trimmomatic_1" width="900"></p>
+This is the MultiQC output sumarizing the number of contigs assembled for each sample, sorting them by size
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_5.png" alt="Trimmomatic_1" width="900"></p>
+This is the MultiQC output sumarizing basic assembly statistics for each sample  
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_7.png" alt="Trimmomatic_1" width="900"></p>
+This is the Quast output sumarizing all detailed assembly statistics, comparing all the assemblies in one table
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_8.png" alt="Trimmomatic_1" width="900"></p>
+This is Quast Icarus viewer where contigs are aligned to the reference supplied in order to check how similar the assembled contigs are to the genome from the database. 
+
+
+
+
 
