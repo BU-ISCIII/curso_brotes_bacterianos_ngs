@@ -127,6 +127,20 @@ We will focus on the main output in this exercise. In the summary file we will f
 
 In this case we obtain something like this:
 
+|File|Exact match|INF|ASM_INSERT|ASM_DELETE|ALM_INSERT|ALM_DELETE|LNF|NIPH|NIPHEM|PLOT|ERROR|
+|----|-----------|---|----------|----------|----------|----------|---|----|------|----|-----|
+|RA-L2073|1744|3|0|0|1|0|0|0|0|0|0|
+|RA-L2281|1747|1|0|0|0|0|0|0|0|0|0|
+|RA-L2327|1744|4|0|0|0|0|0|0|0|0|0|
+|RA-L2391|1747|1|0|0|0|0|0|0|0|0|0|
+|RA-L2450|1745|3|0|0|0|0|0|0|0|0|0|
+|RA-L2677|1731|13|1|0|0|0|0|0|0|3|0|
+|RA-L2701|1740|8|0|0|0|0|0|0|0|0|0|
+|RA-L2709|0|0|0|0|0|0|1748|0|0|0|0|
+|RA-L2782|1746|1|1|0|0|0|0|0|0|0|0|
+|RA-L2805|1745|3|0|0|0|0|0|0|0|0|0|
+|RA-L2978|1746|2|0|0|0|0|0|0|0|0|0|
+
 
 ## Minimum spanning tree visualization
 In order to generate the minimum spanning tree from our ```results.tsv``` file we are going to use [Phyloviz](https://online.phyloviz.net/index), an online tool for MST visualization.
