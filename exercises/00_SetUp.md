@@ -47,7 +47,7 @@ rm -f training_dataset.tar.gz
 Download singularity image:
 
 ```
-wget ...
+rsync ~/course_shared_folder/wgs_bacterial.simg ./
 ```
 
 
