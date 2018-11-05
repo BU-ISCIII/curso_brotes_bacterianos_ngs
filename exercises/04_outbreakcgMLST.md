@@ -15,6 +15,23 @@
 
 ## Preprocessing
 Addressed in previous exercises.
+
+## Strain characterization: Serogroup and serotype determination using WGS data.
+
+
+### Run the exercise
+```
+nextflow run BU-ISCIII/bacterial_wgs_training --reads 'training_dataset/*_R{1,2}*.fastq.gz' \
+--fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
+-profile singularity \
+--step strainCharacterization \
+--srst2_db_mlst training_dataset/mlst_pasteur_listeria.fas \
+--srst2_def_mlst training_dataset/mlst_pasteur_listeria.scheme \
+--srst2_db_sero training_dataset/pcr_serogroup_listeria.fas \
+--srst2_def_sero training_dataset/pcr_serogroup_listeria.scheme \
+-resume
+```
+
 ## Assembly
 Addressed in previous exercises.
 ## cgMLST Analysis
