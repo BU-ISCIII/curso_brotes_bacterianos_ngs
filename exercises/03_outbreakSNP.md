@@ -339,8 +339,6 @@ iTOL offers multiple annotation and maniputation options. We can selecto for exa
 
 You can play with all the options iTOL offers reading its [documentation](https://itol.embl.de/help.cgi), and export the tree in the export tab. 
 
-<p align="center"><img src="img/itol_web2.png" width="1000"></p>
-
 Now we are going to focus on our results. Our final tree should look something like this:
 
 <p align="center"><img src="img/tree_snps_final.png" width="1000"></p>
