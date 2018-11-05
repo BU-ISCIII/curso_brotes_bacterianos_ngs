@@ -26,8 +26,8 @@ This step includes the following processes:
   - cgMLST analysis using Taranis app.
   
 ```
-nextflow -C nextflow.config run main.nf \
---reads 'test/downsampling_250K/*R{1,2}*.fastq.gz' \
+nextflow BU-ISCIII/bacterial_wgs_training \
+--reads 'training_dataset/*R{1,2}*.fastq.gz' \
 --fasta test/listeria_NC_021827.1_NoPhagues.fna \
 --step outbreakMLST \
 --gtf test/listeria_NC_021827.1_NoPhagues.gff \
