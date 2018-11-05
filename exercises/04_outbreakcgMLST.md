@@ -11,7 +11,7 @@
 
 ## Introduction
 
-<p align="center"><img src="https://github.com/BU-ISCIII/WGS-Outbreaker/blob/master/img/wgs_outbreaker_schema.png" width="600"></p>
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/taranis_diagram_identify_alleles.jpg" width="600"></p>
 
 ## Preprocessing
 Addressed in previous exercises.
