@@ -169,10 +169,11 @@ Next we are goint to add link labels which will show the absolute distance (numb
 Now we have a "pretty" minimum spanning tree with enough annotation for interpret our results. However we can also make it prettier (easy right?) adding some colors based on any locus of the profile or based on any auxiliary data we want to provide, p.e one useful data is the samples **ST**, for this we have to create
 <p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz7.PNG" width="1000"></p>
 
+Finally we have out pretty MST, do you see any cluster? You can compare this result with the one obtained with the SNP-based pipeline.
 
 <p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz5.PNG" width="1000"></p>
 
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz6.PNG" width="1000"></p>
-
+## Conclusion
+cgMLST and SNP-based approach generate the same result for this outbreak, we have between 0-5 different SNPs, and between 1-3 different alleles among the isolates belonging to the outbreak.
 
