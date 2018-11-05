@@ -34,4 +34,19 @@ nextflow -C nextflow.config run main.nf \
 -profile singularity
 ```
 
+## Minimum spanning tree visualization
+In order to generate the minimum spanning tree from our ```results.tsv``` file we are going to use [Phyloviz](https://online.phyloviz.net/index), an online tool for MST visualization.
+
+So..open click [here](https://online.phyloviz.net/index) and phyloviz website should open
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz1.png" width="600"></p>
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz2.png" width="600"></p>
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz3.png" width="600"></p>
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz4.png" width="600"></p>
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz5.png" width="600"></p>
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz6.png" width="600"></p>
+
 
