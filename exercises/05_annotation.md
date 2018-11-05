@@ -10,8 +10,8 @@
   
 - [Introduction](#introduction)
 - [Exercise](#exercise)
-    - [Mapping based annotation](#mapping_based_annotation)
-    - [Assembly based annotation](#assembly_based_annotation)
+    - [Mapping based annotation](#mapping-based-annotation)
+    - [Assembly based annotation](#assembly-based-annotation)
 
 ## Introduction
 ### Training summary
@@ -37,5 +37,5 @@ EQA-5 contain serotyping and molecular typing-based cluster analysis.
 
 ## Exercise
 
-### Mapping_based_annotation
-### Assembly_based_annotation
+### Mapping based annotation
+### Assembly based annotation
