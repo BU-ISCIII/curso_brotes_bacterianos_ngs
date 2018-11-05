@@ -11,6 +11,6 @@
 
 ## Introduction
 
-<p align="center"><img src="https://github.com/BU-ISCIII/WGS-Outbreaker/blob/master/img/map_vs_assembly.png" width="900"></p>
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/map_vs_assembly.png" width="900"></p>
 
 ## Preprocessing
