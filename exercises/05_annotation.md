@@ -40,6 +40,10 @@ EQA-5 contain serotyping and molecular typing-based cluster analysis.
 ### Mapping based annotation
 ### Assembly based annotation
 
+```Bash
+cd
+cd Documents/wgs
+nextflow run BU-ISCIII/bacterial_wgs_training \
 -profile singularity \
 --reads '/home/pjsola/Documents/wgs/training_dataset/plasmidid_test/KPN_TEST_R{1,2}.fastq.gz' \
 --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
@@ -47,3 +51,4 @@ EQA-5 contain serotyping and molecular typing-based cluster analysis.
 --plasmidid_database training_dataset/plasmidid_test/plasmids_TEST_database.fasta \
 --plasmidid_config /home/pjsola/Documents/wgs/training_dataset/plasmidid_test/plasmidid_config_pjsola.txt \
 --step plasmidID
+```
