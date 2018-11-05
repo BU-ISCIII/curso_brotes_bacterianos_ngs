@@ -14,7 +14,7 @@ The material includes slides with theory concepts and a bunch of practical exerc
 - [**Exercise 2**](exercises/01_LinuxNextflowSingularity.md)
 
 ### Day 2
-- **Talk 4:** [Bacterial genomes sequencing. Applications.](slides/talk4/curso_SeqGenBac_session2.1_xx.pdf)
+- **Talk 4:** [Bacterial genomes sequencing. Applications.](slides/talk4/curso_SeqGenBac_session2.1_aplicaciones_ICuesta.pdf)
 - **Talk 5:** [Quality analysis and control of HTS data](slides/talk5/curso_SeqGenBac_session2.2_quality_assesment.pdf)
 - **Talk 6:** [Bacterial genomes assembly](slides/talk6/curso_SeqGenBac_session2.3_assembly.pdf)
 - [**Exercise 3**](exercises/02_QualityAndAssembly.md)
