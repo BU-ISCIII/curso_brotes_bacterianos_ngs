@@ -258,7 +258,7 @@ WINDOW_SIZE=1000
 ### Results analysis
 Let's proceed to analyze the results. We can find them in:
 ```
-/home/alumno/Documents/wgs/results_def/wgs_outbreaker
+/home/alumno/course_shared_folder/wgs_outbreaker
 ```
 This directory contains several folders including:
 ```
