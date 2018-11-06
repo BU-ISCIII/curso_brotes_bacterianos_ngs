@@ -92,11 +92,11 @@ multiqc RESULTS_DIRECTORY
 Finally, we have our mapped genomes. Now we can open them with IGV to see how they have mapped against the reference genome, and which variants are.
 
 ## Mapping stats
-The mapping stats are saved in `results/bwa/stats/`, where you can find a stats file per mapped sample. This files are self-explained and look like this:
+The mapping stats are saved in `results/bwa/stats/`, where you can find a stats file per mapped sample.
 
 We are going to visualize the summary statistics of the mapping step with MultiQC:
 
-* The previously described stats are represented in "Alignemnt metrics":
+* The stats are represented in "Alignment metrics":
 ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/samtools_bamstats.png?raw=true)
 
 * The percentage of mapped reads per sample are plotted in "Percent Mapped":
