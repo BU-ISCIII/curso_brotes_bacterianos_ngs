@@ -50,8 +50,10 @@ java -jar \$PICARD_HOME/picard.jar MarkDuplicates \\
 MultiQC will automatically search for the stats files and will compare them in user-friendly graphs
 ```
 multiqc RESULTS_DIRECTORY
+```
 
 * The file starts with a header with meta-info about the software version and the command executed:
+
 ```
 # This file was produced by samtools stats (1.9+htslib-1.9) and can be plotted using plot-bamstats
 # This file contains statistics for all reads.
