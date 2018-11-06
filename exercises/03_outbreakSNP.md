@@ -373,7 +373,11 @@ Now we are going to focus on our results. Our final tree should look something l
 <p align="center"><img src="img/tree_snps_final.png" width="1000"></p>
 
 Which strains do you think belong to the outbreak?
-Tips: At this point you should focus on the bootstrap and the branch lenght.
+
+Following the instructions seen in the theory class, here we can focus on topology and bootstrap.
+
+Do we find any monophyletic group?
+Does it have more than 80 boostrap value?
 
 #### SNPs distance
 As we have studied in the theory class, maximum likelihood methods for phylogeny only offers as branch lenght the average nucleotide substitution rate, this means the branch lenght is only a estimation of the number of nucleotide changes a strain has suffer respect to another.
