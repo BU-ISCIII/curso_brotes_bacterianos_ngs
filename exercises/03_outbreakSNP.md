@@ -260,6 +260,18 @@ GCD	33.0	2.027	45.347	45.347	45.347	45.347	45.347
 [...]
 ```
 
+While this statistics can be plotted with `plot-bamstats`, we are going to visualize the summary statistics of the mapping step with MultiQC:
+
+* The previously described stats are represented in "Alignemnt metrics":
+![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/samtools_bamstats.png?raw=true)
+
+* The percentage of mapped reads per sample are plotted in "Percent Mapped":
+![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/samtools_alignment_plot.png?raw=true)
+
+* The number of duplicated reads per sample are plotted in "Mark Duplicates":
+![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/picard_deduplication_numbers.png?raw=true)
+![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/picard_deduplication_percentages.png?raw=true)
+
 ## Visualizing your mapping
 In order to visualize our mapping we will use IGV (Integrative Genomics Viewer). This is an open source and freely available lightweight visualization tool that enables intuitive real-time exploration of diverse, large-scale genomic data sets on standard desktop computers. It supports flexible integration of a wide range of genomic data types including aligned sequence reads, mutations, copy number, RNA interference screens, gene expression, methylation and genomic annotations.
 
