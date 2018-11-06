@@ -312,7 +312,7 @@ return(list(id=ids.ordered,anc=ancestral,mat=as.matrix(t(y.ordered))))
 
 #######################################################################
 
-srst2_output <- read.delim("./*compiledResults.txt",stringsAsFactors=F)
+srst2_output <- read.delim("all__compiledResults.txt",stringsAsFactors=F)
 row.names(srst2_output) <- srst2_output$Sample
 
 mlst_columns <- 2:10
