@@ -740,7 +740,7 @@ if (params.step =~ /strainCharacterization/){
   set file(readsR1),file(readsR2) from trimmed_paired_reads_res
 
   output:
-  file "*results.txt" into srst2_res_results
+  file "*results.txt" into srst2_res_results, srst2_res_plots
 
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
@@ -757,7 +757,7 @@ if (params.step =~ /strainCharacterization/){
   set file(readsR1),file(readsR2) from trimmed_paired_reads_sero
 
   output:
-  file "*results.txt" into srst2_sero_results, srst2_sero_plots
+  file "*results.txt" into srst2_sero_results
 
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
@@ -772,14 +772,14 @@ if (params.step =~ /strainCharacterization/){
 
   input:
   file mlst from srst2_mlst_plots.collect()
-  file sero from srst2_sero_plots.collect()
+  file res from srst2_res_plots.collect()
 
   output:
   file "*.pdf" into srst2_tree
 
   script:
   """
-  srst2 --prev_output $mlst $sero --output all
+  srst2 --prev_output $mlst $res --output all
   Rscript $baseDir/bin/plotTreeHeatmap.R
   """
  }
