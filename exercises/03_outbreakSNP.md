@@ -30,7 +30,7 @@ For this reason, when the objective is to compare genomes of different samples, 
 
 There are multiple mapping algorithms and softwares, but for this exercise we will use only [bwa](http://bio-bwa.sourceforge.net/) ([H. Li and R. Durbin, 2010](https://www.ncbi.nlm.nih.gov/pubmed/20080505)). bwa is implements a backward search with Burrows-Wheeler Transform to efficiently align short sequencing reads against a large reference sequence such as the human genome, allowing mismatches and gaps. For longer reads, it combines its algorthm with a modified Smith-Waterman's alignment, achieving the same results as the starndard algorithm but thousands of times faster. While still slower than BLAST for long query sequences, it is able to find all matches without heuristics, which makes it able to detect chimeras potentially caused by structural variations or reference misassemblies.
 
-To mapp our samples with bwa, we only have to execute this command:
+To map our samples with bwa, we only have to execute this command:
 ```
 cd
 cd Documents/wgs
