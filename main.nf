@@ -478,7 +478,7 @@ if (params.step =~ /mapping/){
 
 		script:
 		"""
-		samtools sort $bam -o ${bam.baseName}.sorted.bam
+		samtools sort $bam -o ${bam.baseName}.sorted.bam -T ${bam.baseName}
 		samtools index ${bam.baseName}.sorted.bam
 		bedtools bamtobed -i ${bam.baseName}.sorted.bam | sort -k 1,1 -k 2,2n -k 3,3n -k 6,6 > ${bam.baseName}.sorted.bed
 		samtools stats ${bam.baseName}.sorted.bam > ${bam.baseName}.stats.txt
@@ -540,7 +540,7 @@ if (params.step =~ /mapping/){
 				VALIDATION_STRINGENCY=LENIENT \\
 				PROGRAM_RECORD_ID='null'
 
-			samtools sort ${prefix}.dedup.bam -o ${prefix}.dedup.sorted.bam
+			samtools sort ${prefix}.dedup.bam -o ${prefix}.dedup.sorted.bam -T ${prefix}
 			samtools index ${prefix}.dedup.sorted.bam
 			bedtools bamtobed -i ${prefix}.dedup.sorted.bam | sort -k 1,1 -k 2,2n -k 3,3n -k 6,6 > ${prefix}.dedup.sorted.bed
 			"""
@@ -689,7 +689,7 @@ if (params.step =~ /outbreakMLST/){
 
      script:
      """
-     taranis.py -coregenedir $listeria_scheme -inputdir assembly -outputdir .
+     taranis.py -coregenedir $listeria_scheme -inputdir assembly -cpus 1 -outputdir .
      """
  	}
 }
