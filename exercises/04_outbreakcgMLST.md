@@ -16,8 +16,8 @@
 ## Preprocessing
 Addressed in previous exercises.
 
-## Strain characterization: Serogroup and serotype determination using WGS data.
-
+## Strain characterization: Serogroup and sequence type (ST) determination using WGS data.
+Performing MLST, serogroup or resistance analysis can't be easing using WGS. Here we are going to use a mapping approach using [srst2](https://github.com/katholt/srst2) software for determining ST and serogroup of the listeria isolates without doing any PCR.
 
 ### Run the exercise
 ```
@@ -31,6 +31,53 @@ nextflow run BU-ISCIII/bacterial_wgs_training --reads 'training_dataset/*_R{1,2}
 --srst2_def_sero training_dataset/pcr_serogroup_listeria.scheme \
 -resume
 ```
+
+Below this command two srst2 commands are performed using the mlst and serogroup schema downloaded from [Pasteur bigsdb](http://bigsdb.pasteur.fr/perl/bigsdb/bigsdb.pl?db=pubmlst_listeria_seqdef_public).
+```
+srst2 --input_pe reads_R1.fastq.gz readsR2 --forward "_R1" --reverse "_R2" --output output --log --mlst_db db_mlst --mlst_definition mlst_scheme --mlst_delimiter "_"
+```
+Parameters:
+- input_pe: fastq reads
+- forward/reverse: name of R1-R2 reads for file name parsing.
+- output: how to name the results.
+- mlst_db: fasta file with all the alleles for all the genes present in the schema.
+- mlst_definition: plain text file with the definition of the STs with which alleles. This is known as the mlst profile.
+
+> mlst_db and mlst_definition both can be downloaded from Pasteur bigsdb of PubMLST site for a bunch of different microorganisms.
+
+### Results analysis
+
+The serogroup results look like this, and it can be found in the next path:
+```
+/home/alumno/course_shared_folder/results/SRST2_SERO/summary.txt
+```
+|Sample|ST|lmo0737|lmo1118|ORF2110|ORF2819|prs|mismatches|uncertainty|depth|maxMAF|
+|------|--|-------|-------|-------|-------|---|----------|-----------|-----|------|
+|RA-L2073|NF|-|-|3|3|2|0|-|37.6266666667|0.0666666666667|
+|RA-L2281|NF|-|-|1|1|2|0|-|50.97|0.0588235294118|
+|RA-L2327|NF|-|-|1|1|2|0|-|45.4216666667|0.0606060606061|
+|RA-L2391|NF|-|-|3|3|2|0|-|45.8916666667|0.0588235294118|
+|RA-L2450|NF|-|-|3|3|2|0|-|50.9196666667|0.0869565217391|
+|RA-L2677|NF|-|-|3|3|2|0|-|56.1036666667|0.0606060606061|
+|RA-L2701|NF|-|-|3|3|2|0|-|54.2813333333|0.0666666666667|
+|RA-L2709|failed|-|-|-|-|-|-|-|-|-|
+|RA-L2782|NF|7|-|1|1|2|0|-|62.3865|0.0363636363636|
+|RA-L2805|NF|-|-|3|3|2|0|-|49.676|0.0645161290323|
+|RA-L2978|NF|-|-|3|3|2|0|-|50.1983333333|0.0588235294118|
+
+The MLST results look like this other table, and can be found in:
+```
+/home/alumno/course_shared_folder/results/SRST2_MLST/summary.txt
+```
+
+We will describe here the meaning of each column:
+- Sample: sample name
+- ST: serotype or serogroup determined.
+- lmo0737-prs: names of the genes present in the MLST schema in this case. This column will vary depending on the species and the schema used. Each column shows the allele number determined for each sample. 
+- mismatches: number of mismatches (SNPs) found against the reference allele.
+- uncertainty: a score showing the probability of having determined the correct allele (ST).
+- depth: depth of coverage achieved mapping against this allele.
+- maxMAF: maximum Minimum Allele frequency, this shows the percentage of the samples having the same allele that this sample.
 
 ## Assembly
 Addressed in previous exercises.
