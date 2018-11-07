@@ -24,12 +24,6 @@ This dataset is an *in silico* dataset obtained with wg-sim usint a sample from 
 
 <p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/map_vs_assembly.png" width="900"></p>
 
-| NC_016838.1 | NC_016839.1 | NC_016840.1 |
-| :---: | :---: | :---: | 
-| ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN_TEST_R_paired_NC_016838.1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN_TEST_R_paired_NC_016839.1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN15_000240185_NC_016840.1.png) | 
-| **NC_016841.1** | **NC_016846.1** | **NC_016847.1** |
-![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN15_000240185_NC_016841.1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN_TEST_R_paired_NC_016846.1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN15_000240185_NC_016847.1.png) |
-
 
 ## Exercise
 
@@ -81,3 +75,11 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 --plasmidid_config /home/pjsola/Documents/wgs/training_dataset/plasmidid_test/plasmidid_config.txt \
 --step plasmidID
 ```
+
+##Results
+
+| NC_016838.1 | NC_016839.1 | NC_016840.1 |
+| :---: | :---: | :---: | 
+| ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN_TEST_R_paired_NC_016838.1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN_TEST_R_paired_NC_016839.1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN15_000240185_NC_016840.1.png) | 
+| **NC_016841.1** | **NC_016846.1** | **NC_016847.1** |
+![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN15_000240185_NC_016841.1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN_TEST_R_paired_NC_016846.1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN15_000240185_NC_016847.1.png) |
