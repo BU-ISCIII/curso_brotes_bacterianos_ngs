@@ -26,7 +26,7 @@ The material includes slides with theory concepts and a bunch of practical exerc
 
 ### Day 4
 - **Talk 9:** [Typing based on allelic profile or gene-by-gene](slides/talk9/curso_SeqGenBac_session4.1_tipificacion-gen-by-gene_ICuesta.pdf)
-- **Talk 10:** [Gene-by-gene WGS analysis](slides/talk10/curso_SeqGenBac_session4.2_GeneByGenevsSNPs.pdf)
+- **Talk 10:** [Gene-by-gene WGS analysis](slides/talk10/curso_SeqGenBac_session4.2_GeneByGenevsSNPs_v2.pdf)
 - [**Exercise 4**](exercises/04_outbreakcgMLST.md)
 
 ### Day 5
