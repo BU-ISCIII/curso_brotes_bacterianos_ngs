@@ -61,8 +61,7 @@ def helpMessage() {
       --saveReference				Save reference file and indexes.
 
 	Steps available:
-	  --step [str]					Select which step to perform (preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|plasmidID|strainCharacterization)
-
+	  --step [str]					Select which step to perform (preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|plasmidID|strainCharacterization|mapAnnotation)
     Options:
       --singleEnd                   Specifies that the input is single end reads
 
@@ -87,6 +86,7 @@ def helpMessage() {
 
     Strain Characterization options
       --srst2_resistance            Fasta file/s for gene resistance databases
+      --srst2_virulence             Fasta file/s for gene virulence databases
       --srst2_db_mlst               Fasta file of MLST alleles
       --srst2_def_mlst              ST definitions for MLST scheme
       --srst2_db_sero               Fasta file of serogroup
@@ -151,8 +151,8 @@ if ( params.outbreaker_config ){
 }
 // Steps
 params.step = "preprocessing"
-if ( ! (params.step =~ /(preprocessing|mapping|assembly|plasmidID|outbreakSNP|outbreakMLST|strainCharacterization)/) ) {
-	exit 1, 'Please provide a valid --step option [preprocessing,mapping,assembly,plasmidID,outbreakSNP,outbreakMLST,strainCharacterization]'
+if ( ! (params.step =~ /(preprocessing|mapping|assembly|plasmidID|outbreakSNP|outbreakMLST|strainCharacterization|mapAnnotation)/) ) {
+	exit 1, 'Please provide a valid --step option [preprocessing,mapping,assembly,plasmidID,outbreakSNP,outbreakMLST,strainCharacterization,mapAnnotation]'
 }
 
 // Mapping-duplicates defaults
@@ -207,6 +207,12 @@ params.srst2_resistance = false
 if ( params.srst2_resistance ){
 	srst2_resistance = file(params.srst2_resistance)
 	if ( !srst2_resistance.exists() ) exit 1, "SRST2 resistance database not found: ${params.srst2_resistance}"
+}
+
+params.srst2_virulence = false
+if ( params.srst2_virulence ){
+	srst2_virulence = file(params.srst2_virulence)
+	if ( !srst2_virulence.exists() ) exit 1, "SRST2 virulence database not found: ${params.srst2_virulence}"
 }
 
 // PlasmidID parameters
@@ -400,7 +406,7 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 		set val(name), file(reads) from raw_reads_trimming
 
 		output:
-		file '*_paired_*.fastq.gz' into trimmed_paired_reads,trimmed_paired_reads_bwa,trimmed_paired_reads_unicycler,trimmed_paired_reads_wgsoutbreaker,trimmed_paired_reads_plasmidid,trimmed_paired_reads_mlst,trimmed_paired_reads_res,trimmed_paired_reads_sero
+		file '*_paired_*.fastq.gz' into trimmed_paired_reads,trimmed_paired_reads_bwa,trimmed_paired_reads_unicycler,trimmed_paired_reads_wgsoutbreaker,trimmed_paired_reads_plasmidid,trimmed_paired_reads_mlst,trimmed_paired_reads_res,trimmed_paired_reads_sero,trimmed_paired_reads_vir
 		file '*_unpaired_*.fastq.gz' into trimmed_unpaired_reads
 		file '*_fastqc.{zip,html}' into trimmomatic_fastqc_reports
 		file '*.log' into trimmomatic_results
@@ -732,6 +738,45 @@ if (params.step =~ /strainCharacterization/){
   """
  }
 
+
+  process srst2_serogroup {
+  tag "$prefix"
+  publishDir "${params.outdir}/SRST2_SERO", mode: 'copy'
+
+  input:
+  set file(readsR1),file(readsR2) from trimmed_paired_reads_sero
+
+  output:
+  file "*results.txt" into srst2_sero_results, srst2_sero_plots
+
+  script:
+  prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
+  """
+  srst2 --input_pe $readsR1 $readsR2 --output $prefix --forward "_paired_R1" --reverse "_paired_R2" --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero --mlst_delimiter "_"
+  """
+ }
+
+ process srst2_Rplots {
+  tag "SRST2_PLOTS"
+  publishDir "${params.outdir}/SRST2_PLOTS", mode: 'copy'
+
+  input:
+  file mlst from srst2_mlst_plots.collect()
+  file sero from srst2_sero_plots.collect()
+
+  output:
+  file "*.pdf" into srst2_tree
+
+  script:
+  """
+  srst2 --prev_output $mlst $sero --output all
+  Rscript $baseDir/bin/plotTreeHeatmap.R
+  """
+ }
+}
+
+if (params.step =~ /mapAnnotation/){
+
   process srst2_resistance {
   tag "$prefix"
   publishDir "${params.outdir}/SRST2_RES", mode: 'copy'
@@ -749,38 +794,20 @@ if (params.step =~ /strainCharacterization/){
   """
  }
 
-  process srst2_serogroup {
+  process srst2_virulence {
   tag "$prefix"
-  publishDir "${params.outdir}/SRST2_SERO", mode: 'copy'
+  publishDir "${params.outdir}/SRST2_VIR", mode: 'copy'
 
   input:
-  set file(readsR1),file(readsR2) from trimmed_paired_reads_sero
+  set file(readsR1),file(readsR2) from trimmed_paired_reads_vir
 
   output:
-  file "*results.txt" into srst2_sero_results
+  file "*results.txt" into srst2_vir_results
 
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --output $prefix --forward "_paired_R1" --reverse "_paired_R2" --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero --mlst_delimiter "_"
-  """
- }
-
- process srst2_Rplots {
-  tag "SRST2_PLOTS"
-  publishDir "${params.outdir}/SRST2_PLOTS", mode: 'copy'
-
-  input:
-  file mlst from srst2_mlst_plots.collect()
-  file res from srst2_res_plots.collect()
-
-  output:
-  file "*.pdf" into srst2_tree
-
-  script:
-  """
-  srst2 --prev_output $mlst $res --output all
-  Rscript $baseDir/bin/plotTreeHeatmap.R
+  srst2 --input_pe $readsR1 $readsR2 --forward "_paired_R1" --reverse "_paired_R2" --output $prefix --log --gene_db $srst2_virulence
   """
  }
 }
