@@ -273,6 +273,14 @@ if( ! params.srst2_resistance && params.step =~ /strainCharacterization/ ){
     exit 1, "SRST2 resistance database not provided for strainCharacterization step, please declare it with --srst2_resistance /path/to/db."
 }
 
+if( ! params.srst2_resistance && params.step =~ /mapAnnotation/ ){
+    exit 1, "SRST2 resistance database not provided for mapAnnotation step, please declare it with --srst2_resistance /path/to/db."
+}
+
+if( ! params.srst2_virulance && params.step =~ /mapAnnotation/ ){
+    exit 1, "SRST2 virulance database not provided for mapAnnotation step, please declare it with --srst2_virulance /path/to/db."
+}
+
 /*
  * Create channel for input files
  */
@@ -738,7 +746,6 @@ if (params.step =~ /strainCharacterization/){
   """
  }
 
-
   process srst2_serogroup {
   tag "$prefix"
   publishDir "${params.outdir}/SRST2_SERO", mode: 'copy'
@@ -753,6 +760,23 @@ if (params.step =~ /strainCharacterization/){
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
   srst2 --input_pe $readsR1 $readsR2 --output $prefix --forward "_paired_R1" --reverse "_paired_R2" --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero --mlst_delimiter "_"
+  """
+ }
+
+  process srst2_resistance {
+  tag "$prefix"
+  publishDir "${params.outdir}/SRST2_RES", mode: 'copy'
+
+  input:
+  set file(readsR1),file(readsR2) from trimmed_paired_reads_res
+
+  output:
+  file "*results.txt" into srst2_res_results, srst2_res_plots
+
+  script:
+  prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
+  """
+  srst2 --input_pe $readsR1 $readsR2 --forward "_paired_R1" --reverse "_paired_R2" --output $prefix --log --gene_db $srst2_resistance
   """
  }
 
