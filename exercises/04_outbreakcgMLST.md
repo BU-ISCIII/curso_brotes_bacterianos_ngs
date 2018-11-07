@@ -21,6 +21,8 @@ Performing MLST, serogroup or resistance analysis can't be easing using WGS. Her
 
 ### Run the exercise
 ```
+cd
+cd Documents/wgs
 nextflow run BU-ISCIII/bacterial_wgs_training --reads 'training_dataset/*_R{1,2}*.fastq.gz' \
 --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
 -profile singularity \
@@ -92,6 +94,10 @@ We will describe here the meaning of each column:
 - uncertainty: a score showing the probability of having determined the correct allele (ST).
 - depth: depth of coverage achieved mapping against this allele.
 - maxMAF: maximum Minimum Allele frequency, this shows the percentage of the samples having the same allele that this sample.
+
+And finally we can plot a clustering using MLST profile with a resistance heatmap for visualization:
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/mlst_resistance.png" width="1000"></p>
 
 ## Assembly
 Addressed in previous exercises.
