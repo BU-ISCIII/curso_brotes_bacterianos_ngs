@@ -21,6 +21,8 @@ Performing MLST, serogroup or resistance analysis can't be easing using WGS. Her
 
 ### Run the exercise
 ```
+cd
+cd Documents/wgs
 nextflow run BU-ISCIII/bacterial_wgs_training --reads 'training_dataset/*_R{1,2}*.fastq.gz' \
 --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
 -profile singularity \
@@ -70,6 +72,19 @@ The MLST results look like this other table, and can be found in:
 ```
 /home/alumno/course_shared_folder/results/SRST2_MLST/summary.txt
 ```
+|Sample|ST|abcZ|bglA|cat|dapE|dat|ldh|lhkA|mismatches|uncertainty|depth|maxMAF|
+|------|--|----|----|---|----|---|---|----|----------|-----------|-----|------|
+|RA-L2073|6|3|9|9|3|3|1|5|0|-|59.0544285714|0.0634920634921|
+|RA-L2281|1|3|1|1|1|3|1|3|0|-|62.8174285714|0.0588235294118|
+|RA-L2327|213|1|1|9|13|2|5|5|0|-|53.0774285714|0.0625|
+|RA-L2391|6|3|9|9|3|3|1|5|0|-|55.9001428571|0.0434782608696|
+|RA-L2450|6|3|9|9|3|3|1|5|0|-|54.7685714286|0.0526315789474|
+|RA-L2677|6|3|9|9|3|3|1|5|0|-|62.4725714286|0.0444444444444|
+|RA-L2701|6|3|9|9|3|3|1|5|0|-|67.599|0.037037037037|
+|RA-L2709|failed|-|-|-|-|-|-|-|-|-|-|-|
+|RA-L2782|382|1|51|11|13|2|5|5|0|-|55.8924285714|0.05|
+|RA-L2805|6|3|9|9|3|3|1|5|0|-|66.4684285714|0.047619047619|
+|RA-L2978|6|3|9|9|3|3|1|5|0|-|52.4057142857|0.0625|
 
 We will describe here the meaning of each column:
 - Sample: sample name
@@ -79,6 +94,10 @@ We will describe here the meaning of each column:
 - uncertainty: a score showing the probability of having determined the correct allele (ST).
 - depth: depth of coverage achieved mapping against this allele.
 - maxMAF: maximum Minimum Allele frequency, this shows the percentage of the samples having the same allele that this sample.
+
+And finally we can plot a clustering using MLST profile with a resistance heatmap for visualization:
+
+<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/mlst_resistance.png" width="1000"></p>
 
 ## Assembly
 Addressed in previous exercises.
