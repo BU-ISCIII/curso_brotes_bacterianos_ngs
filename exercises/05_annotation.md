@@ -14,15 +14,16 @@
     - [Assembly based annotation](#assembly-based-annotation)
 
 ## Introduction
+
+In this exercise we are going to determine the genomic content of a multidrug-resistant (MDR) *K. neumoniae* isolate.
+First we will usse [srst2](https://github.com/katholt/srst2) to asses the resistome and later, we will use [plasmidID](https://github.com/BU-ISCIII/plasmidID) to infer biological and positional information to sequences and see where the genes, detected with mapping strategy, are located.
+
 ### Training summary
 
 <p align="center"><img src="img/bacterial_wgs_training.png" alt="Fastqc_1" width="500"></p>
 
 ### Training dataset description
-This dataset is an *in silico* dataset obtained with wg-sim usint a sample from [*Klebsiella pneumoniae subsp. pneumoniae HS11286*](https://www.ncbi.nlm.nih.gov/genome/?term=klebsiella+pneumoniae).
-
-
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/map_vs_assembly.png" width="900"></p>
+The sample we are going to analyse is an *in silico* dataset obtained with [wgsim](https://github.com/lh3/wgsim) using a sample of [*Klebsiella pneumoniae subsp. pneumoniae HS11286*](https://www.ncbi.nlm.nih.gov/genome/?term=klebsiella+pneumoniae) available at ncbi.
 
 
 ## Exercise
