@@ -31,6 +31,7 @@ nextflow run BU-ISCIII/bacterial_wgs_training --reads 'training_dataset/*_R{1,2}
 --srst2_def_mlst training_dataset/mlst_pasteur_listeria.scheme \
 --srst2_db_sero training_dataset/pcr_serogroup_listeria.fas \
 --srst2_def_sero training_dataset/pcr_serogroup_listeria.scheme \
+--srst2_resistance training_dataset/ARGannot.r1.fasta \
 -resume
 ```
 
@@ -134,11 +135,11 @@ Once our localization is correct we will launch nextflow with the next parameter
   - gtf file needed for assembly step.
   
 ```
-nextflow BU-ISCIII/bacterial_wgs_training \
+nextflow run BU-ISCIII/bacterial_wgs_training \
 --reads 'training_dataset/*R{1,2}*.fastq.gz' \
---fasta test/listeria_NC_021827.1_NoPhagues.fna \
+--fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
 --step outbreakMLST \
---gtf test/listeria_NC_021827.1_NoPhagues.gff \
+--gtf training_dataset/listeria_NC_021827.1_NoPhagues.gff \
 -profile singularity
 ```
 
