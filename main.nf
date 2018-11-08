@@ -786,14 +786,14 @@ if (params.step =~ /strainCharacterization/){
 
   input:
   file mlst from srst2_mlst_plots.collect()
-  file sero from srst2_sero_plots.collect()
+  file res from srst2_res_plots.collect()
 
   output:
   file "*.pdf" into srst2_tree
 
   script:
   """
-  srst2 --prev_output $mlst $sero --output all
+  srst2 --prev_output $mlst $res --output all
   Rscript $baseDir/bin/plotTreeHeatmap.R
   """
  }

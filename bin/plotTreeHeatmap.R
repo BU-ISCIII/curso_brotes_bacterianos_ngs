@@ -181,7 +181,7 @@ freq<-freq[tip.label.order]
 }
 
 # prepare coloured labels for tree leaves
-if (!is.null(locFile)) { 
+if (!is.null(locFile)) {
 loc<-read.csv(locFile,row.names=1)
 loc1<-as.matrix(loc)[row.names(loc) %in% tl$tip.label,] #vector
 tipLabelSet <- character(length(loc1))
@@ -245,8 +245,8 @@ layout(matrix(c(0,0,0,0,0,1,2,0,0,0,0,0), nrow=3, byrow=TRUE), width=c(edgeWidth
 # plot tree
 par(mar=rep(0,4))
 tlp<-plot.phylo(tl,no.margin=T,show.tip.label=tip.labels,label.offset=offset,edge.width=lwd,edge.color=edge.color,xaxs="i", yaxs="i", y.lim=c(0.5,length(tl$tip)+0.5),cex=tipLabelSize)
-if (!is.null(locFile)) { 
-tiplabels(col= tipLabelSet[tl$tip.label],pch=16,cex=tip.colour.cex) 
+if (!is.null(locFile)) {
+tiplabels(col= tipLabelSet[tl$tip.label],pch=16,cex=tip.colour.cex)
 if (ancestral.reconstruction) {
 nodelabels(pie=ancestral$lik.anc, cex=0.5, piecol=colours)
 }
@@ -315,8 +315,8 @@ return(list(id=ids.ordered,anc=ancestral,mat=as.matrix(t(y.ordered))))
 srst2_output <- read.delim("all__compiledResults.txt",stringsAsFactors=F)
 row.names(srst2_output) <- srst2_output$Sample
 
-mlst_columns <- 2:10
-gene_columns <- 15:46
+mlst_columns <- 2:9
+gene_columns <- 14
 
 h_tree<-as.phylo(clusterByST(srst2_output[,mlst_columns]))
 geneMatrix<-binaryMatrix(srst2_output[,gene_columns])
@@ -326,9 +326,9 @@ p1 <- ggtree(h_tree) %<+% srst2_output[,1:2] +
 geom_tiplab(aes(color=ST),size=8) +
 geom_text(aes(color=ST,label=ST),hjust=1,vjust=-0.4,size=7)
 
-width=6
+width=1
 offset=0.85
-p2 <- gheatmap(p1,geneMatrix,offset=offset,width=width,colnames=F,low="red",high="green") 
+p2 <- gheatmap(p1,geneMatrix,offset=offset,width=width,colnames=F,low="red",high="green")
 geneMatrix$sample <- row.names(geneMatrix)
 gMatrix_g <- gather(geneMatrix,variable,value,-c(sample))
 gMatrix_g$variable <- factor(gMatrix_g$variable,levels=colnames(geneMatrix))
