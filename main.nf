@@ -780,23 +780,23 @@ if (params.step =~ /strainCharacterization/){
   """
  }
 
- process srst2_Rplots {
-  tag "SRST2_PLOTS"
-  publishDir "${params.outdir}/SRST2_PLOTS", mode: 'copy'
-
-  input:
-  file mlst from srst2_mlst_plots.collect()
-  file res from srst2_res_plots.collect()
-
-  output:
-  file "*.pdf" into srst2_tree
-
-  script:
-  """
-  srst2 --prev_output $mlst $res --output all
-  Rscript $baseDir/bin/plotTreeHeatmap.R
-  """
- }
+// process srst2_Rplots {
+//  tag "SRST2_PLOTS"
+//  publishDir "${params.outdir}/SRST2_PLOTS", mode: 'copy'
+//
+//  input:
+//  file mlst from srst2_mlst_plots.collect()
+//  file res from srst2_res_plots.collect()
+//
+//  output:
+//  file "*.pdf" into srst2_tree
+//
+//  script:
+//  """
+//  srst2 --prev_output $mlst $res --output all
+//  Rscript $baseDir/bin/plotTreeHeatmap.R
+//  """
+// }
 }
 
 if (params.step =~ /mapAnnotation/){
