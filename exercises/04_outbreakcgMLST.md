@@ -31,6 +31,7 @@ nextflow run BU-ISCIII/bacterial_wgs_training --reads 'training_dataset/*_R{1,2}
 --srst2_def_mlst training_dataset/mlst_pasteur_listeria.scheme \
 --srst2_db_sero training_dataset/pcr_serogroup_listeria.fas \
 --srst2_def_sero training_dataset/pcr_serogroup_listeria.scheme \
+--srst2_resistance training_dataset/ARGannot.r1.fasta \
 -resume
 ```
 
