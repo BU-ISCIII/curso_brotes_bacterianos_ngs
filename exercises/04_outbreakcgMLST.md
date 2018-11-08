@@ -134,11 +134,11 @@ Once our localization is correct we will launch nextflow with the next parameter
   - gtf file needed for assembly step.
   
 ```
-nextflow BU-ISCIII/bacterial_wgs_training \
+nextflow run BU-ISCIII/bacterial_wgs_training \
 --reads 'training_dataset/*R{1,2}*.fastq.gz' \
---fasta test/listeria_NC_021827.1_NoPhagues.fna \
+--fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
 --step outbreakMLST \
---gtf test/listeria_NC_021827.1_NoPhagues.gff \
+--gtf training_dataset/listeria_NC_021827.1_NoPhagues.gff \
 -profile singularity
 ```
 
