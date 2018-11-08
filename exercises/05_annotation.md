@@ -8,6 +8,9 @@
 |**Time estimation**:| 1 h|
 |**Key points**:|<ul><li>Comparing annotation using mapping vs assembly</li><li>Plasmid, virulence and resistance determination</li></ul>|
   
+  <p align="center"><img src="img/bacterial_wgs_training.png" alt="Fastqc_1" width="500"></p>
+
+  
 - [Introduction](#introduction)
 - [Exercise](#exercise)
     - [Mapping based annotation](#mapping-based-annotation)
@@ -20,7 +23,6 @@ First we will usse [srst2](https://github.com/katholt/srst2) to asses the resist
 
 ### Training summary
 
-<p align="center"><img src="img/bacterial_wgs_training.png" alt="Fastqc_1" width="500"></p>
 
 ### Training dataset description
 The sample we are going to analyse is an *in silico* dataset obtained with [wgsim](https://github.com/lh3/wgsim) using a sample of [*Klebsiella pneumoniae subsp. pneumoniae HS11286*](https://www.ncbi.nlm.nih.gov/genome/?term=klebsiella+pneumoniae) available at ncbi.
@@ -29,6 +31,10 @@ The sample we are going to analyse is an *in silico* dataset obtained with [wgsi
 ## Exercise
 
 ### Mapping based annotation
+
+In order to execute srst2 to map the reads against a antibiotic resistance genes database (ARGannot), lets execute this command:
+
+------
 
 ```Bash
 cd
@@ -42,6 +48,9 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 --srst2_virulence training_dataset/EcOH.fasta \
 --step mapAnnotation
 ```
+------
+
+
 ### Results
 
 
@@ -64,6 +73,8 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 
 ### Assembly based annotation
 
+------
+
 ```Bash
 cd
 cd Documents/wgs
@@ -76,6 +87,9 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 --plasmidid_config /home/pjsola/Documents/wgs/training_dataset/plasmidid_test/plasmidid_config.txt \
 --step plasmidID
 ```
+
+------
+
 
 ##Results
 
