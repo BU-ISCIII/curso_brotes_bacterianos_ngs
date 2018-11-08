@@ -32,7 +32,7 @@ The sample we are going to analyse is an *in silico* dataset obtained with [wgsi
 
 ### Mapping based annotation
 
-In order to execute srst2 to map the reads against a antibiotic resistance genes database (ARGannot), lets execute this command:
+To execute srst2, which maps the reads against a antibiotic resistance genes database (ARGannot), lets execute this command:
 
 ------
 
@@ -51,7 +51,7 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 ------
 
 
-### Results
+### Results should look like that
 
 
 | Sample | DB | gene | allele | coverage | depth | diffs | uncertainty | divergence | length | maxMAF | clusterid | seqid | annotation |
@@ -71,7 +71,11 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 | KPN_TEST_R | ARGannot.r1 | SulII_Sul | SulII_1219 | 100.0 | 11.094 | 1snp |  | 0.123 | 816 | 0.2 | 256 | 1219 | no;no;SulII;Sul;KR091911;167466-168281;816 |
 
 
+This table is a full report of all the ARG found with all mapping stats.
+
 ### Assembly based annotation
+
+Now, using the contigs assembled using those same reads, we can determine the exact location of those ARG. ARG can be located on the chromosome but motly on plasmids. In that case, we are going to focus on plasmid derived ARG using the annotation feature of plasmidID. To run the analysis lets use this command:
 
 ------
 
@@ -91,10 +95,14 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 ------
 
 
-##Results
+##Results should look like that
 
 | NC_016838.1 | NC_016839.1 | NC_016840.1 |
 | :---: | :---: | :---: | 
 | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN_TEST_R_paired_NC_016838.1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN_TEST_R_paired_NC_016839.1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN15_000240185_NC_016840.1.png) | 
 | **NC_016841.1** | **NC_016846.1** | **NC_016847.1** |
 ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN15_000240185_NC_016841.1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN_TEST_R_paired_NC_016846.1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/KPN15_000240185_NC_016847.1.png) |
+
+Those are the 6 plasmids that this isolate had, have a look at those pictures and find out if the genes are the same allele. 
+
+Are all the genes located with srst2 bound to plasmids?
