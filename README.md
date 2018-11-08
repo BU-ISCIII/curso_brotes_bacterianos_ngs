@@ -30,6 +30,5 @@ The material includes slides with theory concepts and a bunch of practical exerc
 - [**Exercise 4**](exercises/04_outbreakcgMLST.md)
 
 ### Day 5
-- **Talk 11:** [Chromosome and plasmid annotation](slides/talk11/curso_SeqGenBac_session5.1_xx.pdf)
-- **Talk 12:** [Genome characterization. Resistance and virulence genes.](slides/talk12/curso_SeqGenBac_session5.2_xx.pdf)
+- **Talk 11:** [Sequence annotation](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/slides/talk11/curso_SeqGenBac_session5.1_annotation.pdf)
 - [**Exercise 5**](exercises/05_annotation.md)
