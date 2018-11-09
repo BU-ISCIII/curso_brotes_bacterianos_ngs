@@ -88,7 +88,7 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
 --gtf training_dataset/listeria_NC_021827.1_NoPhagues.gff \
 --plasmidid_database training_dataset/plasmidid_test/plasmids_TEST_database.fasta \
---plasmidid_config /home/pjsola/Documents/wgs/training_dataset/plasmidid_test/plasmidid_config.txt \
+--plasmidid_config training_dataset/plasmidid_test/plasmidid_config.txt \
 --step plasmidID
 ```
 
