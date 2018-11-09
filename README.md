@@ -10,25 +10,25 @@ The material includes slides with theory concepts and a bunch of practical exerc
 - **Talk 1:** [Massive sequencing of bacterial genomes. State-of-the-art](slides/talk1/curso_SeqGenBac_session1.1_Introduccion_ICuesta_v3.pdf)
 - **Talk 2:** [Linux environment review.Shell usage and basic commands.](slides/talk2/curso_SeqGenBac_session1.2_linux.pdf)
 - **Talk 3:** [The computing revolution in Biosciences. Nextflow and Singularity introduction.](slides/talk3/curso_SeqGenBac_session1.3_ChangingComputingParadigm.pdf)
-- [**Exercise 0**](exercises/00_SetUp.md)
-- [**Exercise 1**](exercises/01_LinuxNextflowSingularity.md)
+- [**Exercise 0**](exercises/00_SetUp.md) -- [Download pdf](exercises/00_SetUp.pdf)
+- [**Exercise 1**](exercises/01_LinuxNextflowSingularity.md) -- [Download pdf](exercises/01_LinuxNextflowSingularity.pdf)
 
 ### Day 2
 - **Talk 4:** [Bacterial genomes sequencing. Applications.](slides/talk4/curso_SeqGenBac_session2.1_aplicaciones_ICuesta.pdf)
 - **Talk 5:** [Quality analysis and control of HTS data](slides/talk5/curso_SeqGenBac_session2.2_quality_assesment.pdf)
 - **Talk 6:** [Bacterial genomes assembly](slides/talk6/curso_SeqGenBac_session2.3_assembly.pdf)
-- [**Exercise 2**](exercises/02_QualityAndAssembly.md)
+- [**Exercise 2**](exercises/02_QualityAndAssembly.md) -- [Download pdf](exercises/02_QualityAndAssembly.pdf)
 
 ### Day 3
 - **Talk 7:** [Mapping against reference genome and Variant Calling.](slides/talk7/curso_SeqGenBac_session3.1_MappingAndVariantCalling.pdf)
 - **Talk 8:** [SNP matrix and phylogenetics.](slides/talk8/curso_SeqGenBac_session3.2_SNPMatrixAndPhylogenetics.pdf)
-- [**Exercise 3**](exercises/03_outbreakSNP.md)
+- [**Exercise 3**](exercises/03_outbreakSNP.md) -- [Download pdf](exercises/03_outbreakSNP.pdf)
 
 ### Day 4
 - **Talk 9:** [Typing based on allelic profile or gene-by-gene](slides/talk9/curso_SeqGenBac_session4.1_tipificacion-gen-by-gene_ICuesta.pdf)
 - **Talk 10:** [Gene-by-gene WGS analysis](slides/talk10/curso_SeqGenBac_session4.2_GeneByGenevsSNPs_v2.pdf)
-- [**Exercise 4**](exercises/04_outbreakcgMLST.md)
+- [**Exercise 4**](exercises/04_outbreakcgMLST.md) -- [Download pdf](exercises/04_outbreakcgMLST.pdf)
 
 ### Day 5
 - **Talk 11:** [Sequence annotation](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/slides/talk11/curso_SeqGenBac_session5.1_annotation.pdf)
-- [**Exercise 5**](exercises/05_annotation.md)
+- [**Exercise 5**](exercises/05_annotation.md) -- [Download pdf](exercises/05_annotation.pdf)
