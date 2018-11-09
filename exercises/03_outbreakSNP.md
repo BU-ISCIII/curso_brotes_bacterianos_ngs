@@ -236,7 +236,9 @@ BU-ISCIII - Pipeline complete
 ### Understanding WGS-Outbreaker config file
 First of all, let's take a look to the config file for a moment: [WGS-Outbreaker config_file](../config.file). This file will allow us to configure all necessary parameters for running WGS-Outbreaker.
 The file is organized in several sections.
+
 1. **Steps configuration:** in this section we can select with YES/NO which pipeline steps we would want to run, in this case we have prefilled the steps that we can run in this trainning.
+
 ```
 ############################# Pipeline steps: Fill in with YES or NO (capital letter) ###################################
 TRIMMING=NO
@@ -251,7 +253,9 @@ VCF_TO_MSA=YES
 RAXML=YES
 STATS=YES
 ```
+
 2. **Input data:** we can provide the path where the input files are, and the path where we want our results. Also we can include our sample names and the raw reads filenames. These reads must be in the input directory provided.
+
 ```
 # Directory with input files
 INPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/trimming
@@ -259,7 +263,7 @@ INPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/trim
 # Directory for output files
 OUTPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/wgs_outbreaker
 
-########################################## INPUT VARIABLES########################################################
+############################### INPUT VARIABLES#############################################
 
 # Samples info:
 # All samples ID must be separated by ":", then for each sample there must be a line with the names for
@@ -269,9 +273,11 @@ OUTPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/wgs
 	# AAAA_01=AAAA_01_R1.fastq.gz    AAAA_01_R2.fastq.gz
 	# BBBB_02=BBBB_02_R1.fastq.gz    BBBB_02_R2.fastq.gz
 ```
+
 Moreover we have to include the path for our reference files:
+
 ```
-######################################################### Reference Variables ###########################################
+#################################### Reference Variables ###########################################
 
 # Path to reference genome
 GENOME_REF=listeria_NC_021827.1_NoPhagues.fna
@@ -279,8 +285,10 @@ GENOME_REF=listeria_NC_021827.1_NoPhagues.fna
 # Path to reference genome without ".fasta"
 GENOME_NAME=listeria_NC_021827.1_NoPhagues
 ```
+
 3. **Trimming, mapping, variant calling and phylogeny parameters:** The end of the config file includes a series of default parameters we use for our analysis, mainly in foodborne bacteria, but that can be modified in order to match other analysis or other species requirements.
 For example the most variable parameter we can probably find is the maximum number of SNPs we are going to allow in a sequence window. This parameter is going to depend on the species variability, and also on the similarity of our reference with the isolates being analyzed.
+
 ```
 ##############  SNP FILTERS #########################
 # The maximum number of SNPs allowed in a window.
@@ -289,12 +297,16 @@ MAX_SNP=3
 # The length of the window in which the number of SNPs should be no more than max_num_snp
 WINDOW_SIZE=1000
 ```
+
 ### Results analysis
 Let's proceed to analyze the results. We can find them in:
+
 ```
 /home/alumno/course_shared_folder/wgs_outbreaker
 ```
+
 This directory contains several folders including:
+
 ```
 ├── Alignment -> already analyzed
 ├── QC -> already analyzed
@@ -303,17 +315,21 @@ This directory contains several folders including:
 ├── stats -> alignment and variant calling stats.
 └── variant_calling -> variant calling files.
 ```
+
 Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](02_QualityAndAssembly.md) and [Mapping Section](#Mapping)), we will proceed to analyze variant calling results.
 
 #### Variant calling results
 Variants are stored in plain text files in vcf format (variant calling format). Vcf files can be found in:
+
 ```
 wgs_outbreaker/variant_calling/variants_gatk/variants
 ```
+
 Here we can find a bunch of vcf files for each filtering steps we made:
 - *.g.vcf <- this file contains a special vcf format that includes both variant and invariants sites information.
 - snps_indels.vcf <- contains raw variants, both indels and snps found by GATK in the samples. This is a multisample vcf file and contains genotype information for all the samples at the same time.
 - In order to follow GATK's best practice protocol for high quality variant filtering, snps and indels must be treated separately, so we have snps_only_flags.vcf and indels_only_flags.vcf with quality flags for each type of variants.
+
 ```
 ##fileformat=VCFv4.2
 ##FILTER=<ID="p-value StrandBias",Description="FS > 60.0">
@@ -347,19 +363,25 @@ NC_021827.1	1067	.	C	T	2250.68	SnpCluster	AC=1;AF=0.100;AN=10;DP=168;FS=0.000;ML
 NC_021827.1	2114	.	C	T	8324.89	SnpCluster	AC=3;AF=0.300;AN=10;DP=341;FS=0.000;MLEAC=3;MLEAF=0.300;MQ=60.00;QD=30.49;SOR=0.841	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
 NC_021827.1	2180	.	G	A	7855.89	SnpCluster	AC=3;AF=0.300;AN=10;DP=342;FS=0.000;MLEAC=3;MLEAF=0.300;MQ=60.00;QD=28.67;SOR=0.832	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
 ```
+
 - Finally we continue to filter snps calls for our SNP matrix, and we filter SNPs which are included in a window of 1000 pb with an acumulation of more than 3 snps. We process two files snps_Pass.fasta and snps_PassCluster.fasta, one including only SNPs that PASS all the filters, and one that includes PASS snps and also those filtered by our cluster filter. We do this because usually we haven't select the window size and max snps properly for our samples and we need to analyze the complete set of SNPs.
 
 #### Phylogeny results
+
 Phylogenetic tree reconstruction is performed using RAxML with 100 inferences and 100 bootstrap repetitions. RAxML results can be checked in RAxML folder:
+
 ```
 /home/Alumno/Documents/wgs/results/RAxML/{variant_caller}
 ```
+
 Two different trees are generated one with only SNPs passing all filters (preser) and one with all snps (all_snp). Both trees are outputed for evaluation. In this case we are going to use the tree with the filtered SNPs because snp cluster filter has performed correctly.
 
 RAxML outputs one file per inference and per bootstrap so the folder is full of files. Don't worry we only need the final tree file, which is in newick format for visualization. The file is called:
+
 ```
 RAxML_bipartitions.RAXML_TREE_ANNOT
 ```
+
 Now we are going to open firefox browser and go to [iTOL website](https://itol.embl.de/). This web allows us to visualize and annotate phylogenetics trees with a very user-friendly interface. Also, it has good exporting options for publication.
 
 Once in iTOL website we click in Upload in the top menu. Next we upload our tree as shown in the image:
@@ -386,11 +408,16 @@ Does it have more than 80 boostrap value?
 
 #### SNPs distance
 As we have studied in the theory class, maximum likelihood methods for phylogeny only offers as branch lenght the average nucleotide substitution rate, this means the branch lenght is only a estimation of the number of nucleotide changes a strain has suffer respect to another.
+
 In order to know exactly the SNPs differences between the strains WGS-Outbreaker outputs a distance matrix showing the paired diffences among the samples.
+
 We can check this file in:
+
 ```
 /home/alumno/Documents/wgs/results/wgs_outbreaker/stats
 ```
+
+<div class="tables-start"></div>
 
 |dis_matrix.names|RA.L2073|RA.L2281|RA.L2327|RA.L2391|RA.L2450|RA.L2677|RA.L2701|RA.L2782|RA.L2805|RA.L2978|
 |----------------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
@@ -405,5 +432,6 @@ We can check this file in:
 |RA-L2805|4|9403|9028|80|46|46|49|9120|0|2|
 |RA-L2978|2|9401|9026|78|44|44|47|9118|2|0|
 
+<div class="tables-end"></div>
 
 As we see the SNP difference cutoff is important here, and it will depend on the strain and the case. If we stablish 3-5 snps as our cutoff we can detect that the strains belonging to the outbreak are: 2978, 2805 and 2073
