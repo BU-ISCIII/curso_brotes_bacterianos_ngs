@@ -281,49 +281,335 @@ nextflow run BU-ISCIII/bacterial_wgs_training --reads &#39;training_dataset/*_R{
 
 <h3>Results analysis</h3>
 
-<p>The serogroup results look like this, and it can be found in the next path:</p>
-
-<pre><code>/home/alumno/course_shared_folder/results/SRST2_SERO/summary.txt
-</code></pre>
+<p>The serogroup results look like this, and it can be found in the next path:<code>/home/alumno/course_shared_folder/results/SRST2_SERO/summary.txt</code></p>
 
 <div class="tables-start"></div>
 
-<p>|Sample|ST|lmo0737|lmo1118|ORF2110|ORF2819|prs|mismatches|depth|maxMAF|
-|------|--|-------|-------|-------|-------|---|----------|-----|------|
-|RA-L2073|IVb (13)|-|-|3|3|2|0|37.62|0.06|
-|RA-L2281|IVb (2)|-|-|1|1|2|0|50.97|0.05|
-|RA-L2327|IVb (2)|-|-|1|1|2|0|45.42|0.06|
-|RA-L2391|IVb (13)|-|-|3|3|2|0|45.89|0.058|
-|RA-L2450|IVb (13)|-|-|3|3|2|0|50.91|0.086|
-|RA-L2677|IVb (13)|-|-|3|3|2|0|56.10|0.060|
-|RA-L2701|IVb (13)|-|-|3|3|2|0|54.28|0.066|
-|RA-L2709|NF|-|-|-|-|-|-|-|-|
-|RA-L2782|IVb-v1 (1)|7|-|1|1|2|0|62.38|0.03|
-|RA-L2805|IVb (13)|-|-|3|3|2|0|49.67|0.06|
-|RA-L2978|IVb (13)|-|-|3|3|2|0|50.19|0.05|</p>
+<table><thead>
+<tr>
+<th>Sample</th>
+<th>ST</th>
+<th>lmo0737</th>
+<th>lmo1118</th>
+<th>ORF2110</th>
+<th>ORF2819</th>
+<th>prs</th>
+<th>mismatches</th>
+<th>depth</th>
+<th>maxMAF</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>RA-L2073</td>
+<td>IVb (13)</td>
+<td>-</td>
+<td>-</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td>0</td>
+<td>37.62</td>
+<td>0.06</td>
+</tr>
+<tr>
+<td>RA-L2281</td>
+<td>IVb (2)</td>
+<td>-</td>
+<td>-</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>50.97</td>
+<td>0.05</td>
+</tr>
+<tr>
+<td>RA-L2327</td>
+<td>IVb (2)</td>
+<td>-</td>
+<td>-</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>45.42</td>
+<td>0.06</td>
+</tr>
+<tr>
+<td>RA-L2391</td>
+<td>IVb (13)</td>
+<td>-</td>
+<td>-</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td>0</td>
+<td>45.89</td>
+<td>0.058</td>
+</tr>
+<tr>
+<td>RA-L2450</td>
+<td>IVb (13)</td>
+<td>-</td>
+<td>-</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td>0</td>
+<td>50.91</td>
+<td>0.086</td>
+</tr>
+<tr>
+<td>RA-L2677</td>
+<td>IVb (13)</td>
+<td>-</td>
+<td>-</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td>0</td>
+<td>56.10</td>
+<td>0.060</td>
+</tr>
+<tr>
+<td>RA-L2701</td>
+<td>IVb (13)</td>
+<td>-</td>
+<td>-</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td>0</td>
+<td>54.28</td>
+<td>0.066</td>
+</tr>
+<tr>
+<td>RA-L2709</td>
+<td>NF</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>RA-L2782</td>
+<td>IVb-v1 (1)</td>
+<td>7</td>
+<td>-</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>62.38</td>
+<td>0.03</td>
+</tr>
+<tr>
+<td>RA-L2805</td>
+<td>IVb (13)</td>
+<td>-</td>
+<td>-</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td>0</td>
+<td>49.67</td>
+<td>0.06</td>
+</tr>
+<tr>
+<td>RA-L2978</td>
+<td>IVb (13)</td>
+<td>-</td>
+<td>-</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td>0</td>
+<td>50.19</td>
+<td>0.05</td>
+</tr>
+</tbody></table>
 
 <div class="tables-end"></div>
 
-<p>The MLST results look like this other table, and can be found in:</p>
-
-<pre><code>/home/alumno/course_shared_folder/results/SRST2_MLST/summary.txt
-</code></pre>
+<p>The MLST results look like this other table, and can be found in:<code>/home/alumno/course_shared_folder/results/SRST2_MLST/summary.txt</code></p>
 
 <div class="tables-start"></div>
 
-<p>|Sample|ST|abcZ|bglA|cat|dapE|dat|ldh|lhkA|mismatches|depth|maxMAF|
-|------|--|----|----|---|----|---|---|----|----------|-----|------|
-|RA-L2073|6|3|9|9|3|3|1|5|0|59.05|0.063|
-|RA-L2281|1|3|1|1|1|3|1|3|0|62.81|0.05|
-|RA-L2327|213|1|1|9|13|2|5|5|0|53.07|0.06|
-|RA-L2391|6|3|9|9|3|3|1|5|0|55.90|0.04|
-|RA-L2450|6|3|9|9|3|3|1|5|0|54.76|0.05|
-|RA-L2677|6|3|9|9|3|3|1|5|0|62.47|0.04|
-|RA-L2701|6|3|9|9|3|3|1|5|0|67.59|0.03|
-|RA-L2709|failed|-|-|-|-|-|-|-|-|-|-|
-|RA-L2782|382|1|51|11|13|2|5|5|0|55.89|0.05|
-|RA-L2805|6|3|9|9|3|3|1|5|0|66.46|0.04|
-|RA-L2978|6|3|9|9|3|3|1|5|0|52.40|0.06|</p>
+<table><thead>
+<tr>
+<th>Sample</th>
+<th>ST</th>
+<th>abcZ</th>
+<th>bglA</th>
+<th>cat</th>
+<th>dapE</th>
+<th>dat</th>
+<th>ldh</th>
+<th>lhkA</th>
+<th>mismatches</th>
+<th>depth</th>
+<th>maxMAF</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>RA-L2073</td>
+<td>6</td>
+<td>3</td>
+<td>9</td>
+<td>9</td>
+<td>3</td>
+<td>3</td>
+<td>1</td>
+<td>5</td>
+<td>0</td>
+<td>59.05</td>
+<td>0.063</td>
+</tr>
+<tr>
+<td>RA-L2281</td>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+<td>3</td>
+<td>0</td>
+<td>62.81</td>
+<td>0.05</td>
+</tr>
+<tr>
+<td>RA-L2327</td>
+<td>213</td>
+<td>1</td>
+<td>1</td>
+<td>9</td>
+<td>13</td>
+<td>2</td>
+<td>5</td>
+<td>5</td>
+<td>0</td>
+<td>53.07</td>
+<td>0.06</td>
+</tr>
+<tr>
+<td>RA-L2391</td>
+<td>6</td>
+<td>3</td>
+<td>9</td>
+<td>9</td>
+<td>3</td>
+<td>3</td>
+<td>1</td>
+<td>5</td>
+<td>0</td>
+<td>55.90</td>
+<td>0.04</td>
+</tr>
+<tr>
+<td>RA-L2450</td>
+<td>6</td>
+<td>3</td>
+<td>9</td>
+<td>9</td>
+<td>3</td>
+<td>3</td>
+<td>1</td>
+<td>5</td>
+<td>0</td>
+<td>54.76</td>
+<td>0.05</td>
+</tr>
+<tr>
+<td>RA-L2677</td>
+<td>6</td>
+<td>3</td>
+<td>9</td>
+<td>9</td>
+<td>3</td>
+<td>3</td>
+<td>1</td>
+<td>5</td>
+<td>0</td>
+<td>62.47</td>
+<td>0.04</td>
+</tr>
+<tr>
+<td>RA-L2701</td>
+<td>6</td>
+<td>3</td>
+<td>9</td>
+<td>9</td>
+<td>3</td>
+<td>3</td>
+<td>1</td>
+<td>5</td>
+<td>0</td>
+<td>67.59</td>
+<td>0.03</td>
+</tr>
+<tr>
+<td>RA-L2709</td>
+<td>failed</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>RA-L2782</td>
+<td>382</td>
+<td>1</td>
+<td>51</td>
+<td>11</td>
+<td>13</td>
+<td>2</td>
+<td>5</td>
+<td>5</td>
+<td>0</td>
+<td>55.89</td>
+<td>0.05</td>
+</tr>
+<tr>
+<td>RA-L2805</td>
+<td>6</td>
+<td>3</td>
+<td>9</td>
+<td>9</td>
+<td>3</td>
+<td>3</td>
+<td>1</td>
+<td>5</td>
+<td>0</td>
+<td>66.46</td>
+<td>0.04</td>
+</tr>
+<tr>
+<td>RA-L2978</td>
+<td>6</td>
+<td>3</td>
+<td>9</td>
+<td>9</td>
+<td>3</td>
+<td>3</td>
+<td>1</td>
+<td>5</td>
+<td>0</td>
+<td>52.40</td>
+<td>0.06</td>
+</tr>
+</tbody></table>
 
 <div class="tables-end"></div>
 
