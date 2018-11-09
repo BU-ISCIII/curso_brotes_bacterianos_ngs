@@ -1,17 +1,20 @@
 # Bacterial WGS training : Exercise 4
 
+<div class="tables-start"></div>
+
 |**Title**| cgMLST bacterial outbreak investigation.|
 |---------|-------------------------------------------|
 |**Training dataset:**|                                |
 |**Questions:**| <ul><li>Do I have the needed depth of coverage?</li><li>Do I have correct assemblies?</li><li>How do I download a cgMLST schema?</li><li>How can I analyze my samples using a cgMLST schema?</li><li>How do I visualize the results?</li><li>Which strains belong to the outbreak?</li></ul>|
-|**Objectives**:|<ul><li>Trimming and quality control of raw reads.</li><li>Assembly and quality control</li><li>cgMLST analysis</li><li>Minnimum spanning tree visualization</li><li>Results interpretation</li></ul>|  
+|**Objectives**:|<ul><li>Trimming and quality control of raw reads.</li><li>Assembly and quality control</li><li>cgMLST analysis</li><li>Minnimum spanning tree visualization</li><li>Results interpretation</li></ul>|
 |**Time estimation**:| 1 h|
 |**Key points**:|<ul><li>Importance of assembly in cgMLST typification.</li><li>Summary of alleles reconstruction, and missing data is important.</li><li>Interpretation of results is case, species and epidemiology dependant.</li></ul>|
-  
+
+<div class="tables-end"></div>
 
 ## Introduction
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/taranis_diagram_identify_alleles.jpg" width="1000"></p>
+<p align="center"><img src="img/taranis_diagram_identify_alleles.jpg" width="1000"></p>
 
 ## Preprocessing
 Addressed in previous exercises.
@@ -37,7 +40,10 @@ nextflow run BU-ISCIII/bacterial_wgs_training --reads 'training_dataset/*_R{1,2}
 
 Below this command two srst2 commands are performed using the mlst and serogroup schema downloaded from [Pasteur bigsdb](http://bigsdb.pasteur.fr/perl/bigsdb/bigsdb.pl?db=pubmlst_listeria_seqdef_public).
 ```
-srst2 --input_pe reads_R1.fastq.gz readsR2 --forward "_R1" --reverse "_R2" --output output --log --mlst_db db_mlst --mlst_definition mlst_scheme --mlst_delimiter "_"
+srst2 --input_pe reads_R1.fastq.gz readsR2 \
+--forward "_R1" --reverse "_R2" --output output \
+--log --mlst_db db_mlst --mlst_definition mlst_scheme \
+--mlst_delimiter "_"
 ```
 Parameters:
 - input_pe: fastq reads
@@ -54,6 +60,9 @@ The serogroup results look like this, and it can be found in the next path:
 ```
 /home/alumno/course_shared_folder/results/SRST2_SERO/summary.txt
 ```
+
+<div class="tables-start"></div>
+
 |Sample|ST|lmo0737|lmo1118|ORF2110|ORF2819|prs|mismatches|uncertainty|depth|maxMAF|
 |------|--|-------|-------|-------|-------|---|----------|-----------|-----|------|
 |RA-L2073|IVb (13)|-|-|3|3|2|0|-|37.6266666667|0.0666666667|
@@ -68,11 +77,15 @@ The serogroup results look like this, and it can be found in the next path:
 |RA-L2805|IVb (13)|-|-|3|3|2|0|-|49.676|0.064516129|
 |RA-L2978|IVb (13)|-|-|3|3|2|0|-|50.1983333333|0.0588235294|
 
+<div class="tables-end"></div>
 
 The MLST results look like this other table, and can be found in:
 ```
 /home/alumno/course_shared_folder/results/SRST2_MLST/summary.txt
 ```
+
+<div class="tables-start"></div>
+
 |Sample|ST|abcZ|bglA|cat|dapE|dat|ldh|lhkA|mismatches|uncertainty|depth|maxMAF|
 |------|--|----|----|---|----|---|---|----|----------|-----------|-----|------|
 |RA-L2073|6|3|9|9|3|3|1|5|0|-|59.0544285714|0.0634920634921|
@@ -87,10 +100,12 @@ The MLST results look like this other table, and can be found in:
 |RA-L2805|6|3|9|9|3|3|1|5|0|-|66.4684285714|0.047619047619|
 |RA-L2978|6|3|9|9|3|3|1|5|0|-|52.4057142857|0.0625|
 
+<div class="tables-end"></div>
+
 We will describe here the meaning of each column:
 - Sample: sample name
 - ST: serotype or serogroup determined.
-- lmo0737-prs: names of the genes present in the MLST schema in this case. This column will vary depending on the species and the schema used. Each column shows the allele number determined for each sample. 
+- lmo0737-prs: names of the genes present in the MLST schema in this case. This column will vary depending on the species and the schema used. Each column shows the allele number determined for each sample.
 - mismatches: number of mismatches (SNPs) found against the reference allele.
 - uncertainty: a score showing the probability of having determined the correct allele (ST).
 - depth: depth of coverage achieved mapping against this allele.
@@ -98,7 +113,7 @@ We will describe here the meaning of each column:
 
 And finally we can plot a clustering using MLST profile with a resistance heatmap for visualization:
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/mlst_resistance.png" width="1000"></p>
+<p align="center"><img src="img/mlst_resistance.png" width="1000"></p>
 
 ## Assembly
 Addressed in previous exercises.
@@ -133,7 +148,7 @@ Once our localization is correct we will launch nextflow with the next parameter
   - Raw reads
   - step outbreakMLST
   - gtf file needed for assembly step.
-  
+
 ```
 nextflow run BU-ISCIII/bacterial_wgs_training \
 --reads 'training_dataset/*R{1,2}*.fastq.gz' \
@@ -145,16 +160,16 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 
 **Output:**
 ```
-N E X T F L O W  ~  version 0.32.0                                                        
-Launching `BU-ISCIII/bacterial_wgs_training` [sad_ptolemy] - revision: 068d646a9e [master]                                   
-WARN: Process `multiqc` is defined two or more times                                                                         
-WARN: Process `multiqc` is defined two or more times                                                                         
-WARN: Process `multiqc` is defined two or more times                                                                         
-=========================================                                                                                   
- BU-ISCIII/bacterial_wgs_training : WGS analysis practice v1.0                                                               
+N E X T F L O W  ~  version 0.32.0
+Launching `BU-ISCIII/bacterial_wgs_training` [sad_ptolemy] - revision: 068d646a9e [master]
+WARN: Process `multiqc` is defined two or more times
+WARN: Process `multiqc` is defined two or more times
+WARN: Process `multiqc` is defined two or more times
 =========================================
-Reads                : training_dataset/*_R{1,2}.fastq.gz 
-Data Type            : Paired-End                                                                                           
+ BU-ISCIII/bacterial_wgs_training : WGS analysis practice v1.0
+=========================================
+Reads                : training_dataset/*_R{1,2}.fastq.gz
+Data Type            : Paired-End
 Fasta Ref            : training_dataset/listeria_NC_021827.1_NoPhagues.fna
 GTF File             : training_dataset/listeria_NC_021827.1_NoPhagues.gff
 Keep Duplicates      : false
@@ -200,7 +215,7 @@ This directory contains several files including:
 ├── matching_contigs.tsv -> contigs where alleles are found.
 ├── paralog.tsv -> paralogues genes found.
 ├── plot.tsv -> locus found in end of start of a contig (possible broken cds)
-├── result.tsv -> allele matrix. 
+├── result.tsv -> allele matrix.
 ├── snp.tsv -> snps found in inferred alleles (beta feature)
 └── summary_result.tsv -> summary of found/not found alleles.
 ```
@@ -212,6 +227,7 @@ We will focus on the main output in this exercise. In the summary file we will f
 
 In this case we obtain something like this:
 
+<div class="tables-start"></div>
 |File|Exact match|INF|ASM_INSERT|ASM_DELETE|ALM_INSERT|ALM_DELETE|LNF|NIPH|NIPHEM|PLOT|ERROR|
 |----|-----------|---|----------|----------|----------|----------|---|----|------|----|-----|
 |RA-L2073|1744|3|0|0|1|0|0|0|0|0|0|
@@ -226,6 +242,8 @@ In this case we obtain something like this:
 |RA-L2805|1745|3|0|0|0|0|0|0|0|0|0|
 |RA-L2978|1746|2|0|0|0|0|0|0|0|0|0|
 
+<div class="tables-end"></div>
+
 But...it may be useful for you taking a look at the downsampling results this time, what happens with the cgMLST analysis when we use data with low coverage, and consequently a fragmented analysis? The summary results changes and we see this:
 
 **TODO INCLUDE TABLE**
@@ -237,26 +255,26 @@ In order to generate the minimum spanning tree from our ```results.tsv``` file w
 
 So..open click [here](https://online.phyloviz.net/index) and phyloviz website should open
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz1.PNG" width="1000"></p>
+<p align="center"><img src="img/phyloviz1.PNG" width="1000"></p>
 
 Next we need to upload our file, so we select profile data as input and select *Launch tree*
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz2.PNG" width="1000"></p>
+<p align="center"><img src="img/phyloviz2.PNG" width="1000"></p>
 
 We now have our minimum spanning tree but it looks pretty ugly and with little information. Let's add the samples names to the nodes. In order to do this we have to click on Graphic propertis in the left dropdown menu, click on nodes and check the Add Link Labels checkbox as shown in the image:
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz3.PNG" width="1000"></p>
+<p align="center"><img src="img/phyloviz3.PNG" width="1000"></p>
 
 Next we are goint to add link labels which will show the absolute distance (number of alleles) among the nodes. As before we click on Graphic properties, next on Links and we check Add Link Labels checkbox.
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz4.PNG" width="1000"></p>
+<p align="center"><img src="img/phyloviz4.PNG" width="1000"></p>
 
 Now we have a "pretty" minimum spanning tree with enough annotation for interpret our results. However we can also make it prettier (easy right?) adding some colors based on any locus of the profile or based on any auxiliary data we want to provide, p.e one useful data is the samples **ST**, for this we have to create
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz7.PNG" width="1000"></p>
+<p align="center"><img src="img/phyloviz7.PNG" width="1000"></p>
 
 Finally we have out pretty MST, do you see any cluster? You can compare this result with the one obtained with the SNP-based pipeline.
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/phyloviz5.PNG" width="1000"></p>
+<p align="center"><img src="img/phyloviz5.PNG" width="1000"></p>
 
 
 ## Conclusion

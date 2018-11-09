@@ -1,10 +1,12 @@
 ## Bacterial WGS training : Exercise 2
 
+<div class="tables-start"></div>
+
 |**Title**| Sequence quality and assambly.|
 |---------|-------------------------------------------|
-|**Training dataset:**|  
+|**Training dataset:**|
 |**Questions:**| <ul><li>How do I know if my data was correctly sequenced?</li><li>How can I improve my data quality?</li><li>How do I assamble the reads?</li><li>How do I know if my reads were correctly assembled</li></ul>|
-|**Objectives**:|<ul><li>Check quality of sequenced data.</li><li>Trimm low quality segments and adapters.</li><li>Assamble mapped reads.</li></ul>|  
+|**Objectives**:|<ul><li>Check quality of sequenced data.</li><li>Trimm low quality segments and adapters.</li><li>Assamble mapped reads.</li></ul>|
 |**Time estimation**:| 1 h 30 min |
 |**Key points**:|<ul><li>Analysis of sequence quality.</li><li>Mapping.</li><li>Assembly.</li></ul>|
 
@@ -12,6 +14,8 @@
 - [Exercise](#exercise)
     - [Preprocessing](#preprocessing)
     - [Assembly](#assembly)
+
+<div class="tables-end"></div>
 
 ## Introduction
 ### Training summary
@@ -33,7 +37,7 @@ The objectives of the EQA are to assess the quality and comparability of the typ
 national reference laboratories participating in FWD-Net. Test isolates for the EQA were selected to cover isolates
 currently relevant to public health in Europe and represent a broad range of clinically relevant types for invasive
 listeriosis. Two separate sets of 11 test isolates were selected for serotyping and molecular typing-based cluster
-analysis. The expected cluster was based on a pre-defined categorisation by the organiser. 
+analysis. The expected cluster was based on a pre-defined categorisation by the organiser.
 Twenty-two *L. monocytogenes* test isolates were selected to fulfil the following criteria:
 - cover a broad range of the common clinically relevant types for invasive listeriosis
 - include closely related isolates
@@ -46,7 +50,7 @@ The 11 test isolates for cluster analysis were selected to include isolates with
 
 Despite the improvement of sequencing methods, there is no error-free technique. The Phred quality score [(Ewing et al., 1998)](https://www.ncbi.nlm.nih.gov/pubmed/9521921) has been used since the late 90s as a measure of the quality of each sequenced nucleotide. Phred quality scores not only allow us to determine the accuracy of sequencing and of each individual position in an assembled consensus sequence, but it is also used to compare the efficiency of the sequencing methods.
 
-Phred quality scores Q are defined as a property which is logarithmically related to the base-calling error probabilities P . The Phred quality score is the negative ratio of the error probability to the reference level of P = 1 expressed in Decibel (dB): 
+Phred quality scores Q are defined as a property which is logarithmically related to the base-calling error probabilities P . The Phred quality score is the negative ratio of the error probability to the reference level of P = 1 expressed in Decibel (dB):
 
 <p align="center">𝑄 = −10 log<sub>10</sub> P</p>
 
@@ -78,13 +82,13 @@ Common trimming includes removal of short reads, and cut off adapters and a numb
 
 ### De novo or reference-based assembly?
 
-After preprocessing, the next step is aligning the reads to rebuild the genomic sequence. There are two main ways of doing this: 
+After preprocessing, the next step is aligning the reads to rebuild the genomic sequence. There are two main ways of doing this:
 
 
 - Reference-based assembly
 
-    For each of the short reads in the FASTQ file, a corresponding location in the reference sequence is determined. A mapping algorithm will locate a location in the reference sequence that matches the read, while tolerating a certain amount of mismatch to allow subsequence variation detection tath correspond to the actual difference between the reference and de assembled genome. 
-  
+    For each of the short reads in the FASTQ file, a corresponding location in the reference sequence is determined. A mapping algorithm will locate a location in the reference sequence that matches the read, while tolerating a certain amount of mismatch to allow subsequence variation detection tath correspond to the actual difference between the reference and de assembled genome.
+
 - *De novo* assembly
 
     *De novo* genome assembly consists in taking a collection of short sequencing reads and reconstruct the genome sequence, source of all these fragments.The output of an assembler is decomposed into contigs: contiguous regions of the genome which are resolved, and/or scaffolds: longer sequences formed by reordered and oriented contigs with positional information but without sequence resolution.
@@ -130,27 +134,27 @@ MINLEN:50`
     - ILLUMINACLIP: cut adapter and other illumina-specific sequences from the read
     - SLIDINGWINDOW: Perform a sliding window trimming, cutting once the average quality within the window falls below a threshold
     - MINLEN: Drop the read if it is below a specified length
-    
+
 - `fastqc reads_paired_R[1|2].fastq reads_unpaired_R[1|2].fastq`
     - reads_paired_R[1|2].fastq reads_unpaired_R[1|2].fastq are sequences after trimming step which quality will be assesed
-    
+
 - `multiqc RESULTS_DIRECTORY`
     - MultiQC will automatically search for raw and trimmed reads quality results and will compare them in user-friendly graphs
-    
+
 #### Final results should look like those:
 
 | Before trimming |After trimming |
-| --- | --- | 
-| ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_2.png) | 
+| --- | --- |
+| ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_2.png) |
 
 Here we can see the quality of the R1 reads before and after trimming
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_3.png" alt="Fastqc_4" width="900"></p>
+<p align="center"><img src="img/Ex_2_3.png" alt="Fastqc_4" width="900"></p>
 This is the MultiQC output comparing the quality of trimmed and raw reads
 <br>
 <br>
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_4.png" alt="Trimmomatic_1" width="900"></p>
+<p align="center"><img src="img/Ex_2_4.png" alt="Trimmomatic_1" width="900"></p>
 This is the MultiQC output sumarizing reads that have been filtered after trimming step
 <br>
 <br>
@@ -193,27 +197,22 @@ Once assembled, the file containing the contigs (SAMPLE_paired_assembly.fasta) w
 
 #### Final results should look like those:
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_6.png" alt="Trimmomatic_1" width="900"></p>
+<p align="center"><img src="img/Ex_2_6.png" alt="Trimmomatic_1" width="900"></p>
 This is the MultiQC output sumarizing the number of contigs assembled for each sample, sorting them by size
 <br>
 <br>
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_5.png" alt="Trimmomatic_1" width="900"></p>
-This is the MultiQC output sumarizing basic assembly statistics for each sample  
+<p align="center"><img src="img/Ex_2_5.png" alt="Trimmomatic_1" width="900"></p>
+This is the MultiQC output sumarizing basic assembly statistics for each sample
 <br>
 <br>
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_7.png" alt="Trimmomatic_1" width="900"></p>
+<p align="center"><img src="img/Ex_2_7.png" alt="Trimmomatic_1" width="900"></p>
 This is the Quast output sumarizing all detailed assembly statistics, comparing all the assemblies in one table
 <br>
 <br>
 
-<p align="center"><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_8.png" alt="Trimmomatic_1" width="900"></p>
-This is Quast Icarus viewer where contigs are aligned to the reference supplied in order to check how similar the assembled contigs are to the genome from the database. 
+<p align="center"><img src="img/Ex_2_8.png" alt="Trimmomatic_1" width="900"></p>
+This is Quast Icarus viewer where contigs are aligned to the reference supplied in order to check how similar the assembled contigs are to the genome from the database.
 <br>
 <br>
-
-
-
-
-

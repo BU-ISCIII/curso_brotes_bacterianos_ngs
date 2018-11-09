@@ -1,13 +1,15 @@
 ## Bacterial WGS training : Exercise 1
 
+<div class="tables-start"></div>
 |**Title**| Linux command line.|
 |---------|-------------------------------------------|
-|**Training dataset:**|  
+|**Training dataset:**|
 |**Questions:**| <ul><li>How do I use the command line?</li><li>How do I navigate the file system?</li><li>How do I know which software I am using?</li><li>How do I use Nextflow with a Singularity image?</li></ul>|
-|**Objectives**:|<ul><li>Remember how to use the command line.</li><li>Learn how to execute the Nextflow pipeline over our Singularity image for the following exercises.</li></ul>|  
+|**Objectives**:|<ul><li>Remember how to use the command line.</li><li>Learn how to execute the Nextflow pipeline over our Singularity image for the following exercises.</li></ul>|
 |**Time estimation**:| 30 min |
 |**Key points**:|<ul><li>Remeber the shell basics</li><li>Learn how to call the pipeline for future exercises.</li></ul>|
-  
+
+<div class="tables-end"></div>
 #### How do I use the command line?
 
 Open a terminal and type into it. Remember to use TAB to autocomplete and suggest commands, paths and files!
@@ -22,7 +24,7 @@ Check our working directory:
 pwd
 ```
 
-Move to our Desktop folder (using the absolute path and the alias "~", which means "path to your home folder"): 
+Move to our Desktop folder (using the absolute path and the alias "~", which means "path to your home folder"):
 
 ```
 cd ~/Desktop
@@ -40,13 +42,13 @@ Move to the new folder (using a relative pathway):
 cd myDir
 ```
 
-Check our working directory (always do it before executing something): 
+Check our working directory (always do it before executing something):
 
 ```
 pwd
 ```
 
-Create the folders "asdf", "AsDf", "ASDF" and "tmp" (at once, commands change their behavior depending on the parameters): 
+Create the folders "asdf", "AsDf", "ASDF" and "tmp" (at once, commands change their behavior depending on the parameters):
 
 ```
 mkdir asdf AsDf ASDF tmp
@@ -66,31 +68,31 @@ Rename "myFile.txt" to "whateverIwant" (Linux does not require file extensions):
 mv tmp/myFile.txt tmp/whateverIwant
 ```
 
-See the contents of "whateverIwant": 
+See the contents of "whateverIwant":
 
 ```
 less tmp/whateverIwant
 ```
 
-Remove the file: 
+Remove the file:
 
 ```
 rm tmp/whateverIwant
 ```
 
-Remove the folders inside "myDir" (wildcard character "\*" means "any character once or more times, or nothing"): 
+Remove the folders inside "myDir" (wildcard character "\*" means "any character once or more times, or nothing"):
 
 ```
 rmdir ./*
 ```
 
-Go back to Desktop and remove everything you created (".." means parente directory, while "." refers to the directory itself): 
+Go back to Desktop and remove everything you created (".." means parente directory, while "." refers to the directory itself):
 
 ```
 cd ..; rm -rf myDir
 ```
 
-Return to your home directory (without parameters, the behavior of the command changes): 
+Return to your home directory (without parameters, the behavior of the command changes):
 
 ```
 cd
@@ -124,13 +126,14 @@ nextflow run /home/$USER/Documents/wgs/bacterial_wgs_training
 Optionally, we can pass a config file, and specify the .nf script inside a project:
 
 ```
-nextflow -C /home/$USER/Documents/wgs/bacterial_wgs_training/nextflow.config  run /home/$USER/Documents/wgs/bacterial_wgs_training/main.nf
+nextflow -C /home/$USER/Documents/wgs/bacterial_wgs_training/nextflow.config \
+run /home/$USER/Documents/wgs/bacterial_wgs_training/main.nf
 ```
 
 There is no need to download the software you want to execute, you can also execute a github repository:
 
 ```
-nextflow run BU-ISCIII/bacterial_wgs_training 
+nextflow run BU-ISCIII/bacterial_wgs_training
 ```
 
 This is how we will execute the exercises during this course, so let's remove the downloaded repository to fre some space:

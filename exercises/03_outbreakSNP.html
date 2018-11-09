@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Bacterial WGS training : Exercise 3</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+ 
+body {
+  padding: 3em;
+  /*margin-right: 350px;*/
+  max-width: 100%;
+}
+#toc {
+  position: fixed;
+  right: 20px;
+  width: 300px;
+  padding-top: 20px;
+  overflow: none;
+  height: calc(100% - 3em - 20px);
+}
+#toc_header {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+#toc > ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+#toc > ul ul { padding-left: 20px; }
+#toc > ul > li > a { display: none; }
+img { max-width: 800px; }
+
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Bacterial WGS training : Exercise 3</h1>
+
+<div class="tables-start"></div>
+
+<table><thead>
+<tr>
+<th><strong>Title</strong></th>
+<th>SNP-based bacterial outbreak investigation.</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Training dataset:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Questions:</strong></td>
+<td><ul><li>Do I have the needed depth of coverage?</li><li>Have I chosen the correct reference?</li><li>How do I create a SNP matrix? How many SNPs do I have?</li><li>How can I visualize my phylogenetic tree? Which problems can I encounter?</li><li>Which strains belong to the outbreak?</li></ul></td>
+</tr>
+<tr>
+<td><strong>Objectives</strong>:</td>
+<td><ul><li>Trimming and quality control of raw reads.</li><li>Mapping against genome reference and duplicate filter.</li><li>Variant Calling.</li><li>SNP matrix creation.</li><li>Maximum Likelihood phylogeny.</li><li>Visualization of results.</li></ul></td>
+</tr>
+<tr>
+<td><strong>Time estimation</strong>:</td>
+<td>1 h</td>
+</tr>
+<tr>
+<td><strong>Key points</strong>:</td>
+<td><ul><li>Importance of reference selecion in SNP-based tipification.</li><li>Variant calling and SNP reconstruction is a key step in the process.</li><li>Interpretation of results is case, species and epidemiology dependant.</li></ul></td>
+</tr>
+</tbody></table>
+
+<div class="tables-end"></div>
+
+<h2>Introduction</h2>
+
+<p>Although scientific community efforts have been focused on assembly-based methods and the optimization of reconstructing complete genomes, variant calling is a essential procedure that allows per base comparison between different genomes (<a href="https://www.frontiersin.org/articles/10.3389/fgene.2015.00235/full">Olson et al 2015</a>).</p>
+
+<p>SNP-based strain typing using WGS can be performed via reference-based mapping of either reads or assembled contigs. There are many available microbial SNP pipelines, such as <a href="https://github.com/tseemann/snippy">Snippy</a>, <a href="https://github.com/TGenNorth/NASP">NASP</a>, <a href="https://snvphyl.readthedocs.io/en/latest/">SNVphyl</a>, <a href="https://github.com/CFSAN-Biostatistics/snp-pipeline">CFSAN SNP Pipeline</a>, or <a href="https://github.com/lskatz/lyve-SET">Lyve-SET</a>.</p>
+
+<p>Variant calling is a process with a bunch of potential error sources that may lead to incorrect variant calls. Identifying and resolving this incorrect calls is critical for bacterial genomics to advance. In this exercise we will use WGS-Outbreaker a SNP-based tool developed by BU-ISCIII that uses bwa mapper, GATK variant caller and several SNP-filtering steps for SNP matrix contruction following maximun likelihood phylogeny using RAxML. Next image resumes the steps we are going to execute:</p>
+
+<p align="center"><img src="https://github.com/BU-ISCIII/WGS-Outbreaker/blob/master/img/wgs_outbreaker_schema.png?raw=true" width="600"></p>
+
+<h2>Preprocessing</h2>
+
+<p>We have already done our data prerpocesing in the <a href="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/02_QualityAndAssembly.md#exercise">previous exercise</a>. If you remember, we executed a nextflow order which trimmed our raw reads and reutned a quality report for both pre- and post-trimming files. We used FastQC for checking the data quality, Trimmomatic for the trimming and MultiQC for building the statitstics report.</p>
+
+<p>For mapping our reads, we will need to preprocess our data in the same way as we did for the assembly. As the results will be exactly the same we reviewed in that exercise, we will not spend more time and will move to exiting new topics.</p>
+
+<h2>Mapping</h2>
+
+<p>In the previous lecture we covered how to assamble the reads in the fastq file to recreate the original genome, or at least contigs of it. This technique requieres high sequence coverage, high read lenght reads and good read quality, plus being highly computationally demanding. This means that it is an expensive and slow method, plus having one big dissavantage when trying to compare assambled genomes: different algorithms (and even different versions of the same software) may produce different assambles from the same input.</p>
+
+<p>For this reason, when the objective is to compare genomes of different samples, we use another method for rebuilding the genome called mapping. This technique consists in using a previously assembled genome as reference against which sequenced reads will be independently aligned against. Every read will be placed in the most likely position, ignoring any synergies between reads. This produces genomes with the same structure and coordinates that can be easily compared.</p>
+
+<p>There are multiple mapping algorithms and softwares, but for this exercise we will use only <a href="http://bio-bwa.sourceforge.net/">bwa</a> (<a href="https://www.ncbi.nlm.nih.gov/pubmed/20080505">H. Li and R. Durbin, 2010</a>). bwa is implements a backward search with Burrows-Wheeler Transform to efficiently align short sequencing reads against a large reference sequence such as the human genome, allowing mismatches and gaps. For longer reads, it combines its algorthm with a modified Smith-Waterman&#39;s alignment, achieving the same results as the starndard algorithm but thousands of times faster. While still slower than BLAST for long query sequences, it is able to find all matches without heuristics, which makes it able to detect chimeras potentially caused by structural variations or reference misassemblies.</p>
+
+<p>To map our samples with bwa, we only have to execute this command:</p>
+
+<pre><code>cd
+cd Documents/wgs
+nextflow run BU-ISCIII/bacterial_wgs_training \
+  -profile singularity \
+  --reads &#39;training_dataset/*_R{1,2}.fastq.gz&#39; \
+  --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
+  --step mapping
+</code></pre>
+
+<p>This command will internally execute the following programs with our samples:</p>
+
+<ol>
+<li><p><strong>Preprocessing</strong>
+Quality control and read trimming with FastQC and Trimmomatic, as used in the previous exercise.</p>
+
+<ol>
+<li><strong>Building bwa index</strong>
+Bwa needs to build an index from the reference genome in order to now how to map the reads. This type of algorithms allows the software to do very fast searches on the genome.
+<code>
+bwa index fasta_file
+</code></li>
+<li><strong>Mapping</strong>
+Map each read against the reference genome using bwa mem software.
+<code>
+bwa mem fasta reads | samtools view -bT fasta - &gt; bam
+</code></li>
+<li><strong>Post-processing and statistics</strong>
+A handful of steps have to be executed before using the bam files resulting from the mapping.
+First, bam files have to be sorted and indexed:
+<code>
+samtools sort bam -o sorted.bam
+samtools index sorted.bam
+</code>
+This step allows first to reduce file size due to the compression algorithm used to generate bam files it works better if the file is sorted, and second with the file sorted and the index generated searches in the file are way faster. Imagine to look for something in a book with the pages unordered and without an index, difficult right?</li>
+</ol></li>
+</ol>
+
+<p>Next mapping stats generated:</p>
+
+<pre><code>samtools stats sorted.bam &gt; stats.txt
+</code></pre>
+
+<p>And finally we can remove some sequencing and mapping artifacts, as the duplicated reads:</p>
+
+<pre><code>picard MarkDuplicates \
+    INPUT=sorted.bam \
+    OUTPUT=dedup.bam \
+    ASSUME_SORTED=true \
+    REMOVE_DUPLICATES=true \
+    METRICS_FILE=picardDupMetrics.txt \
+    VALIDATION_STRINGENCY=LENIENT \
+</code></pre>
+
+<p>Parameters explanation:</p>
+
+<ul>
+<li>ASSUME_SORTED: TRUE or FALSE. Is the bam file sorted or not?</li>
+<li>REMOVE_DUPLICATES: TRUE or FALSE. Do we want to remove duplicates from our bam file or do we want to just mark them?</li>
+<li>METRICS_FILE: where do we want to save the metrics file?</li>
+<li>VALIDATION_STRINGENCY = SILENT, LENIENT or STRICT. If an error comes out how the software is going to behave. SILENT the software just ignores the error and does not output anything, LENIENT it continous to run but outputs an error and STRICT the software stops when it encounters any error (this last option can be pretty annoying).</li>
+</ul>
+
+<ol>
+<li><strong>MultiQC report</strong>
+MultiQC will automatically search for the stats files and will compare them in user-friendly graphs
+<code>
+multiqc RESULTS_DIRECTORY
+</code>
+Finally, we have our mapped genomes. Now we can open them with IGV to see how they have mapped against the reference genome, and which variants are.</li>
+</ol>
+
+<h2>Mapping stats</h2>
+
+<p>The mapping stats are saved in <code>results/bwa/stats/</code>, where you can find a stats file per mapped sample.</p>
+
+<p>We are going to visualize the summary statistics of the mapping step with MultiQC:</p>
+
+<ul>
+<li><p>The stats are represented in &quot;Alignment metrics&quot;:
+<img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/samtools_bamstats.png?raw=true" alt=""></p></li>
+<li><p>The percentage of mapped reads per sample are plotted in &quot;Percent Mapped&quot;:
+<img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/samtools_alignment_plot.png?raw=true" alt=""></p></li>
+<li><p>The number of duplicated reads per sample are plotted in &quot;Mark Duplicates&quot;:
+<img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/picard_deduplication_numbers.png?raw=true" alt="">
+<img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/picard_deduplication_percentages.png?raw=true" alt=""></p></li>
+</ul>
+
+<h2>Visualizing your mapping</h2>
+
+<p>In order to visualize our mapping we will use IGV (Integrative Genomics Viewer). This is an open source and freely available lightweight visualization tool that enables intuitive real-time exploration of diverse, large-scale genomic data sets on standard desktop computers. It supports flexible integration of a wide range of genomic data types including aligned sequence reads, mutations, copy number, RNA interference screens, gene expression, methylation and genomic annotations.</p>
+
+<p>Navigation through a data set is similar to that of Google Maps, allowing the user to zoom and pan seamlessly across the genome at any level of detail from whole genome to base pair. Data sets can be loaded from local or remote sources, including cloud-based resources, enabling investigators to view their own genomic data sets alongside publicly available data.</p>
+
+<p>Let&#39;s launch IGV! Navigate to your desktop and find the icon we have left for you. Double click on it and wait until it finishes loading.</p>
+
+<p><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Screenshot-IGV.png?raw=true" alt=""></p>
+
+<p>First we have to load the reference genome. Click on &quot;Genomes&quot; and &quot;Load Genome from File...&quot;, navigate to our training_dataset folder and select the reference genome &quot;listeria_NC_021827.1_NoPhagues.fna&quot;.</p>
+
+<p>Now, load our mapped genomes by clicking on &quot;File&quot; and &quot;load from File...&quot;, navigate to our mapped genomes (HINT: they are in the shared folder inside the &quot;results/picard&quot; folder), and load one of them:</p>
+
+<p><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Screenshot-IGV-loaded.png?raw=true" alt=""></p>
+
+<p>Finally, we can load as many as we want (or as many as the virtual machine survives) to compare them:</p>
+
+<p><img src="https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Screenshot-IGV-many.png?raw=true" alt=""></p>
+
+<h2>Variant Calling</h2>
+
+<p>We are using WGS-Outbreaker as the main software for variant calling, SNP-matrix creation and phylogeny performance. Following the development of the former exercises we are using nextflow, in this case using <code>outbreakSNP</code> step.
+This step includes the following processes:</p>
+
+<ul>
+<li>Preprocessing:
+
+<ul>
+<li>Trimming with trimmomatic software.</li>
+<li>Quality control with fastQC.</li>
+</ul></li>
+<li>WGS-Outbreak software comprises the rest of steps:
+
+<ul>
+<li>Mapping with bwa.</li>
+<li>Variant calling with GATK.</li>
+<li>SNP-Matrix creation.</li>
+<li>SNP-filtering:
+
+<ul>
+<li>PhredQ &gt; 30</li>
+<li>Strand-bias</li>
+<li>MAPQ</li>
+<li>SNP cluster, &lt; 3 SNPs / 1000 pb</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>Everything clear..? So let&#39;s run it.</p>
+
+<h3>Run the exercise</h3>
+
+<p>First of all we need to be clear in which folder we are. We need to be in our working directory <code>/home/alumno/Documents/wgs</code> and our training dataset downloaded the first day must be there (If you had any problem the previous sessions please refere to the <a href="00_SetUp.md">setup tutorial</a>).</p>
+
+<p>You can run this command to check where you are:</p>
+
+<pre><code class="Bash">pwd
+</code></pre>
+
+<p>Output:</p>
+
+<pre><code>/home/alumno/Documents/wgs
+</code></pre>
+
+<p>And this one to list all the files in your working directory. Check there is the training_dataset folder and the results folder from previous sessions.</p>
+
+<pre><code class="Bash">ls
+</code></pre>
+
+<p>Output:</p>
+
+<pre><code>training_dataset results work
+</code></pre>
+
+<p>Once our localization is correct we will launch nextflow with the next parameters:</p>
+
+<ul>
+<li>Raw reads</li>
+<li>step outbreakSNP</li>
+<li>saveTrimmed -&gt; this parameters saves the fastq files trimmed in our results dir.</li>
+<li>outbreaker_config &lt;- config file with all the parameters required by WGS-Outbreaker</li>
+</ul>
+
+<pre><code class="Bash">nextflow run BU-ISCIII/bacterial_wgs_training \
+  -profile singularity \
+  --reads &#39;training_dataset/*_R{1,2}.fastq.gz&#39; \
+  --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
+  --step outbreakSNP \
+  --saveTrimmed \
+  --outbreaker_config training_dataset/wgsoutbreaker.config
+</code></pre>
+
+<p>Output:</p>
+
+<pre><code class="Bash">N E X T F L O W  ~  version 0.29.0
+Launching `main.nf` [distracted_magritte] - revision: 3508cbd2da
+WARN: Process `multiqc` is defined two or more times
+WARN: Process `multiqc` is defined two or more times
+WARN: Process `multiqc` is defined two or more times
+=========================================
+ BU-ISCIII/bacterial_wgs_training : WGS analysis practice v1.0
+=========================================
+Reads                : test/full_dataset/*_R{1,2}*.fastq.gz
+Data Type            : Paired-End
+Fasta Ref            : test/listeria_NC_021827.1_NoPhagues.fna
+Keep Duplicates      : false
+Step                 : outbreakSNP
+Container            : ./wgs_bacterial.simg
+Current home         : /home/smonzon
+Current user         : smonzon
+Current path         : /home/smonzon/Documents/desarrollo/bacterial_wgs_training
+Working dir          : /home/smonzon/Documents/desarrollo/bacterial_wgs_training/work
+Output dir           : results
+Script dir           : /home/smonzon/Documents/desarrollo/bacterial_wgs_training
+Save Reference       : false
+Save Trimmed         : true
+Save Intermeds       : false
+Trimmomatic adapters file: $TRIMMOMATIC_PATH/adapters/NexteraPE-PE.fa
+Trimmomatic adapters parameters: 2:30:10
+Trimmomatic window length: 4
+Trimmomatic window value: 20
+Trimmomatic minimum length: 50
+Config Profile       : singularity
+====================================
+[warm up] executor &gt; local
+[ca/cbb117] Submitted process &gt; fastqc (RA-L2805)
+[4b/65f7a1] Submitted process &gt; fastqc (RA-L2450)
+[32/8ebe88] Submitted process &gt; fastqc (RA-L2281)
+[23/04ab41] Submitted process &gt; fastqc (RA-L2073)
+[a7/f9e938] Submitted process &gt; fastqc (RA-L2391)
+[75/709471] Submitted process &gt; trimming (RA-L2073)
+[94/87b2b5] Submitted process &gt; makeBWAindex (listeria_NC_021827.1_NoPhagues)
+[94/b39b86] Submitted process &gt; trimming (RA-L2805)
+[df/e01505] Submitted process &gt; fastqc (RA-L2709)
+..................
+BU-ISCIII - Pipeline complete
+</code></pre>
+
+<blockquote>
+<p>This will take a while so we need to move forward and understand what we are doing and learn how to see and interpret our results.</p>
+</blockquote>
+
+<h3>Understanding WGS-Outbreaker config file</h3>
+
+<p>First of all, let&#39;s take a look to the config file for a moment: <a href="../config.file">WGS-Outbreaker config_file</a>. This file will allow us to configure all necessary parameters for running WGS-Outbreaker.
+The file is organized in several sections.
+1. <strong>Steps configuration:</strong> in this section we can select with YES/NO which pipeline steps we would want to run, in this case we have prefilled the steps that we can run in this trainning.</p>
+
+<pre><code>############################# Pipeline steps: Fill in with YES or NO (capital letter) ###################################
+TRIMMING=NO
+CHECK_REFERENCES=YES
+MAPPING=YES
+DUPLICATE_FILTER=YES
+VARIANT_CALLING=YES
+KMERFINDER=NO
+SRST2=NO
+CFSAN=NO
+VCF_TO_MSA=YES
+RAXML=YES
+STATS=YES
+</code></pre>
+
+<ol>
+<li><strong>Input data:</strong> we can provide the path where the input files are, and the path where we want our results. Also we can include our sample names and the raw reads filenames. These reads must be in the input directory provided.
+```
+# Directory with input files
+INPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/trimming</li>
+</ol>
+
+<h1>Directory for output files</h1>
+
+<p>OUTPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/wgs_outbreaker</p>
+
+<p>########################################## INPUT VARIABLES########################################################</p>
+
+<h1>Samples info:</h1>
+
+<h1>All samples ID must be separated by &quot;:&quot;, then for each sample there must be a line with the names for</h1>
+
+<h1>R1 and R2 separated by tabulator</h1>
+
+<h1>Example:</h1>
+
+<pre><code>#=AAAA_01:BBBB_02
+# AAAA_01=AAAA_01_R1.fastq.gz    AAAA_01_R2.fastq.gz
+# BBBB_02=BBBB_02_R1.fastq.gz    BBBB_02_R2.fastq.gz
+</code></pre>
+
+<pre><code>Moreover we have to include the path for our reference files:
+</code></pre>
+
+<p>######################################################### Reference Variables ###########################################</p>
+
+<h1>Path to reference genome</h1>
+
+<p>GENOME_REF=listeria_NC_021827.1_NoPhagues.fna</p>
+
+<h1>Path to reference genome without &quot;.fasta&quot;</h1>
+
+<p>GENOME_NAME=listeria_NC_021827.1_NoPhagues</p>
+
+<pre><code>3. **Trimming, mapping, variant calling and phylogeny parameters:** The end of the config file includes a series of default parameters we use for our analysis, mainly in foodborne bacteria, but that can be modified in order to match other analysis or other species requirements.
+For example the most variable parameter we can probably find is the maximum number of SNPs we are going to allow in a sequence window. This parameter is going to depend on the species variability, and also on the similarity of our reference with the isolates being analyzed.
+</code></pre>
+
+<p>##############  SNP FILTERS #########################</p>
+
+<h1>The maximum number of SNPs allowed in a window.</h1>
+
+<p>MAX_SNP=3</p>
+
+<h1>The length of the window in which the number of SNPs should be no more than max_num_snp</h1>
+
+<p>WINDOW_SIZE=1000</p>
+
+<pre><code>### Results analysis
+Let&#39;s proceed to analyze the results. We can find them in:
+</code></pre>
+
+<p>/home/alumno/course_shared_folder/wgs_outbreaker</p>
+
+<pre><code>This directory contains several folders including:
+</code></pre>
+
+<p>├── Alignment -&gt; already analyzed
+├── QC -&gt; already analyzed
+├── raw -&gt; symbolic links to raw reads
+├── RAXML -&gt; phylogenetic results
+├── stats -&gt; alignment and variant calling stats.
+└── variant_calling -&gt; variant calling files.</p>
+
+<pre><code>Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](02_QualityAndAssembly.md) and [Mapping Section](#Mapping)), we will proceed to analyze variant calling results.
+
+#### Variant calling results
+Variants are stored in plain text files in vcf format (variant calling format). Vcf files can be found in:
+</code></pre>
+
+<p>wgs_outbreaker/variant_calling/variants_gatk/variants</p>
+
+<pre><code>Here we can find a bunch of vcf files for each filtering steps we made:
+- *.g.vcf &lt;- this file contains a special vcf format that includes both variant and invariants sites information.
+- snps_indels.vcf &lt;- contains raw variants, both indels and snps found by GATK in the samples. This is a multisample vcf file and contains genotype information for all the samples at the same time.
+- In order to follow GATK&#39;s best practice protocol for high quality variant filtering, snps and indels must be treated separately, so we have snps_only_flags.vcf and indels_only_flags.vcf with quality flags for each type of variants.
+</code></pre>
+
+<p>##fileformat=VCFv4.2
+##FILTER=<ID="p-value StrandBias",Description="FS > 60.0&quot;&gt;
+##FILTER=<ID=LowQD,Description="QD < 2.0">
+##FILTER=<ID=LowQual,Description="Low quality">
+##FILTER=<ID=MaxDepth,Description="DP < 5">
+##FILTER=<ID=RMSMappingQuality,Description="MQ < 40.0">
+##FILTER=<ID=SnpCluster,Description="SNPs found in clusters">
+##FILTER=<ID=StandOddRatio,Description="SOR > 3.0&quot;&gt;
+##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Allelic depths for the ref and alt alleles in the order listed">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth (reads with MQ=255 or with bad mates are filtered)">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##INFO=<ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes, for each ALT allele, in the same order as listed">
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency, for each ALT allele, in the same order as listed">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##INFO=<ID=BaseQRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt Vs. Ref base qualities">
+##INFO=<ID=QD,Number=1,Type=Float,Description="Variant Confidence/Quality by Depth">
+##INFO=<ID=RAW_MQ,Number=1,Type=Float,Description="Raw data for RMS Mapping Quality">
+##INFO=<ID=ReadPosRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt vs. Ref read position bias">
+##INFO=<ID=SOR,Number=1,Type=Float,Description="Symmetric Odds Ratio of 2x2 contingency table to detect strand bias">
+##contig=<ID=NC_021827.1,length=2953716>
+##contig=<ID=NC_022047.1,length=55804>
+##reference=file:///home/smonzon/Documents/bacterial_wgs_training/work/ba/20837f0b9838403205e62589d7ac8b/listeria_NC_021827.1_NoPhagues.fna
+##source=SelectVariants
+#CHROM  POS ID  REF ALT QUAL    FILTER  INFO    FORMAT  RA-L2073
+NC_021827.1 276 .   C   A   291.68  RMSMappingQuality;SnpCluster;StandOddRatio  AC=1;AF=0.100;AN=10;DP=35;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=38.49;QD=34.24;SOR=4.407  GT:AD:DP:GQ:PL  0:3,0:3:99:0,117
+NC_021827.1 731 .   A   G   2313.68 SnpCluster  AC=1;AF=0.100;AN=10;DP=101;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=60.00;QD=33.05;SOR=0.811 GT:AD:DP:GQ:PL  0:3,0:3:99:0,101
+NC_021827.1 921 .   C   T   1841.68 SnpCluster  AC=1;AF=0.100;AN=10;DP=110;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=60.00;QD=29.70;SOR=0.826 GT:AD:DP:GQ:PL  0:3,0:3:99:0,101
+NC_021827.1 1067    .   C   T   2250.68 SnpCluster  AC=1;AF=0.100;AN=10;DP=168;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=60.00;QD=31.70;SOR=0.779 GT:AD:DP:GQ:PL  0:3,0:3:99:0,101
+NC_021827.1 2114    .   C   T   8324.89 SnpCluster  AC=3;AF=0.300;AN=10;DP=341;FS=0.000;MLEAC=3;MLEAF=0.300;MQ=60.00;QD=30.49;SOR=0.841 GT:AD:DP:GQ:PL  0:3,0:3:99:0,101
+NC_021827.1 2180    .   G   A   7855.89 SnpCluster  AC=3;AF=0.300;AN=10;DP=342;FS=0.000;MLEAC=3;MLEAF=0.300;MQ=60.00;QD=28.67;SOR=0.832 GT:AD:DP:GQ:PL  0:3,0:3:99:0,101</p>
+
+<pre><code>- Finally we continue to filter snps calls for our SNP matrix, and we filter SNPs which are included in a window of 1000 pb with an acumulation of more than 3 snps. We process two files snps_Pass.fasta and snps_PassCluster.fasta, one including only SNPs that PASS all the filters, and one that includes PASS snps and also those filtered by our cluster filter. We do this because usually we haven&#39;t select the window size and max snps properly for our samples and we need to analyze the complete set of SNPs.
+
+#### Phylogeny results
+Phylogenetic tree reconstruction is performed using RAxML with 100 inferences and 100 bootstrap repetitions. RAxML results can be checked in RAxML folder:
+</code></pre>
+
+<p>/home/Alumno/Documents/wgs/results/RAxML/{variant_caller}</p>
+
+<pre><code>Two different trees are generated one with only SNPs passing all filters (preser) and one with all snps (all_snp). Both trees are outputed for evaluation. In this case we are going to use the tree with the filtered SNPs because snp cluster filter has performed correctly.
+
+RAxML outputs one file per inference and per bootstrap so the folder is full of files. Don&#39;t worry we only need the final tree file, which is in newick format for visualization. The file is called:
+</code></pre>
+
+<p>RAxML_bipartitions.RAXML_TREE_ANNOT</p>
+
+<pre><code>Now we are going to open firefox browser and go to [iTOL website](https://itol.embl.de/). This web allows us to visualize and annotate phylogenetics trees with a very user-friendly interface. Also, it has good exporting options for publication.
+
+Once in iTOL website we click in Upload in the top menu. Next we upload our tree as shown in the image:
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;img/itol_web1.png&quot; width=&quot;1000&quot;&gt;&lt;/p&gt;
+
+Now we are visualizing our tree and we can manipulate it. First of all, as we are facing an unrooted tree with long and small branches, we are going to perform a midpoint rooting method for improve the visualization. For this we choose the longest branch an we click on it. We have to get a menu like this image:
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;img/itol_web2.png&quot; width=&quot;1000&quot;&gt;&lt;/p&gt;
+
+iTOL offers multiple annotation and maniputation options. We can selecto for example the display of bootstrap in the advance tab.
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;img/itol_web3.png&quot; width=&quot;1000&quot;&gt;&lt;/p&gt;
+
+You can play with all the options iTOL offers reading its [documentation](https://itol.embl.de/help.cgi), and export the tree in the export tab.
+
+Now we are going to focus on our results. Our final tree should look something like this:
+
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;img/tree_snps_final.png&quot; width=&quot;1000&quot;&gt;&lt;/p&gt;
+
+Which strains do you think belong to the outbreak?
+
+Following the instructions seen in the theory class, here we can focus on topology and bootstrap.
+
+Do we find any monophyletic group?
+Does it have more than 80 boostrap value?
+
+#### SNPs distance
+As we have studied in the theory class, maximum likelihood methods for phylogeny only offers as branch lenght the average nucleotide substitution rate, this means the branch lenght is only a estimation of the number of nucleotide changes a strain has suffer respect to another.
+In order to know exactly the SNPs differences between the strains WGS-Outbreaker outputs a distance matrix showing the paired diffences among the samples.
+We can check this file in:
+</code></pre>
+
+<p>/home/alumno/Documents/wgs/results/wgs_outbreaker/stats</p>
+
+<pre><code>
+|dis_matrix.names|RA.L2073|RA.L2281|RA.L2327|RA.L2391|RA.L2450|RA.L2677|RA.L2701|RA.L2782|RA.L2805|RA.L2978|
+|----------------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+|RA-L2073|0|9403|9028|80|46|46|49|9120|4|2|
+|RA-L2281|9403|0|8777|9415|9397|9397|9402|9183|9403|9401|
+|RA-L2327|9028|8777|0|9040|9022|9022|9027|4277|9028|9026|
+|RA-L2391|80|9415|9040|0|74|74|79|9132|80|78|
+|RA-L2450|46|9397|9022|74|0|38|45|9114|46|44|
+|RA-L2677|46|9397|9022|74|38|0|45|9114|46|44|
+|RA-L2701|49|9402|9027|79|45|45|0|9119|49|47|
+|RA-L2782|9120|9183|4277|9132|9114|9114|9119|0|9120|9118|
+|RA-L2805|4|9403|9028|80|46|46|49|9120|0|2|
+|RA-L2978|2|9401|9026|78|44|44|47|9118|2|0|
+
+
+As we see the SNP difference cutoff is important here, and it will depend on the strain and the case. If we stablish 3-5 snps as our cutoff we can detect that the strains belonging to the outbreak are: 2978, 2805 and 2073
+</code></pre>
+
+</body>
+
+<script type="text/javascript">
+(function() {
+    $('div.tables-start').nextUntil('div.tables-end', 'table').addClass('table table-bordered');
+})();
+</script>
+</html>

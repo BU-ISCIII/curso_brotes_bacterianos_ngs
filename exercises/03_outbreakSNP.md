@@ -1,25 +1,28 @@
 # Bacterial WGS training : Exercise 3
 
+<div class="tables-start"></div>
+
 |**Title**| SNP-based bacterial outbreak investigation.|
 |---------|-------------------------------------------|
 |**Training dataset:**|                                |
 |**Questions:**| <ul><li>Do I have the needed depth of coverage?</li><li>Have I chosen the correct reference?</li><li>How do I create a SNP matrix? How many SNPs do I have?</li><li>How can I visualize my phylogenetic tree? Which problems can I encounter?</li><li>Which strains belong to the outbreak?</li></ul>|
-|**Objectives**:|<ul><li>Trimming and quality control of raw reads.</li><li>Mapping against genome reference and duplicate filter.</li><li>Variant Calling.</li><li>SNP matrix creation.</li><li>Maximum Likelihood phylogeny.</li><li>Visualization of results.</li></ul>|  
+|**Objectives**:|<ul><li>Trimming and quality control of raw reads.</li><li>Mapping against genome reference and duplicate filter.</li><li>Variant Calling.</li><li>SNP matrix creation.</li><li>Maximum Likelihood phylogeny.</li><li>Visualization of results.</li></ul>|
 |**Time estimation**:| 1 h|
 |**Key points**:|<ul><li>Importance of reference selecion in SNP-based tipification.</li><li>Variant calling and SNP reconstruction is a key step in the process.</li><li>Interpretation of results is case, species and epidemiology dependant.</li></ul>|
-  
+
+<div class="tables-end"></div>
 
 ## Introduction
 Although scientific community efforts have been focused on assembly-based methods and the optimization of reconstructing complete genomes, variant calling is a essential procedure that allows per base comparison between different genomes ([Olson et al 2015](https://www.frontiersin.org/articles/10.3389/fgene.2015.00235/full)).
 
-SNP-based strain typing using WGS can be performed via reference-based mapping of either reads or assembled contigs. There are many available microbial SNP pipelines, such as [Snippy](https://github.com/tseemann/snippy), [NASP](https://github.com/TGenNorth/NASP), [SNVphyl](https://snvphyl.readthedocs.io/en/latest/), [CFSAN SNP Pipeline](https://github.com/CFSAN-Biostatistics/snp-pipeline), or [Lyve-SET](https://github.com/lskatz/lyve-SET). 
+SNP-based strain typing using WGS can be performed via reference-based mapping of either reads or assembled contigs. There are many available microbial SNP pipelines, such as [Snippy](https://github.com/tseemann/snippy), [NASP](https://github.com/TGenNorth/NASP), [SNVphyl](https://snvphyl.readthedocs.io/en/latest/), [CFSAN SNP Pipeline](https://github.com/CFSAN-Biostatistics/snp-pipeline), or [Lyve-SET](https://github.com/lskatz/lyve-SET).
 
 Variant calling is a process with a bunch of potential error sources that may lead to incorrect variant calls. Identifying and resolving this incorrect calls is critical for bacterial genomics to advance. In this exercise we will use WGS-Outbreaker a SNP-based tool developed by BU-ISCIII that uses bwa mapper, GATK variant caller and several SNP-filtering steps for SNP matrix contruction following maximun likelihood phylogeny using RAxML. Next image resumes the steps we are going to execute:
 
-<p align="center"><img src="https://github.com/BU-ISCIII/WGS-Outbreaker/blob/master/img/wgs_outbreaker_schema.png" width="600"></p>
+<p align="center"><img src="https://github.com/BU-ISCIII/WGS-Outbreaker/blob/master/img/wgs_outbreaker_schema.png?raw=true" width="600"></p>
 
 ## Preprocessing
-We have already done our data prerpocesing in the [previous exercise](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/02_QualityAndAssembly.md#exercise). If you remember, we executed a nextflow order which trimmed our raw reads and reutned a quality report for both pre- and post-trimming files. We used FastQC for checking the data quality, Trimmomatic for the trimming and MultiQC for building the statitstics report. 
+We have already done our data prerpocesing in the [previous exercise](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/02_QualityAndAssembly.md#exercise). If you remember, we executed a nextflow order which trimmed our raw reads and reutned a quality report for both pre- and post-trimming files. We used FastQC for checking the data quality, Trimmomatic for the trimming and MultiQC for building the statitstics report.
 
 For mapping our reads, we will need to preprocess our data in the same way as we did for the assembly. As the results will be exactly the same we reviewed in that exercise, we will not spend more time and will move to exiting new topics.
 
@@ -56,7 +59,7 @@ Map each read against the reference genome using bwa mem software.
 bwa mem fasta reads | samtools view -bT fasta - > bam
 ```
 4. **Post-processing and statistics**
-A handful of steps have to be executed before using the bam files resulting from the mapping. 
+A handful of steps have to be executed before using the bam files resulting from the mapping.
 First, bam files have to be sorted and indexed:
 ```
 samtools sort bam -o sorted.bam
@@ -70,7 +73,7 @@ samtools stats sorted.bam > stats.txt
 ```
 And finally we can remove some sequencing and mapping artifacts, as the duplicated reads:
 ```
-picard MarkDuplicates \ 
+picard MarkDuplicates \
 	INPUT=sorted.bam \
 	OUTPUT=dedup.bam \
 	ASSUME_SORTED=true \
@@ -126,9 +129,10 @@ Finally, we can load as many as we want (or as many as the virtual machine survi
 ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Screenshot-IGV-many.png?raw=true)
 
 ## Variant Calling
+
 We are using WGS-Outbreaker as the main software for variant calling, SNP-matrix creation and phylogeny performance. Following the development of the former exercises we are using nextflow, in this case using `outbreakSNP` step.
 This step includes the following processes:
-- Preprocessing: 
+- Preprocessing:
     - Trimming with trimmomatic software.
     - Quality control with fastQC.
 - WGS-Outbreak software comprises the rest of steps:
@@ -140,10 +144,11 @@ This step includes the following processes:
         * Strand-bias
         * MAPQ
         * SNP cluster, < 3 SNPs / 1000 pb
-        
-Everything clear..? So let's run it. 
+
+Everything clear..? So let's run it.
 
 ### Run the exercise
+
 First of all we need to be clear in which folder we are. We need to be in our working directory `/home/alumno/Documents/wgs` and our training dataset downloaded the first day must be there (If you had any problem the previous sessions please refere to the [setup tutorial](00_SetUp.md)).
 
 You can run this command to check where you are:
@@ -182,27 +187,27 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 Output:
 
 ```Bash
-N E X T F L O W  ~  version 0.29.0                                                                                                                   
-Launching `main.nf` [distracted_magritte] - revision: 3508cbd2da                                                                                     
-WARN: Process `multiqc` is defined two or more times                                                                                                 
-WARN: Process `multiqc` is defined two or more times                                                                                                 
-WARN: Process `multiqc` is defined two or more times                                                                                                 
-=========================================                                                                                                            
- BU-ISCIII/bacterial_wgs_training : WGS analysis practice v1.0                                                                                       
-=========================================                                                                                                            
-Reads                : test/full_dataset/*_R{1,2}*.fastq.gz                                                                 
-Data Type            : Paired-End                         
-Fasta Ref            : test/listeria_NC_021827.1_NoPhagues.fna                                                             
-Keep Duplicates      : false                                                                                                 
-Step                 : outbreakSNP                                                                                           
-Container            : ./wgs_bacterial.simg                                            
-Current home         : /home/smonzon                                                                                         
-Current user         : smonzon                                                                                               
-Current path         : /home/smonzon/Documents/desarrollo/bacterial_wgs_training                                             
-Working dir          : /home/smonzon/Documents/desarrollo/bacterial_wgs_training/work                                        
-Output dir           : results                                                                                               
-Script dir           : /home/smonzon/Documents/desarrollo/bacterial_wgs_training                                             
-Save Reference       : false                                                                                               
+N E X T F L O W  ~  version 0.29.0
+Launching `main.nf` [distracted_magritte] - revision: 3508cbd2da
+WARN: Process `multiqc` is defined two or more times
+WARN: Process `multiqc` is defined two or more times
+WARN: Process `multiqc` is defined two or more times
+=========================================
+ BU-ISCIII/bacterial_wgs_training : WGS analysis practice v1.0
+=========================================
+Reads                : test/full_dataset/*_R{1,2}*.fastq.gz
+Data Type            : Paired-End
+Fasta Ref            : test/listeria_NC_021827.1_NoPhagues.fna
+Keep Duplicates      : false
+Step                 : outbreakSNP
+Container            : ./wgs_bacterial.simg
+Current home         : /home/smonzon
+Current user         : smonzon
+Current path         : /home/smonzon/Documents/desarrollo/bacterial_wgs_training
+Working dir          : /home/smonzon/Documents/desarrollo/bacterial_wgs_training/work
+Output dir           : results
+Script dir           : /home/smonzon/Documents/desarrollo/bacterial_wgs_training
+Save Reference       : false
 Save Trimmed         : true
 Save Intermeds       : false
 Trimmomatic adapters file: $TRIMMOMATIC_PATH/adapters/NexteraPE-PE.fa
@@ -291,7 +296,7 @@ Let's proceed to analyze the results. We can find them in:
 ```
 This directory contains several folders including:
 ```
-├── Alignment -> already analyzed 
+├── Alignment -> already analyzed
 ├── QC -> already analyzed
 ├── raw -> symbolic links to raw reads
 ├── RAXML -> phylogenetic results
@@ -334,7 +339,7 @@ Here we can find a bunch of vcf files for each filtering steps we made:
 ##contig=<ID=NC_022047.1,length=55804>
 ##reference=file:///home/smonzon/Documents/bacterial_wgs_training/work/ba/20837f0b9838403205e62589d7ac8b/listeria_NC_021827.1_NoPhagues.fna
 ##source=SelectVariants
-#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	RA-L2073	
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	RA-L2073
 NC_021827.1	276	.	C	A	291.68	RMSMappingQuality;SnpCluster;StandOddRatio	AC=1;AF=0.100;AN=10;DP=35;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=38.49;QD=34.24;SOR=4.407	GT:AD:DP:GQ:PL	0:3,0:3:99:0,117
 NC_021827.1	731	.	A	G	2313.68	SnpCluster	AC=1;AF=0.100;AN=10;DP=101;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=60.00;QD=33.05;SOR=0.811	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
 NC_021827.1	921	.	C	T	1841.68	SnpCluster	AC=1;AF=0.100;AN=10;DP=110;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=60.00;QD=29.70;SOR=0.826	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
@@ -366,7 +371,7 @@ Now we are visualizing our tree and we can manipulate it. First of all, as we ar
 iTOL offers multiple annotation and maniputation options. We can selecto for example the display of bootstrap in the advance tab.
 <p align="center"><img src="img/itol_web3.png" width="1000"></p>
 
-You can play with all the options iTOL offers reading its [documentation](https://itol.embl.de/help.cgi), and export the tree in the export tab. 
+You can play with all the options iTOL offers reading its [documentation](https://itol.embl.de/help.cgi), and export the tree in the export tab.
 
 Now we are going to focus on our results. Our final tree should look something like this:
 

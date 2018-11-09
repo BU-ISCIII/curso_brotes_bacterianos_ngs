@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Bacterial WGS training : Exercise 1</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+ 
+body {
+  padding: 3em;
+  /*margin-right: 350px;*/
+  max-width: 100%;
+}
+#toc {
+  position: fixed;
+  right: 20px;
+  width: 300px;
+  padding-top: 20px;
+  overflow: none;
+  height: calc(100% - 3em - 20px);
+}
+#toc_header {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+#toc > ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+#toc > ul ul { padding-left: 20px; }
+#toc > ul > li > a { display: none; }
+img { max-width: 800px; }
+
+</style>
+
+
+
+</head>
+
+<body>
+<h2>Bacterial WGS training : Exercise 1</h2>
+
+<div class="tables-start"></div>
+
+<table><thead>
+<tr>
+<th><strong>Title</strong></th>
+<th>Linux command line.</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Training dataset:</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Questions:</strong></td>
+<td><ul><li>How do I use the command line?</li><li>How do I navigate the file system?</li><li>How do I know which software I am using?</li><li>How do I use Nextflow with a Singularity image?</li></ul></td>
+</tr>
+<tr>
+<td><strong>Objectives</strong>:</td>
+<td><ul><li>Remember how to use the command line.</li><li>Learn how to execute the Nextflow pipeline over our Singularity image for the following exercises.</li></ul></td>
+</tr>
+<tr>
+<td><strong>Time estimation</strong>:</td>
+<td>30 min</td>
+</tr>
+<tr>
+<td><strong>Key points</strong>:</td>
+<td><ul><li>Remeber the shell basics</li><li>Learn how to call the pipeline for future exercises.</li></ul></td>
+</tr>
+</tbody></table>
+
+<div class="tables-end"></div>
+
+<h4>How do I use the command line?</h4>
+
+<p>Open a terminal and type into it. Remember to use TAB to autocomplete and suggest commands, paths and files!</p>
+
+<h4>How do I navigate the file system?</h4>
+
+<p>Let&#39;s remember the basics: <em>pwd cd ls mkdir mv rm rmdir less nano</em>. We are going to use those commands to:</p>
+
+<p>Check our working directory:</p>
+
+<pre><code>pwd
+</code></pre>
+
+<p>Move to our Desktop folder (using the absolute path and the alias &quot;~&quot;, which means &quot;path to your home folder&quot;):</p>
+
+<pre><code>cd ~/Desktop
+</code></pre>
+
+<p>Create a directory called &quot;myDir&quot; (Linux is case sensitive and does not like white spaces in names):</p>
+
+<pre><code>mkdir myDir
+</code></pre>
+
+<p>Move to the new folder (using a relative pathway):</p>
+
+<pre><code>cd myDir
+</code></pre>
+
+<p>Check our working directory (always do it before executing something):</p>
+
+<pre><code>pwd
+</code></pre>
+
+<p>Create the folders &quot;asdf&quot;, &quot;AsDf&quot;, &quot;ASDF&quot; and &quot;tmp&quot; (at once, commands change their behavior depending on the parameters):</p>
+
+<pre><code>mkdir asdf AsDf ASDF tmp
+</code></pre>
+
+<p>Create a file inside &quot;tmp&quot; called &quot;myFile.txt&quot; (using a relative pathway, you can work with files outside your working directory):</p>
+
+<pre><code>nano tmp/myFile.txt
+</code></pre>
+
+<p>and write whatever you want and save it with <strong>Ctrl + O</strong> and close the new file with <strong>Ctrl + X</strong></p>
+
+<p>Rename &quot;myFile.txt&quot; to &quot;whateverIwant&quot; (Linux does not require file extensions):</p>
+
+<pre><code>mv tmp/myFile.txt tmp/whateverIwant
+</code></pre>
+
+<p>See the contents of &quot;whateverIwant&quot;:</p>
+
+<pre><code>less tmp/whateverIwant
+</code></pre>
+
+<p>Remove the file:</p>
+
+<pre><code>rm tmp/whateverIwant
+</code></pre>
+
+<p>Remove the folders inside &quot;myDir&quot; (wildcard character &quot;*&quot; means &quot;any character once or more times, or nothing&quot;):</p>
+
+<pre><code>rmdir ./*
+</code></pre>
+
+<p>Go back to Desktop and remove everything you created (&quot;..&quot; means parente directory, while &quot;.&quot; refers to the directory itself):</p>
+
+<pre><code>cd ..; rm -rf myDir
+</code></pre>
+
+<p>Return to your home directory (without parameters, the behavior of the command changes):</p>
+
+<pre><code>cd
+</code></pre>
+
+<h4>How do I know which software I am using?</h4>
+
+<p>Software may (and will) be installed in many different places. To discover the one you have loaded in your PATH use <code>which</code>, to see all the places where the shell is looking for software check the variable <code>$PATH</code>, to know the version of the software use the apropiate parameter (<code>-h --help -v --version</code>) and to check the manual of the software use <code>man</code>.</p>
+
+<pre><code>which git
+echo $PATH
+echo $USER
+git -h
+git --version
+man git
+</code></pre>
+
+<h4>How do I use Nextflow with a Singularity image?</h4>
+
+<pre><code>nextflow
+</code></pre>
+
+<p>So, what now? In order to execute a nextflow pipeline, we need to tell it to <code>run</code> a project which contains a <code>main.nf</code> script written in groovy + the pipeline languages:</p>
+
+<pre><code>nextflow run /home/$USER/Documents/wgs/bacterial_wgs_training
+</code></pre>
+
+<p>Optionally, we can pass a config file, and specify the .nf script inside a project:</p>
+
+<pre><code>nextflow -C /home/$USER/Documents/wgs/bacterial_wgs_training/nextflow.config \
+run /home/$USER/Documents/wgs/bacterial_wgs_training/main.nf
+</code></pre>
+
+<p>There is no need to download the software you want to execute, you can also execute a github repository:</p>
+
+<pre><code>nextflow run BU-ISCIII/bacterial_wgs_training
+</code></pre>
+
+<p>This is how we will execute the exercises during this course, so let&#39;s remove the downloaded repository to fre some space:</p>
+
+<pre><code>rm -rf /home/$USER/Documents/wgs/bacterial_wgs_training
+</code></pre>
+
+<p>Finally, let&#39;s ask how to use the pipeline:</p>
+
+<pre><code>nextflow run BU-ISCIII/bacterial_wgs_training --help
+</code></pre>
+
+<p>There is one big detail left. The software needed to execute the pipeline is no installed in our machine. Thankfully, we have a singularity image (container) ready for this course, and our pipeline has already being configurated to know where to find it and how to use it. Use the right argument and go for it:</p>
+
+<pre><code>nextflow run BU-ISCIII/bacterial_wgs_training -profile singularity
+</code></pre>
+
+</body>
+
+<script type="text/javascript">
+(function() {
+    $('div.tables-start').nextUntil('div.tables-end', 'table').addClass('table table-bordered');
+})();
+</script>
+</html>
