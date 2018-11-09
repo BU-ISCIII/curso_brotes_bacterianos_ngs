@@ -49,7 +49,7 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
 --gtf training_dataset/listeria_NC_021827.1_NoPhagues.gff \
 --srst2_resistance training_dataset/ARGannot.r1.fasta \
---srst2_virulance training_dataset/EcOH.fasta \
+--srst2_virulence training_dataset/EcOH.fasta \
 --step mapAnnotation
 ```
 ------
