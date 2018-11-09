@@ -277,8 +277,8 @@ if( ! params.srst2_resistance && params.step =~ /mapAnnotation/ ){
     exit 1, "SRST2 resistance database not provided for mapAnnotation step, please declare it with --srst2_resistance /path/to/db."
 }
 
-if( ! params.srst2_virulance && params.step =~ /mapAnnotation/ ){
-    exit 1, "SRST2 virulance database not provided for mapAnnotation step, please declare it with --srst2_virulance /path/to/db."
+if( ! params.srst2_virulence && params.step =~ /mapAnnotation/ ){
+    exit 1, "SRST2 virulence database not provided for mapAnnotation step, please declare it with --srst2_virulence /path/to/db."
 }
 
 /*
@@ -379,7 +379,7 @@ if (params.step =~ /(mapping|outbreakSNP)/){
 /*
  * STEP 1.1 - FastQC
  */
-if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|plasmidID|strainCharacterization)/ ){
+if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|plasmidID|strainCharacterization|mapAnnotation)/ ){
 	process fastqc {
 		tag "$prefix"
 		publishDir "${params.outdir}/fastqc", mode: 'copy',

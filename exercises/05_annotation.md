@@ -9,7 +9,14 @@
 |**Objectives**:|<ul><li>Annotate virulence and ABR genes</li><li>Determine gene variants</li><li>Determine plasmidome</li><li>Locate annotated genes</li><li>Results interpretation</li></ul>|
 |**Time estimation**:| 1 h|
 |**Key points**:|<ul><li>Comparing annotation using mapping vs assembly</li><li>Plasmid, virulence and resistance determination</li></ul>|
+<<<<<<< HEAD
 
+=======
+
+  <p align="center"><img src="img/bacterial_wgs_training.png" alt="Fastqc_1" width="500"></p>
+
+
+>>>>>>> 1ac4d30d8ca8e4a68ff238b9bba5705ab11fea69
 - [Introduction](#introduction)
 - [Exercise](#exercise)
     - [Mapping based annotation](#mapping-based-annotation)
@@ -18,34 +25,37 @@
 <div class="tables-start"></div>
 
 ## Introduction
-### Training summary
 
-<p align="center"><img src="img/bacterial_wgs_training.png" alt="Fastqc_1" width="500"></p>
+In this exercise we are going to determine the genomic content of a multidrug-resistant (MDR) *K. neumoniae* isolate.
+First we will usse [srst2](https://github.com/katholt/srst2) to asses the resistome and later, we will use [plasmidID](https://github.com/BU-ISCIII/plasmidID) to infer biological and positional information to sequences and see where the genes, detected with mapping strategy, are located.
 
 ### Training dataset description
-This dataset is an *in silico* dataset obtained with wg-sim usint a sample from [*Klebsiella pneumoniae subsp. pneumoniae HS11286*](https://www.ncbi.nlm.nih.gov/genome/?term=klebsiella+pneumoniae).
-
-
-<p align="center"><img src="img/map_vs_assembly.png" width="900"></p>
-
+The sample we are going to analyse is an *in silico* dataset obtained with [wgsim](https://github.com/lh3/wgsim) using a sample of [*Klebsiella pneumoniae subsp. pneumoniae HS11286*](https://www.ncbi.nlm.nih.gov/genome/?term=klebsiella+pneumoniae) available at ncbi.
 
 ## Exercise
 
 ### Mapping based annotation
+
+To execute srst2, which maps the reads against a antibiotic resistance genes database (ARGannot), lets execute this command:
+
+------
 
 ```Bash
 cd
 cd Documents/wgs
 nextflow run BU-ISCIII/bacterial_wgs_training \
 -profile singularity \
---reads '/home/pjsola/Documents/wgs/training_dataset/plasmidid_test/KPN_TEST_R{1,2}.fastq.gz' \
+--reads 'training_dataset/plasmidid_test/KPN_TEST_R{1,2}.fastq.gz' \
 --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
 --gtf training_dataset/listeria_NC_021827.1_NoPhagues.gff \
 --srst2_resistance training_dataset/ARGannot.r1.fasta \
 --srst2_virulence training_dataset/EcOH.fasta \
 --step mapAnnotation
 ```
-### Results
+------
+
+
+### Results should look like that
 
 
 | Sample | DB | gene | allele | coverage | depth | diffs | uncertainty | divergence | length | maxMAF | clusterid | seqid | annotation |
@@ -65,25 +75,38 @@ nextflow run BU-ISCIII/bacterial_wgs_training \
 | KPN_TEST_R | ARGannot.r1 | SulII_Sul | SulII_1219 | 100.0 | 11.094 | 1snp |  | 0.123 | 816 | 0.2 | 256 | 1219 | no;no;SulII;Sul;KR091911;167466-168281;816 |
 
 
+This table is a full report of all the ARG found with all mapping stats.
+
 ### Assembly based annotation
+
+Now, using the contigs assembled using those same reads, we can determine the exact location of those ARG. ARG can be located on the chromosome but motly on plasmids. In that case, we are going to focus on plasmid derived ARG using the annotation feature of plasmidID. To run the analysis lets use this command:
+
+------
 
 ```Bash
 cd
 cd Documents/wgs
 nextflow run BU-ISCIII/bacterial_wgs_training \
 -profile singularity \
---reads '/home/pjsola/Documents/wgs/training_dataset/plasmidid_test/KPN_TEST_R{1,2}.fastq.gz' \
+--reads 'training_dataset/plasmidid_test/KPN_TEST_R{1,2}.fastq.gz' \
 --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
 --gtf training_dataset/listeria_NC_021827.1_NoPhagues.gff \
 --plasmidid_database training_dataset/plasmidid_test/plasmids_TEST_database.fasta \
---plasmidid_config /home/pjsola/Documents/wgs/training_dataset/plasmidid_test/plasmidid_config.txt \
+--plasmidid_config training_dataset/plasmidid_test/plasmidid_config.txt \
 --step plasmidID
 ```
 
-##Results
+------
+
+
+##Results should look like that
 
 | NC_016838.1 | NC_016839.1 | NC_016840.1 |
 | :---: | :---: | :---: |
 | ![](img/KPN_TEST_R_paired_NC_016838.1.png) | ![](img/KPN_TEST_R_paired_NC_016839.1.png) | ![](img/KPN15_000240185_NC_016840.1.png) |
 | **NC_016841.1** | **NC_016846.1** | **NC_016847.1** |
 ![](img/KPN15_000240185_NC_016841.1.png) | ![](img/KPN_TEST_R_paired_NC_016846.1.png) | ![](img/KPN15_000240185_NC_016847.1.png) |
+
+Those are the 6 plasmids that this isolate had, have a look at those pictures and find out if the genes are the same allele.
+
+Are all the genes located with srst2 bound to plasmids?
