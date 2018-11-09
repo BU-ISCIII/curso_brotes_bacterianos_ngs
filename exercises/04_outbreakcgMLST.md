@@ -1,6 +1,7 @@
 # Bacterial WGS training : Exercise 4
 
 <div class="tables-start"></div>
+
 |**Title**| cgMLST bacterial outbreak investigation.|
 |---------|-------------------------------------------|
 |**Training dataset:**|                                |
@@ -8,6 +9,7 @@
 |**Objectives**:|<ul><li>Trimming and quality control of raw reads.</li><li>Assembly and quality control</li><li>cgMLST analysis</li><li>Minnimum spanning tree visualization</li><li>Results interpretation</li></ul>|
 |**Time estimation**:| 1 h|
 |**Key points**:|<ul><li>Importance of assembly in cgMLST typification.</li><li>Summary of alleles reconstruction, and missing data is important.</li><li>Interpretation of results is case, species and epidemiology dependant.</li></ul>|
+
 <div class="tables-end"></div>
 
 ## Introduction
@@ -60,6 +62,7 @@ The serogroup results look like this, and it can be found in the next path:
 ```
 
 <div class="tables-start"></div>
+
 |Sample|ST|lmo0737|lmo1118|ORF2110|ORF2819|prs|mismatches|depth|maxMAF|
 |------|--|-------|-------|-------|-------|---|----------|-----|------|
 |RA-L2073|IVb (13)|-|-|3|3|2|0|37.62|0.06|
@@ -82,6 +85,7 @@ The MLST results look like this other table, and can be found in:
 ```
 
 <div class="tables-start"></div>
+
 |Sample|ST|abcZ|bglA|cat|dapE|dat|ldh|lhkA|mismatches|depth|maxMAF|
 |------|--|----|----|---|----|---|---|----|----------|-----|------|
 |RA-L2073|6|3|9|9|3|3|1|5|0|59.05|0.063|
@@ -224,6 +228,7 @@ We will focus on the main output in this exercise. In the summary file we will f
 In this case we obtain something like this:
 
 <div class="tables-start"></div>
+
 |File|Exact match|INF|ASM_INSERT|ASM_DELETE|ALM_INSERT|ALM_DELETE|LNF|NIPH|NIPHEM|PLOT|ERROR|
 |----|-----------|---|----------|----------|----------|----------|---|----|------|----|-----|
 |RA-L2073|1744|3|0|0|1|0|0|0|0|0|0|
