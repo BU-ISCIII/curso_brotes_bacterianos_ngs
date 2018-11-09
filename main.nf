@@ -379,7 +379,7 @@ if (params.step =~ /(mapping|outbreakSNP)/){
 /*
  * STEP 1.1 - FastQC
  */
-if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|plasmidID|strainCharacterization)/ ){
+if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|plasmidID|strainCharacterization|mapAnnotation)/ ){
 	process fastqc {
 		tag "$prefix"
 		publishDir "${params.outdir}/fastqc", mode: 'copy',
