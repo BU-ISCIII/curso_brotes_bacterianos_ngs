@@ -56,9 +56,9 @@ The second option is to download it from our dockerhub:
 ```
 singularity pull docker://buisciii/bacterial_wgs_training
 ```
-The last option (only for advanced users) is to build the image from the recipe inside the repository you just cloned:
+The last option (only for advanced users) is to build the image from the recipe inside the repository you just cloned. You may need to execute it as root and edit images permissions to work under your user:
 ```
-sudo singularity build wgs_bacterial.simg bacterial_wgs_training/Singularity
+singularity build wgs_bacterial.simg bacterial_wgs_training/Singularity
 ```
 
 
