@@ -46,10 +46,19 @@ tar -xvzf training_dataset.tar.gz
 rm -f training_dataset.tar.gz
 ```
 
-Download singularity image:
+Get the container (singularity image) by the method which suits you the most:
 
+If you are taking the course in one of our virtual machines, the fastest way to do it is by copying it from the shared folder:
 ```
 rsync ~/course_shared_folder/wgs_bacterial.simg ./
+```
+The second option is to download it from our dockerhub:
+```
+singularity pull docker://buisciii/bacterial_wgs_training
+```
+The last option (only for advanced users) is to build the image from the recipe inside the repository you just cloned:
+```
+sudo singularity build wgs_bacterial.simg bacterial_wgs_training/Singularity
 ```
 
 
