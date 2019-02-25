@@ -57,5 +57,9 @@ RUN echo "r <- getOption('repos'); r['CRAN'] <- 'https://ftp.acc.umu.se/mirror/C
 	Rscript -e "install.packages('tidyr',dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
 	Rscript -e "install.packages('plyr',dependencies=TRUE,lib='/usr/local/lib64/R/library')"
 
-ENTRYPOINT ["/opt/docker-entrypoint.sh"]
-CMD ["scif"]
+#ENTRYPOINT ["/opt/docker-entrypoint.sh"]
+#CMD ["scif"]
+
+RUN find /scif/apps -maxdepth 2 -name "bin" | while read in; do echo "export PATH=\$PATH:$in" >> /etc/bashrc;done 
+RUN if [ -z "${LD_LIBRARY_PATH-}" ]; then echo "export LD_LIBRARY_PATH=/usr/local/lib" >> /etc/bashrc;fi
+RUN find /scif/apps -maxdepth 2 -name "lib" | while read in; do echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$in" >> /etc/bashrc;done
