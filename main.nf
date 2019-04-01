@@ -763,7 +763,7 @@ if (params.step =~ /strainCharacterization/){
   """
  }
 
-  process srst2_resistance {
+  process srst2_resistance_strainCharacterization {
   tag "$prefix"
   publishDir "${params.outdir}/SRST2_RES", mode: 'copy'
 
@@ -801,7 +801,7 @@ if (params.step =~ /strainCharacterization/){
 
 if (params.step =~ /mapAnnotation/){
 
-  process srst2_resistance {
+  process srst2_resistance_mapAnnotation {
   tag "$prefix"
   publishDir "${params.outdir}/SRST2_RES", mode: 'copy'
 
@@ -845,7 +845,7 @@ if (params.step =~ /mapAnnotation/){
 
 if (params.step =~ /preprocessing/){
 
- process multiqc {
+ process multiqc_preprocessing {
     tag "$prefix"
     publishDir "${params.outdir}/MultiQC", mode: 'copy'
 
@@ -873,7 +873,7 @@ if (params.step =~ /preprocessing/){
 
 if (params.step =~ /mapping/){
 
- process multiqc {
+ process multiqc_mapping {
     tag "$prefix"
     publishDir "${params.outdir}/MultiQC", mode: 'copy'
 
@@ -903,7 +903,7 @@ if (params.step =~ /mapping/){
 
 if (params.step =~ /assembly/){
 
- process multiqc {
+ process multiqc_assembly {
     tag "$prefix"
     publishDir "${params.outdir}/MultiQC", mode: 'copy'
 
@@ -933,7 +933,7 @@ if (params.step =~ /assembly/){
 
 if (params.step =~ /outbreakSNP/){
 
-process multiqc {
+process multiqc_outbreakSNP {
     tag "$prefix"
     publishDir "${params.outdir}/MultiQC", mode: 'copy'
 
