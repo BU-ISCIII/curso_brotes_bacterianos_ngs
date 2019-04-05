@@ -2,7 +2,6 @@ FROM buisciii/centos7_base_image:latest
 
 COPY ./scif_app_recipes/* /opt/
 
-
 RUN echo "Install basic development tools" && \
     yum -y groupinstall "Development Tools" && \
     yum -y update && yum -y install wget curl && \
@@ -47,15 +46,103 @@ RUN echo "Installing FastQC app" && \
     echo "Installing plasmidID app" && \
     scif install /opt/plasmidid_v1.4.2_centos7.scif
 
-	## R packages
+    ## R packages
 
-	# Install core R dependencies
-RUN echo "r <- getOption('repos'); r['CRAN'] <- 'https://ftp.acc.umu.se/mirror/CRAN/'; options(repos = r);" > ~/.Rprofile && \
-	Rscript -e "install.packages('ggplot2',dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
-	Rscript -e "install.packages('ape',dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
-	Rscript -e "source('https://bioconductor.org/biocLite.R');biocLite('ggtree',dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
-	Rscript -e "install.packages('tidyr',dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
-	Rscript -e "install.packages('plyr',dependencies=TRUE,lib='/usr/local/lib64/R/library')"
+    # Install core R dependencies
+    RUN echo "r <- getOption('repos'); r['CRAN'] <- 'https://ftp.acc.umu.se/mirror/CRAN/'; options(repos = r);" > ~/.Rprofile && \
+    Rscript -e "install.packages('ggplot2',dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
+    Rscript -e "install.packages('ape',dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
+    Rscript -e "source('https://bioconductor.org/biocLite.R');biocLite('ggtree',dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
+    Rscript -e "install.packages('tidyr',dependencies=TRUE,lib='/usr/local/lib64/R/library')" && \
+    Rscript -e "install.packages('plyr',dependencies=TRUE,lib='/usr/local/lib64/R/library')"
+
+# Include ENV variables
+ENV LC_ALL=en_US.UTF-8
+ENV PATH=$PATH:/scif/apps/aragorn
+ENV PATH=$PATH:/scif/apps/bamutil
+ENV PATH=$PATH:/scif/apps/barrnap
+ENV PATH=$PATH:/scif/apps/bcftools
+ENV PATH=$PATH:/scif/apps/bedtools
+ENV PATH=$PATH:/scif/apps/bigsdbdownload
+ENV PATH=$PATH:/scif/apps/bowtie2
+ENV PATH=$PATH:/scif/apps/bwa
+ENV PATH=$PATH:/scif/apps/cdhit
+ENV PATH=$PATH:/scif/apps/chewbbaca
+ENV PATH=$PATH:/scif/apps/circos
+ENV PATH=$PATH:/scif/apps/fastqc
+ENV PATH=$PATH:/scif/apps/gatk
+ENV PATH=$PATH:/scif/apps/gcc
+ENV PATH=$PATH:/scif/apps/get_homologues
+ENV PATH=$PATH:/scif/apps/hmmer3
+ENV PATH=$PATH:/scif/apps/htslib
+ENV PATH=$PATH:/scif/apps/minced
+ENV PATH=$PATH:/scif/apps/multiqc
+ENV PATH=$PATH:/scif/apps/ncbiblast
+ENV PATH=$PATH:/scif/apps/openmpi
+ENV PATH=$PATH:/scif/apps/picard
+ENV PATH=$PATH:/scif/apps/pilon
+ENV PATH=$PATH:/scif/apps/plasmidid
+ENV PATH=$PATH:/scif/apps/prodigal
+ENV PATH=$PATH:/scif/apps/prokka
+ENV PATH=$PATH:/scif/apps/python3
+ENV PATH=$PATH:/scif/apps/quast
+ENV PATH=$PATH:/scif/apps/R
+ENV PATH=$PATH:/scif/apps/raxml
+ENV PATH=$PATH:/scif/apps/samtools
+ENV PATH=$PATH:/scif/apps/snppipeline
+ENV PATH=$PATH:/scif/apps/spades
+ENV PATH=$PATH:/scif/apps/sratoolkit
+ENV PATH=$PATH:/scif/apps/srst2
+ENV PATH=$PATH:/scif/apps/taranis
+ENV PATH=$PATH:/scif/apps/tbl2asn
+ENV PATH=$PATH:/scif/apps/trimmomatic
+ENV PATH=$PATH:/scif/apps/unicycler
+ENV PATH=$PATH:/scif/apps/varscan
+ENV PATH=$PATH:/scif/apps/vcftools
+ENV PATH=$PATH:/scif/apps/wgsoutbreaker
+ENV LD_LIBRARY_PATH=/usr/local/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/aragorn/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/bamutil/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/barrnap/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/bcftools/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/bedtools/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/bigsdbdownload/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/bowtie2/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/bwa/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/cdhit/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/chewbbaca/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/circos/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/fastqc/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/gatk/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/gcc/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/get_homologues/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/hmmer3/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/htslib/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/minced/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/multiqc/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/ncbiblast/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/openmpi/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/picard/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/pilon/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/plasmidid/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/prodigal/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/prokka/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/python3/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/quast/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/raxml/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/R/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/samtools/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/snppipeline/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/spades/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/sratoolkit/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/srst2/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/taranis/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/tbl2asn/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/trimmomatic/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/unicycler/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/varscan/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/vcftools/lib/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/wgsoutbreaker/lib/lib
 
 #ENTRYPOINT ["/opt/docker-entrypoint.sh"]
 #CMD ["scif"]
