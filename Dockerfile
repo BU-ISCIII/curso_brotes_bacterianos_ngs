@@ -142,7 +142,7 @@ ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/unicycler/lib/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/varscan/lib/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/vcftools/lib/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/wgsoutbreaker/lib/lib
-#ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH/usr/local/lib
+#ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
 #ENTRYPOINT ["/opt/docker-entrypoint.sh"]
 #CMD ["scif"]
