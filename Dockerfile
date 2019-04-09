@@ -100,8 +100,7 @@ ENV PATH=$PATH:/scif/apps/unicycler/bin
 ENV PATH=$PATH:/scif/apps/varscan/bin
 ENV PATH=$PATH:/scif/apps/vcftools/bin
 ENV PATH=$PATH:/scif/apps/wgsoutbreaker/bin
-ENV LD_LIBRARY_PATH=/usr/local/lib
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/aragorn/lib/lib
+ENV LD_LIBRARY_PATH=/scif/apps/aragorn/lib/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/bamutil/lib/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/barrnap/lib/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/bcftools/lib/lib
@@ -143,6 +142,7 @@ ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/unicycler/lib/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/varscan/lib/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/vcftools/lib/lib
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/wgsoutbreaker/lib/lib
+#ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH/usr/local/lib
 
 #ENTRYPOINT ["/opt/docker-entrypoint.sh"]
 #CMD ["scif"]
