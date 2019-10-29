@@ -29,7 +29,7 @@ From: buisciii/centos7_base_image:latest
     echo "Installing spades app" && \
     scif install /opt/scif_app_recipes/spades_v3.8.0_centos7.scif && \
     echo "Installing prokka app" && \
-    scif install /opt/scif_app_recipes/prokka_v1.13_centos7.scif && \
+    scif install /opt/scif_app_recipes/prokka_v1.14.0_centos7.scif && \
     echo "Installing quast app" && \
     scif install /opt/scif_app_recipes/quast_v5.0.0_centos7.scif && \
     echo "Installing multiqc app" && \

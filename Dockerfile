@@ -24,7 +24,7 @@ RUN echo "Installing FastQC app" && \
     echo "Installing spades app" && \
     scif install /opt/spades_v3.8.0_centos7.scif && \
     echo "Installing prokka app" && \
-    scif install /opt/prokka_v1.13_centos7.scif && \
+    scif install /opt/prokka_v1.14.0_centos7.scif && \
     echo "Installing quast app" && \
     scif install /opt/quast_v5.0.0_centos7.scif && \
     echo "Installing multiqc app" && \
@@ -147,6 +147,6 @@ ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/scif/apps/wgsoutbreaker/lib/lib
 #ENTRYPOINT ["/opt/docker-entrypoint.sh"]
 #CMD ["scif"]
 RUN echo "export LC_ALL=en_US.UTF-8" >> /etc/bashrc
-RUN find /scif/apps -maxdepth 2 -name "bin" | while read in; do echo "export PATH=\$PATH:$in" >> /etc/bashrc;done 
+RUN find /scif/apps -maxdepth 2 -name "bin" | while read in; do echo "export PATH=\$PATH:$in" >> /etc/bashrc;done
 RUN if [ -z "${LD_LIBRARY_PATH-}" ]; then echo "export LD_LIBRARY_PATH=/usr/local/lib" >> /etc/bashrc;fi
 RUN find /scif/apps -maxdepth 2 -name "lib" | while read in; do echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$in" >> /etc/bashrc;done
