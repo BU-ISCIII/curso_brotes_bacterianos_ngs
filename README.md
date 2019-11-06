@@ -12,8 +12,8 @@ The material includes slides with theory concepts and a bunch of practical exerc
 - [**Exercise 0**](exercises/00_SetUp.md) -- [Download pdf](exercises/00_Setup.pdf)
 
 ### Day 2
-- **Talk 3:** [Shell usage and basic commands.](slides/talk2/curso_SeqGenBac_session1.2_linux.pdf)
-- **Talk 4:** [The computing revolution in Biosciences. Nextflow and Singularity introduction.](slides/talk3/curso_SeqGenBac_session1.3_ChangingComputingParadigm.pdf)
+- **Talk 2:** [Shell usage and basic commands.](slides/talk2/curso_SeqGenBac_session1.2_linux.pdf)
+- **Talk 3:** [The computing revolution in Biosciences. Nextflow and Singularity introduction.](slides/talk3/curso_SeqGenBac_session1.3_ChangingComputingParadigm.pdf)
 - [**Exercise 1**](exercises/01_LinuxNextflowSingularity.md) -- [Download pdf](exercises/01_LinuxNextflowSingularity.pdf)
 
 ### Day 3
