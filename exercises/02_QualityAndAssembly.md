@@ -170,6 +170,7 @@ Reconstruct the source genome is a mandatory step for latter analysis such annot
 cd
 cd Documents/wgs
 nextflow run BU-ISCIII/bacterial_wgs_training \
+  -resume \
   -profile singularity \
   --reads 'training_dataset/*_R{1,2}.fastq.gz' \
   --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
