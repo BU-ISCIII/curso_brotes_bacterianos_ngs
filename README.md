@@ -45,4 +45,4 @@ The material includes slides with theory concepts and a bunch of practical exerc
 ### Day 10
 - Finish evaluation questions.
 - **Talk12:** [Introduction to galaxy](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/slides/talk12/curso_SeqGenBac_sessionX_Introduction_to_Galaxy.pdf)
-- [**Galaxy Training**](https://galaxyproject.github.io/training-material/)
+- [**Galaxy Training**](https://galaxyproject.github.io/training-material/) - [**Galaxy webserver**](https://usegalaxy.eu/)
