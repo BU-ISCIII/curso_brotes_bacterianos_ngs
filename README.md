@@ -40,7 +40,8 @@ The material includes slides with theory concepts and a bunch of practical exerc
 
 ### Day 9
 - **Talk 11:** [Sequence annotation](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/slides/talk11/curso_SeqGenBac_session5.1_annotation.pdf)
-- **Talk 12:** [Genome characterization. Resistance and virulence](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/slides/talk12/)
+- [**Exercise 5**](exercises/05_annotation.md) -- [Download pdf](exercises/05_annotation.pdf)
 
 ### Day 10
-- [**Exercise 5**](exercises/05_annotation.md) -- [Download pdf](exercises/05_annotation.pdf)
+- Finish evaluation questions.
+- Introduction to galaxy.
