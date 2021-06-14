@@ -13,7 +13,7 @@
 Pipeline overview:
  - 1. : Preprocessing
  	- 1.1: FastQC for raw sequencing reads quality control
- 	- 1.2: Trimmomatic
+ 	- 1.2: Fastp
  - 2. : Mapping
  	- 2.1: BWA alignment against reference genome
  	- 2.2: Post-alignment processing and format conversion
@@ -59,16 +59,14 @@ def helpMessage() {
 	Steps available:
 	  --step [str]					Select which step to perform (preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|plasmidID|strainCharacterization|mapAnnotation)
     Options:
-      --singleEnd                   Specifies that the input is single end reads
 
     Trimming options
+    --cut_mean_quality [int]          The mean quality requirement option shared by fastp cut_front, cut_tail or cut_sliding options. Range: 1~36 (Default: 30 (Q30))
+      --qualified_quality_phred [int]   The quality value that a base is qualified. Default 30 means phred quality >=Q30 is qualified (Default: 30)
+      --unqualified_percent_limit [int] Percentage of bases that are allowed to be unqualified (0~100) (Default: 10)
+      --min_trim_length [int]           Reads shorter than this length after trimming will be discarded (Default: 50)
       --notrim                      Specifying --notrim will skip the adapter trimming step.
       --saveTrimmed                 Save the trimmed Fastq files in the the Results directory.
-      --trimmomatic_adapters_file   Adapters index for adapter removal
-      --trimmomatic_adapters_parameters Trimming parameters for adapters. <seed mismatches>:<palindrome clip threshold>:<simple clip threshold>. Default 2:30:10
-      --trimmomatic_window_length   Window size. Default 4
-      --trimmomatic_window_value    Window average quality requiered. Default 20
-      --trimmomatic_mininum_length  Minimum length of reads
 
     Assembly options
 
@@ -117,14 +115,12 @@ if (params.help){
  * Default and custom value for configurable variables
  */
 
-params.fasta = false
 if( params.fasta ){
     fasta_file = file(params.fasta)
     if( !fasta_file.exists() ) exit 1, "Fasta file not found: ${params.fasta}."
 }
 
 // bwa index
-params.bwa_index = false
 
 if( params.bwa_index ){
     bwa_file = file(params.bwa_index)
@@ -132,7 +128,6 @@ if( params.bwa_index ){
 }
 
 // gtf file
-params.gtf = false
 
 if( params.gtf ){
     gtf_file = file(params.gtf)
@@ -140,43 +135,20 @@ if( params.gtf ){
 }
 
 // WGS-Outbreaker config
-params.outbreaker_config = false
 if ( params.outbreaker_config ){
 	outbreaker_config_file = file(params.outbreaker_config)
 	if ( !outbreaker_config_file.exists() ) exit 1, "WGS-Outbreaker config file not found: ${params.outbreaker_config}"
 }
 // Steps
-params.step = "preprocessing"
 if ( ! (params.step =~ /(preprocessing|mapping|assembly|plasmidID|outbreakSNP|outbreakMLST|strainCharacterization|mapAnnotation)/) ) {
 	exit 1, 'Please provide a valid --step option [preprocessing,mapping,assembly,plasmidID,outbreakSNP,outbreakMLST,strainCharacterization,mapAnnotation]'
 }
 
-// Mapping-duplicates defaults
-params.keepduplicates = false
-params.notrim = false
-
-
 // MultiQC config file
-params.multiqc_config = "${baseDir}/conf/multiqc_config.yaml"
 
 if (params.multiqc_config){
 	multiqc_config = file(params.multiqc_config)
 }
-
-// Output md template location
-output_docs = file("$baseDir/docs/output.md")
-
-// Output files options
-params.saveReference = false
-params.saveTrimmed = false
-params.saveAlignedIntermediates = false
-
-// Default trimming options
-params.trimmomatic_adapters_file = "\$TRIMMOMATIC_PATH/adapters/NexteraPE-PE.fa"
-params.trimmomatic_adapters_parameters = "2:30:10"
-params.trimmomatic_window_length = "4"
-params.trimmomatic_window_value = "20"
-params.trimmomatic_mininum_length = "50"
 
 //srst2
 params.srst2_db_mlst = false
@@ -321,11 +293,10 @@ summary['Save Intermeds']      = params.saveAlignedIntermediates
 if( params.notrim ){
     summary['Trimming Step'] = 'Skipped'
 } else {
-    summary['Trimmomatic adapters file'] = params.trimmomatic_adapters_file
-    summary['Trimmomatic adapters parameters'] = params.trimmomatic_adapters_parameters
-    summary["Trimmomatic window length"] = params.trimmomatic_window_length
-    summary["Trimmomatic window value"] = params.trimmomatic_window_value
-    summary["Trimmomatic minimum length"] = params.trimmomatic_mininum_length
+	if (params.cut_mean_quality)          summary['Fastp Mean Qual'] = params.cut_mean_quality
+    if (params.qualified_quality_phred)   summary['Fastp Qual Phred'] = params.qualified_quality_phred
+    if (params.unqualified_percent_limit) summary['Fastp Unqual % Limit'] = params.unqualified_percent_limit
+    if (params.min_trim_length)           summary['Fastp Min Trim Length'] = params.min_trim_length
 }
 summary['Config Profile'] = workflow.profile
 log.info summary.collect { k,v -> "${k.padRight(21)}: $v" }.join("\n")
@@ -410,20 +381,32 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 		set val(name), file(reads) from raw_reads_trimming
 
 		output:
-		file '*_paired_*.fastq.gz' into trimmed_paired_reads,trimmed_paired_reads_bwa,trimmed_paired_reads_unicycler,trimmed_paired_reads_wgsoutbreaker,trimmed_paired_reads_plasmidid,trimmed_paired_reads_mlst,trimmed_paired_reads_res,trimmed_paired_reads_sero,trimmed_paired_reads_vir
-		file '*_unpaired_*.fastq.gz' into trimmed_unpaired_reads
+		file '*.trim.*.fastq.gz' into trimmed_paired_reads,trimmed_paired_reads_bwa,trimmed_paired_reads_unicycler,trimmed_paired_reads_wgsoutbreaker,trimmed_paired_reads_plasmidid,trimmed_paired_reads_mlst,trimmed_paired_reads_res,trimmed_paired_reads_sero,trimmed_paired_reads_vir
+		file '*.fail.*.fastq.gz' into trimmed_unpaired_reads
 		file '*_fastqc.{zip,html}' into trimmomatic_fastqc_reports
 		file '*.log' into trimmomatic_results
 
 		script:
 		prefix = name - ~/(_S[0-9]{2})?(_L00[1-9])?(.R1)?(_1)?(_R1)?(_trimmed)?(_val_1)?(_00*)?(\.fq)?(\.fastq)?(\.gz)?$/
 		"""
-		trimmomatic PE -phred33 $reads -threads 1 $prefix"_paired_R1.fastq" $prefix"_unpaired_R1.fastq" $prefix"_paired_R2.fastq" $prefix"_unpaired_R2.fastq" ILLUMINACLIP:${params.trimmomatic_adapters_file}:${params.trimmomatic_adapters_parameters} SLIDINGWINDOW:${params.trimmomatic_window_length}:${params.trimmomatic_window_value} MINLEN:${params.trimmomatic_mininum_length} 2> ${name}.log
-
-		gzip *.fastq
-
-		fastqc -q *_paired_*.fastq.gz
-
+		IN_READS='--in1 ${prefix}_R1.fastq.gz --in2 ${prefix}_R2.fastq.gz'
+        OUT_READS='--out1 ${prefix}_R1.trim.fastq.gz --out2 ${sample}_R2.trim.fastq.gz --unpaired1 ${prefix}_1.fail.fastq.gz --unpaired2 ${prefix}_2.fail.fastq.gz'
+		fastp \\
+            \$IN_READS \\
+            \$OUT_READS \\
+            $autodetect \\
+            --cut_front \\
+            --cut_tail \\
+            --cut_mean_quality $params.cut_mean_quality \\
+            --qualified_quality_phred $params.qualified_quality_phred \\
+            --unqualified_percent_limit $params.unqualified_percent_limit \\
+            --length_required $params.min_trim_length \\
+            --trim_poly_x \\
+            --thread $task.cpus \\
+            --json ${prefix}.fastp.json \\
+            --html ${prefix}.fastp.html \\
+            2> ${prefix}.fastp.log
+        fastqc --quiet --threads $task.cpus *.trim.fastq.gz
 		"""
 	}
 
