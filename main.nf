@@ -21,18 +21,14 @@ Pipeline overview:
  - 4. : Picard for duplicate read identification
  	- 4.1: Statistics about read counts
  - 5. : Assembly
- 	- 5.1 : Assembly with spades
+ 	- 5.1 : Assembly with unicycler
  	- 5.2 : Assembly stats
  - 6. : SNP outbreak analysis
- 	- 6.1 : CFSAN snp pipeline
- 	- 6.2 : WGS-Outbreaker pipeline
- 	- 6.3 : Phylogeny
+ 	- 6.1 : Snippy
+ 	- 6.2 : Phylogeny
  - 7. : wg/cgMLST:
  	- 7.1 : ChewBBACA
  	- 7.2 : Phyloviz (MST)
- - 8. : Comparative Genomics
- 	- Get homologues
- 	- Artemis
  - 9. : PlasmidID
  - 10. : SRST2
  - 11. : MultiQC
