@@ -23,7 +23,7 @@ dependencies:
   - bioconda::samtools=1.9
   - bioconda::bedtools=2.29.2
   - bioconda::multiqc=1.9
-  - bioconda::bwa=0.7.17-8
+  - bioconda::bwa=0.7.17
   - bioconda::picard=2.23.0
   - bioconda::bcftools=1.9
   - bioconda::kraken2=2.0.9beta
