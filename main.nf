@@ -536,26 +536,6 @@ if (params.step =~ /mapping/){
 	*/
 if (params.step =~ /(assembly|plasmidID|outbreakMLST)/){
 
-//	process spades {
-//		tag "$prefix"
-//		publishDir path: { "${params.outdir}/spades" }, mode: 'copy'
-//
-//		input:
-//		set file(readsR1),file(readsR2) from trimmed_paired_reads
-//
-//		output:
-//		file "${prefix}_scaffolds.fasta" into scaffold_quast,scaffold_prokka
-//		file "${prefix}_contigs.fasta" into contigs_quast,contigs_prokka
-//
-//		script:
-//		prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
-//		"""
-//		spades.py --phred-offset 33 --only-assembler -1 $readsR1 -2 $readsR2 -o .
-//		mv scaffolds.fasta $prefix"_scaffolds.fasta"
-//		mv contigs.fasta $prefix"_contigs.fasta"
-//		"""
-//	}
-
 	process unicycler {
 		tag "$prefix"
 		publishDir path: { "${params.outdir}/unicycler" }, mode: 'copy'
