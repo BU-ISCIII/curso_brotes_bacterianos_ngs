@@ -513,7 +513,7 @@ if (params.step =~ /mapping/){
 			script:
 			prefix = bam[0].toString() - ~/(\.sorted)?(\.bam)?$/
 			"""
-			java -jar \$PICARD_HOME/picard.jar MarkDuplicates \\
+			picard MarkDuplicates \\
 				INPUT=$bam \\
 				OUTPUT=${prefix}.dedup.bam \\
 				ASSUME_SORTED=true \\
