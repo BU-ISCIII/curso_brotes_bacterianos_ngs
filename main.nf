@@ -549,7 +549,7 @@ if (params.step =~ /(assembly|plasmidID|outbreakMLST)/){
 		script:
 		prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
 		"""
-		unicycler -1 $readsR1 -2 $readsR2 --pilon_path \$PILON_PATH -o .
+		unicycler -1 $readsR1 -2 $readsR2 -o .
 		mv assembly.fasta $prefix"_assembly.fasta"
 		"""
 	}
