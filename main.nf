@@ -696,7 +696,7 @@ if (params.step =~ /plasmidID/){
      script:
      prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
      """
-     plasmidID.sh -1 $readsR1 -2 $readsR2 -d $plasmidid_database -s $prefix --no-trim -c $assembly -o plasmidid_results -a $plasmidid_config
+     plasmidID -1 $readsR1 -2 $readsR2 -d $plasmidid_database -s $prefix --no-trim -c $assembly -o plasmidid_results -a $plasmidid_config
      """
  }
 
