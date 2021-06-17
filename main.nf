@@ -381,8 +381,8 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 		set val(name), file(reads) from raw_reads_trimming
 
 		output:
-		file '*.trim.fastq.gz' into trimmed_paired_reads,trimmed_paired_reads_bwa,trimmed_paired_reads_unicycler,trimmed_paired_reads_wgsoutbreaker,trimmed_paired_reads_plasmidid,trimmed_paired_reads_mlst,trimmed_paired_reads_res,trimmed_paired_reads_sero,trimmed_paired_reads_vir
-		file '*.fail.fastq.gz' into trimmed_unpaired_reads
+		file '*_trimmed.fastq.gz' into trimmed_paired_reads,trimmed_paired_reads_bwa,trimmed_paired_reads_unicycler,trimmed_paired_reads_wgsoutbreaker,trimmed_paired_reads_plasmidid,trimmed_paired_reads_mlst,trimmed_paired_reads_res,trimmed_paired_reads_sero,trimmed_paired_reads_vir
+		file '*_fail.fastq.gz' into trimmed_unpaired_reads
 		file '*_fastqc.{zip,html}' into trimmomatic_fastqc_reports
 		file '*.log' into trimmomatic_results
 
@@ -390,7 +390,7 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 		prefix = name - ~/(_S[0-9]{2})?(_L00[1-9])?(.R1)?(_1)?(_R1)?(_trimmed)?(_val_1)?(_00*)?(\.fq)?(\.fastq)?(\.gz)?$/
 		"""
 		IN_READS='--in1 ${prefix}_R1.fastq.gz --in2 ${prefix}_R2.fastq.gz'
-        OUT_READS='--out1 ${prefix}_R1.trim.fastq.gz --out2 ${prefix}_R2.trim.fastq.gz --unpaired1 ${prefix}_1.fail.fastq.gz --unpaired2 ${prefix}_2.fail.fastq.gz'
+        OUT_READS='--out1 ${prefix}_R1_trimmed.fastq.gz --out2 ${prefix}_R2_trimmed.fastq.gz --unpaired1 ${prefix}_R1_fail.fastq.gz --unpaired2 ${prefix}_R2_fail.fastq.gz'
 		fastp \\
             \$IN_READS \\
             \$OUT_READS \\
@@ -406,7 +406,7 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
             --json ${prefix}.fastp.json \\
             --html ${prefix}.fastp.html \\
             2> ${prefix}.fastp.log
-        fastqc --quiet --threads $task.cpus *.trim.fastq.gz
+        fastqc --quiet --threads $task.cpus *_trimmed.fastq.gz
 		"""
 	}
 
