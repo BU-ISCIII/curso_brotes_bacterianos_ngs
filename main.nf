@@ -760,7 +760,7 @@ if (params.step =~ /strainCharacterization/){
 
 if (params.step =~ /mapAnnotation/){
 
-  process srst2_resistance_mapAnnotation {
+  process srst2_resistance {
   tag "$prefix"
   publishDir "${params.outdir}/SRST2_RES", mode: 'copy'
 
@@ -773,7 +773,7 @@ if (params.step =~ /mapAnnotation/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --forward "_paired_R1" --reverse "_paired_R2" --output $prefix --log --gene_db $srst2_resistance
+  srst2 --input_pe $readsR1 $readsR2 --forward "_R1_trimmed" --reverse "_R2_trimmed" --output $prefix --log --gene_db $srst2_resistance
   """
  }
 
@@ -790,7 +790,7 @@ if (params.step =~ /mapAnnotation/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --forward "_paired_R1" --reverse "_paired_R2" --output $prefix --log --gene_db $srst2_virulence
+  srst2 --input_pe $readsR1 $readsR2 --forward "_R1_trimmed" --reverse "_R2_trimmed" --output $prefix --log --gene_db $srst2_virulence
   """
  }
 }
