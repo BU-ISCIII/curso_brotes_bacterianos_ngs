@@ -697,7 +697,7 @@ if (params.step =~ /strainCharacterization/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --forward "_paired_R1" --reverse "_paired_R2" --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst --mlst_delimiter "_"
+  srst2 --input_pe $readsR1 $readsR2 --forward "_R1_trimmed" --reverse "_R2_trimmed" --output $prefix --log --mlst_db $srst2_db_mlst --mlst_definitions $srst2_def_mlst --mlst_delimiter "_"
   """
  }
 
@@ -714,7 +714,7 @@ if (params.step =~ /strainCharacterization/){
   script:
   prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
   """
-  srst2 --input_pe $readsR1 $readsR2 --output $prefix --forward "_paired_R1" --reverse "_paired_R2" --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero --mlst_delimiter "_"
+  srst2 --input_pe $readsR1 $readsR2 --output $prefix --forward "_R1_trimmed" --reverse "_R2_trimmed" --log --mlst_db $srst2_db_sero --mlst_definitions $srst2_def_sero --mlst_delimiter "_"
   """
  }
 
