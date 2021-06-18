@@ -33,3 +33,4 @@ dependencies:
   - bioconda::prokka=1.14.5
   - bioconda::abacas=1.3.1
   - bioconda::chewbbaca=2.8.4
+  - bioconda::gubbins=2.3.4
