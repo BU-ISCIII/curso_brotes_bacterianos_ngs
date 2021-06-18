@@ -8,41 +8,35 @@ The material includes slides with theory concepts and a bunch of practical exerc
 ## Slides
 ### Day 1
 - **Talk 1:** [Massive sequencing of bacterial genomes. State-of-the-art](slides/talk1/curso_SeqGenBac_session1.1_Introduccion_ICuesta_v3.pdf)
-- **Talk 2:** [Linux environment review.](slides/talk2/curso_SeqGenBac_session1.2_linux.pdf)
+- **Talk 2:** [Bacterial genomes sequencing. Applications.](slides/talk4/curso_SeqGenBac_session2.1_aplicaciones_ICuesta.pdf)
+- 
+- **Talk 3:** [Linux environment review.](slides/talk2/curso_SeqGenBac_session1.2_linux.pdf)
 - [**Exercise 0**](exercises/00_SetUp.md) -- [Download pdf](exercises/00_Setup.pdf)
 
 ### Day 2
-- **Talk 2:** [Shell usage and basic commands.](slides/talk2/curso_SeqGenBac_session1.2_linux.pdf)
-- **Talk 3:** [The computing revolution in Biosciences. Nextflow and Singularity introduction.](slides/talk3/curso_SeqGenBac_session1.3_ChangingComputingParadigm.pdf)
+- **Talk 4:** [Shell usage and basic commands.](slides/talk2/curso_SeqGenBac_session1.2_linux.pdf)
+[The computing revolution in Biosciences. Nextflow and Singularity introduction.](slides/talk3/curso_SeqGenBac_session1.3_ChangingComputingParadigm.pdf)
 - [**Exercise 1**](exercises/01_LinuxNextflowSingularity.md) -- [Download pdf](exercises/01_LinuxNextflowSingularity.pdf)
 
-### Day 3
-- **Talk 4:** [Bacterial genomes sequencing. Applications.](slides/talk4/curso_SeqGenBac_session2.1_aplicaciones_ICuesta.pdf)
 - **Talk 5:** [Quality analysis and control of HTS data](slides/talk5/curso_SeqGenBac_session2.2_quality_assesment.pdf)
 
-### Day 4
 - **Talk 6:** [Bacterial genomes assembly](slides/talk6/curso_SeqGenBac_session2.3_assembly.pdf)
+
 - [**Exercise 2**](exercises/02_QualityAndAssembly.md) -- [Download pdf](exercises/02_QualityAndAssembly.pdf)
 
-### Day 5
+### Day 3
 - **Talk 7:** [Mapping against reference genome and Variant Calling.](slides/talk7/curso_SeqGenBac_session3.1_MappingAndVariantCalling.pdf)
 - **Talk 8:** [SNP matrix and phylogenetics.](slides/talk8/curso_SeqGenBac_session3.2_SNPMatrixAndPhylogenetics.pdf)
 
-### Day 6
 - [**Exercise 3**](exercises/03_outbreakSNP.md) -- [Download pdf](exercises/03_outbreakSNP.pdf)
 
-### Day 7
+### Day 4
 - **Talk 9:** [Typing based on allelic profile or gene-by-gene](slides/talk9/curso_SeqGenBac_session4.1_tipificacion-gen-by-gene_ICuesta.pdf)
 - **Talk 10:** [Gene-by-gene WGS analysis](slides/talk10/curso_SeqGenBac_session4.2_GeneByGenevsSNPs_v2.pdf)
 
-### Day 8
 - [**Exercise 4**](exercises/04_outbreakcgMLST.md) -- [Download pdf](exercises/04_outbreakcgMLST.pdf)
 
-### Day 9
+### Day 5
 - **Talk 11:** [Sequence annotation](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/slides/talk11/curso_SeqGenBac_session5.1_annotation.pdf)
+- **Talk 12:** [Genome characterization, Resistance and Virulence genes]
 - [**Exercise 5**](exercises/05_annotation.md) -- [Download pdf](exercises/05_annotation.pdf)
-
-### Day 10
-- Finish evaluation questions.
-- **Talk12:** [Introduction to galaxy](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/slides/talk12/curso_SeqGenBac_sessionX_Introduction_to_Galaxy.pdf)
-- [**Galaxy Training**](https://galaxyproject.github.io/training-material/) - [**Galaxy webserver**](https://usegalaxy.eu/)
