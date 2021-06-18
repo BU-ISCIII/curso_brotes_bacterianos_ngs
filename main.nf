@@ -237,10 +237,6 @@ if( ! params.srst2_def_sero && params.step =~ /strainCharacterization/ ){
     exit 1, "SRST2 serogroup schema definitions not provided for strainCharacterization step, please declare it with --srst2_def_sero /path/to/db."
 }
 
-if( ! params.srst2_resistance && params.step =~ /strainCharacterization/ ){
-    exit 1, "SRST2 resistance database not provided for strainCharacterization step, please declare it with --srst2_resistance /path/to/db."
-}
-
 if( ! params.srst2_resistance && params.step =~ /mapAnnotation/ ){
     exit 1, "SRST2 resistance database not provided for mapAnnotation step, please declare it with --srst2_resistance /path/to/db."
 }
@@ -722,40 +718,6 @@ if (params.step =~ /strainCharacterization/){
   """
  }
 
-  process srst2_resistance_strainCharacterization {
-  tag "$prefix"
-  publishDir "${params.outdir}/SRST2_RES", mode: 'copy'
-
-  input:
-  set file(readsR1),file(readsR2) from trimmed_paired_reads_res
-
-  output:
-  file "*results.txt" into srst2_res_results, srst2_res_plots
-
-  script:
-  prefix = readsR1.toString() - ~/(.R1)?(_1)?(_R1)?(_trimmed)?(_paired)?(_val_1)?(\.fq)?(\.fastq)?(\.gz)?$/
-  """
-  srst2 --input_pe $readsR1 $readsR2 --forward "_paired_R1" --reverse "_paired_R2" --output $prefix --log --gene_db $srst2_resistance
-  """
- }
-
-// process srst2_Rplots {
-//  tag "SRST2_PLOTS"
-//  publishDir "${params.outdir}/SRST2_PLOTS", mode: 'copy'
-//
-//  input:
-//  file mlst from srst2_mlst_plots.collect()
-//  file res from srst2_res_plots.collect()
-//
-//  output:
-//  file "*.pdf" into srst2_tree
-//
-//  script:
-//  """
-//  srst2 --prev_output $mlst $res --output all
-//  Rscript $baseDir/bin/plotTreeHeatmap.R
-//  """
-// }
 }
 
 if (params.step =~ /mapAnnotation/){
