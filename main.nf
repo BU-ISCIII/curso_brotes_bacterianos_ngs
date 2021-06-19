@@ -86,9 +86,6 @@ def helpMessage() {
       --srst2_db_sero               Fasta file of serogroup
       --srst2_def_sero              ST definitions for serogroup scheme
 
-    OutbreakSNP options
-      --outbreaker_config			Config needed by wgs-outbreaker.
-
 	OutbreakMLST options
 
 
@@ -134,11 +131,6 @@ if( params.gtf ){
     if( !gtf_file.exists() ) exit 1, "GTF file not found: ${params.gtf}."
 }
 
-// WGS-Outbreaker config
-if ( params.outbreaker_config ){
-	outbreaker_config_file = file(params.outbreaker_config)
-	if ( !outbreaker_config_file.exists() ) exit 1, "WGS-Outbreaker config file not found: ${params.outbreaker_config}"
-}
 // Steps
 if ( ! (params.step =~ /(preprocessing|mapping|assembly|plasmidID|outbreakSNP|outbreakMLST|strainCharacterization|mapAnnotation)/) ) {
 	exit 1, 'Please provide a valid --step option [preprocessing,mapping,assembly,plasmidID,outbreakSNP,outbreakMLST,strainCharacterization,mapAnnotation]'
@@ -215,10 +207,6 @@ if( ! params.plasmidid_database && params.step =~ /plasmidID/ ){
 
 if( ! params.plasmidid_config && params.step =~ /plasmidID/ ){
     exit 1, "PlasmidID annotation config file must be declared with --plasmidid_database /path/to/database.fasta"
-}
-
-if( ! params.outbreaker_config && params.step =~ /outbreakSNP/ ){
-    exit 1, "WGS-Outbreaker config file not provided for outbreakSNP step, please declare it with --outbreaker_config /path/to/config.file."
 }
 
 if( ! params.srst2_db_mlst && params.step =~ /strainCharacterization/ ){
@@ -377,7 +365,7 @@ if (params.step =~ /(preprocessing|mapping|assembly|outbreakSNP|outbreakMLST|pla
 		set val(name), file(reads) from raw_reads_trimming
 
 		output:
-		file '*_trimmed.fastq.gz' into trimmed_paired_reads,trimmed_paired_reads_bwa,trimmed_paired_reads_unicycler,trimmed_paired_reads_wgsoutbreaker,trimmed_paired_reads_plasmidid,trimmed_paired_reads_mlst,trimmed_paired_reads_res,trimmed_paired_reads_sero,trimmed_paired_reads_vir
+		file '*_trimmed.fastq.gz' into trimmed_paired_reads,trimmed_paired_reads_bwa,trimmed_paired_reads_unicycler,trimmed_paired_reads_snippy,trimmed_paired_reads_plasmidid,trimmed_paired_reads_mlst,trimmed_paired_reads_res,trimmed_paired_reads_sero,trimmed_paired_reads_vir
 		file '*_fail.fastq.gz' into trimmed_unpaired_reads
 		file '*_fastqc.{zip,html}' into trimmomatic_fastqc_reports
 		file '*.log' into trimmomatic_results
@@ -595,25 +583,23 @@ if (params.step =~ /(assembly|plasmidID|outbreakMLST)/){
 
 if (params.step =~ /outbreakSNP/){
 
-	process wgsoutbreaker {
-	tag "WGSOutbreaker"
-	publishDir "${params.outdir}/WGS-Outbreaker", mode: 'copy'
+	process snippy {
+	tag "$prefix"
+	publishDir "${params.outdir}/Snippy", mode: 'copy'
 
 	input:
-	file reads from trimmed_paired_reads_wgsoutbreaker.collect()
-	file index from bwa_index
+  set file(readsR1),file(readsR2) from trimmed_paired_reads_snippy
 	file fasta from fasta_file
-	file config from outbreaker_config_file
 
 	output:
-	file "outbreaker_results" into outbreaker_results
-	file "outbreaker_results/Alignment" into picard_reports
+	file "${prefix}*" into snippy_results
+	//file "outbreaker_results/Alignment" into picard_reports
 
 	script:
+  prefix = readsR1.toString() - ~/(_R1_trimmed.fastq.gz)?$/
 	"""
-	run_outbreak_wgs.sh $config
+  snippy --outdir $prefix --R1 $readsR1 --R2 $readsR2 --ref $fasta --cpus $task.cpus
 	"""
-
 	}
 }
 
