@@ -601,6 +601,24 @@ if (params.step =~ /outbreakSNP/){
   snippy --outdir $prefix --R1 $readsR1 --R2 $readsR2 --ref $fasta --cpus $task.cpus
 	"""
 	}
+
+  process snippy_core {
+  tag "snippy_core"
+  publishDir "${params.outdir}/Snippy", mode: 'copy'
+
+  input:
+  file snippys from snippy_results.collect()
+  file fasta from fasta_file
+
+  output:
+  file "core.full.aln" into snippy_core_alignment
+
+  script:
+  ref_file = snippys[0]
+  """
+  snippy-core --ref $fasta $snippys
+  """
+  }
 }
 
 if (params.step =~ /outbreakMLST/){
