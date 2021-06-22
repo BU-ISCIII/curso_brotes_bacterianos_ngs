@@ -621,6 +621,25 @@ if (params.step =~ /outbreakSNP/){
   snippy-clean_full_aln core.full.aln > clean.full.aln
   """
   }
+
+  process gubbins {
+  tag "gubbins"
+  publishDir "${params.outdir}/gubbins", mode: 'copy'
+
+  input:
+  file core_align from snippy_core_gubbins
+  file fasta from fasta_file
+
+  output:
+  file "gubbins.filtered_polymorphic_sites.fasta" into gubbins_results
+  file "clean.core.aln" into gubbins_alignment,gubbins_alignment_fastree
+
+  script:
+  """
+  run_gubbins.py --threads $task.cpus -p gubbins clean.full.aln
+  snp-sites -c gubbins.filtered_polymorphic_sites.fasta > clean.core.aln
+  """
+  }
 }
 
 if (params.step =~ /outbreakMLST/){
