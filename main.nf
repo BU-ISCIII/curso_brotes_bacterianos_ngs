@@ -604,19 +604,21 @@ if (params.step =~ /outbreakSNP/){
 
   process snippy_core {
   tag "snippy_core"
-  publishDir "${params.outdir}/Snippy", mode: 'copy'
+  publishDir "${params.outdir}/Snippy/core", mode: 'copy'
 
   input:
   file snippys from snippy_results.collect()
   file fasta from fasta_file
 
   output:
-  file "core.full.aln" into snippy_core_alignment
+  file "core*" into snippy_core_alignment
+  file "clean.full.aln" into snippy_core_gubbins
 
   script:
   ref_file = snippys[0]
   """
   snippy-core --ref $fasta $snippys
+  snippy-clean_full_aln core.full.aln > clean.full.aln
   """
   }
 }
