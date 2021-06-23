@@ -35,3 +35,4 @@ dependencies:
   - bioconda::chewbbaca=2.8.4
   - bioconda::gubbins=2.3.4
   - bioconda::snippy
+  - bioconda::iqtree
