@@ -640,6 +640,22 @@ if (params.step =~ /outbreakSNP/){
   snp-sites -c gubbins.filtered_polymorphic_sites.fasta > clean.core.aln
   """
   }
+
+  process iqtree {
+  tag "iqtree"
+  publishDir "${params.outdir}/iqtree", mode: 'copy'
+
+  input:
+  file clean_align from gubbins_alignment_fastree
+
+  output:
+  file "clean.core.aln.*" into iqtree_results
+
+  script:
+  """
+  iqtree -s $clean_align --boot 100
+  """
+  }
 }
 
 if (params.step =~ /outbreakMLST/){
