@@ -1,6 +1,7 @@
 ## Bacterial WGS training : Exercise 1
 
 <div class="tables-start"></div>
+
 |**Title**| Linux command line.|
 |---------|-------------------------------------------|
 |**Training dataset:**|
@@ -10,6 +11,7 @@
 |**Key points**:|<ul><li>Remeber the shell basics</li><li>Learn how to call the pipeline for future exercises.</li></ul>|
 
 <div class="tables-end"></div>
+
 #### How do I use the command line?
 
 Open a terminal and type into it. Remember to use TAB to autocomplete and suggest commands, paths and files!
