@@ -676,7 +676,7 @@ if (params.step =~ /outbreakMLST/){
 	publishDir "${params.outdir}/scheme_eval", mode: 'copy'
 
 	input:
-	file scheme into scheme
+	file scheme from scheme
 
 	output:
 	file "reference_alleles_dir" into ref_alleles_taranis
@@ -709,7 +709,7 @@ if (params.step =~ /outbreakMLST/){
 
      script:
      """
-     taranis.py -coregenedir $scheme -refgenome $fasta -realleles $ref_alleles -inputdir assembly -outputdir . -
+     taranis.py allele_calling -coregenedir $scheme -refgenome $fasta -refalleles $ref_alleles -inputdir assembly -outputdir .
      """
  	}
 }
