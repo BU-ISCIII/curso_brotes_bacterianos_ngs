@@ -87,6 +87,7 @@ def helpMessage() {
       --srst2_def_sero              ST definitions for serogroup scheme
 
 	OutbreakMLST options
+	  --scheme                      path to scheme alleles folder.
 
 
     Other options:
@@ -129,6 +130,12 @@ if( params.bwa_index ){
 if( params.gtf ){
     gtf_file = file(params.gtf)
     if( !gtf_file.exists() ) exit 1, "GTF file not found: ${params.gtf}."
+}
+
+// cgMLST scheme
+if( params.scheme ){
+    scheme = file(params.scheme)
+    if( !scheme.exists() ) exit 1, "Scheme path not found: ${params.scheme}."
 }
 
 // Steps
@@ -231,6 +238,10 @@ if( ! params.srst2_resistance && params.step =~ /mapAnnotation/ ){
 
 if( ! params.srst2_virulence && params.step =~ /mapAnnotation/ ){
     exit 1, "SRST2 virulence database not provided for mapAnnotation step, please declare it with --srst2_virulence /path/to/db."
+}
+
+if( ! params.scheme && params.step =~ /outbreakMLST/ ){
+    exit 1, "cg/wgMLST schema not provided for outbreakMLST step, please declare it with --scheme /path/to/scheme."
 }
 
 /*
@@ -660,18 +671,26 @@ if (params.step =~ /outbreakSNP/){
 
 if (params.step =~ /outbreakMLST/){
 
-	process scheme_download {
-	tag "SchemeDownload"
-	publishDir "${params.outdir}/ListeriaScheme", mode: 'copy'
+	process scheme_evaluation {
+	tag "checkScheme"
+	publishDir "${params.outdir}/scheme_eval", mode: 'copy'
 
 	input:
+	file scheme into scheme
 
 	output:
-	file "cgMLST1748" into listeria_scheme
+	file "reference_alleles_dir" into ref_alleles_taranis
+	file "taranis_analyze_schema_dir" into analyze_schema_out
 
 	script:
 	"""
-	get_files_from_rest_api.py -output_dir cgMLST1748 schema -api_url pasteur_listeria -schema_name cgMLST1748
+		taranis.py analyze_schema \\
+		-inputdir $scheme \\
+		-outputdir taranis_analyze_schema_dir
+
+		taranis.py reference_alleles \\
+		-coregenedir $scheme \\
+		-outputdir reference_alleles_dir
 	"""
 
 	}
@@ -681,14 +700,16 @@ if (params.step =~ /outbreakMLST/){
 
      input:
      file (assembly:"assembly/*") from scaffold_taranis.collect()
-     file listeria_scheme from listeria_scheme
+	 file fasta from fasta_file
+     file scheme from scheme
+     file ref_alleles from ref_alleles_taranis
 
      output:
      file "*.tsv" into taranis_results
 
      script:
      """
-     taranis.py -coregenedir $listeria_scheme -inputdir assembly -cpus 1 -outputdir .
+     taranis.py -coregenedir $scheme -refgenome $fasta -realleles $ref_alleles -inputdir assembly -outputdir . -
      """
  	}
 }

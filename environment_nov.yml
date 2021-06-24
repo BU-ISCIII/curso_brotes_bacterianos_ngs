@@ -1,0 +1,37 @@
+# You can use this file to create a conda environment for this pipeline:
+#   conda env create -f environment.yml
+name: bacterial_wgs_training
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  ## conda-forge packages
+  - conda-forge::python
+  - conda-forge::r-base
+  - conda-forge::r-optparse
+  - conda-forge::r-tidyr
+  - conda-forge::r-tidyverse
+  - conda-forge::r-ggplot2
+  - conda-forge::r-reshape2
+  - conda-forge::r-viridis
+
+  ## bioconda packages
+  ## common
+  - bioconda::fastqc
+  - bioconda::fastp
+  - bioconda::samtools
+  - bioconda::bedtools
+  - bioconda::multiqc
+  - bioconda::bwa
+  - bioconda::picard
+  - bioconda::bcftools
+  - bioconda::kraken2
+  - bioconda::unicycler
+  - bioconda::quast
+  - bioconda::prokka
+  - bioconda::taranis
+  - bioconda::plasmidid
+  - bioconda::gubbins
+  - bioconda::snippy
+  - bioconda::iqtree
