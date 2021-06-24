@@ -24,12 +24,13 @@ Check our working directory:
 
 ```
 pwd
+#Output: /home/alumno
 ```
 
 Move to our Desktop folder (using the absolute path and the alias "~", which means "path to your home folder"):
 
 ```
-cd ~/Desktop
+cd ~/Escritorio
 ```
 
 Create a directory called "myDir" (Linux is case sensitive and does not like white spaces in names):
@@ -48,6 +49,7 @@ Check our working directory (always do it before executing something):
 
 ```
 pwd
+#Output: /home/alumno/Escritorio/myDir
 ```
 
 Create the folders "asdf", "AsDf", "ASDF" and "tmp" (at once, commands change their behavior depending on the parameters):
@@ -62,7 +64,7 @@ Create a file inside "tmp" called "myFile.txt" (using a relative pathway, you ca
 nano tmp/myFile.txt
 ```
 
-and write whatever you want and save it with __Ctrl + O__ and close the new file with __Ctrl + X__
+and write whatever you want and save it with __Ctrl + O__, then __Intro__ and close the new file with __Ctrl + X__
 
 Rename "myFile.txt" to "whateverIwant" (Linux does not require file extensions):
 
@@ -74,6 +76,7 @@ See the contents of "whateverIwant":
 
 ```
 less tmp/whateverIwant
+#Remember: To close less press "q"
 ```
 
 Remove the file:
