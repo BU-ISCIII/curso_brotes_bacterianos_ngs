@@ -36,11 +36,11 @@ There are multiple mapping algorithms and softwares, but for this exercise we wi
 To map our samples with bwa, we only have to execute this command:
 ```
 cd
-cd Documents/wgs
+cd bacterial_wgs_training_dataset
 nextflow run BU-ISCIII/bacterial_wgs_training \
-  -profile singularity \
-  --reads 'training_dataset/*_R{1,2}.fastq.gz' \
-  --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
+  -r one_week_format -profile conda \
+  --reads 'RAW/FULL_DATA/*_R{1,2}.fastq.gz' \
+  --fasta 'REFERENCES/listeria_NC_021827.1_NoPhagues.fna' \
   --step mapping
 ```
 
