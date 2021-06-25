@@ -5,10 +5,10 @@
 |**Title**| Linux command line.|
 |---------|-------------------------------------------|
 |**Training dataset:**| None
-|**Questions:**| <ul><li>How do I use the command line?</li><li>How do I navigate the file system?</li><li>How do I know which software I am using?</li>/ul>|
+|**Questions:**| <ul><li>How do I use the command line?</li><li>How do I navigate the file system?</li><li>How do I know which software I am using?</li></ul>|
 |**Objectives**:|<ul><li>Learn/Remember how to use the command line.</li><li>Learn/Remember how to navigate through the Linux file system.</li></ul>|
 |**Time estimation**:| 15 min |
-|**Key points**:|<ul><li>Remeber the shell basic commands</li>/ul>|
+|**Key points**:|<ul><li>Remeber the shell basic commands</li></ul>|
 
 <div class="tables-end"></div>
 
