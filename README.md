@@ -9,7 +9,6 @@ The material includes slides with theory concepts and a bunch of practical exerc
 ### Day 1
 - **Talk 1:** [Massive sequencing of bacterial genomes. State-of-the-art](slides/talk1/curso_SeqGenBac_session1.1_Introduccion_ICuesta_v3.pdf)
 - **Talk 2:** [Bacterial genomes sequencing. Applications.](slides/talk4/curso_SeqGenBac_session2.1_aplicaciones_ICuesta.pdf)
-- 
 - **Talk 3:** [Linux environment review.](slides/talk2/curso_SeqGenBac_session1.2_linux.pdf)
 - [**Exercise 0**](exercises/00_SetUp.md) -- [Download pdf](exercises/00_Setup.pdf)
 
