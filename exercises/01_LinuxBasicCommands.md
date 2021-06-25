@@ -7,7 +7,7 @@
 |**Training dataset:**| None
 |**Questions:**| <ul><li>How do I use the command line?</li><li>How do I navigate the file system?</li><li>How do I know which software I am using?</li></ul>|
 |**Objectives**:|<ul><li>Learn/Remember how to use the command line.</li><li>Learn/Remember how to navigate through the Linux file system.</li></ul>|
-|**Time estimation**:| 15 min |
+|**Time estimation**:| 30 min |
 |**Key points**:|<ul><li>Remeber the shell basic commands</li></ul>|
 
 <div class="tables-end"></div>
@@ -28,12 +28,15 @@ Open a terminal by clicking in the icon or typing __Ctrl+Alt+T__. Now you can ty
 
 Let's remember the basics: *pwd cd ls mkdir mv rm rmdir less nano*. We are going to use those commands to:
 
+##### Checking the working directory (pwd)
 Check our working directory:
 
 ```
 pwd
 #Output: /home/alumno
 ```
+
+##### Moving between directories (cd)
 
 Move to our Desktop folder:
 
@@ -42,10 +45,6 @@ cd ~/Escritorio
 pwd
 #Output: /home/alumno/Escritorio
 ```
-**Questions:**
-
-- Which is the meaning of the "~" symbol?
-
 Move to the course folder:
 
 ```
@@ -53,13 +52,19 @@ cd
 pwd
 #Output: /home/alumno
 cd wgs
+```
+
+**Questions:**
+
+- Which is the meaning of the "~" symbol?
+- What does de `cd` command without arguments do?
+
+##### Listing directories (ls)
+
+```
 ls
 #Output: ANALYSIS  RAW  REFERENCES  RESULTS
 ```
-**Questions:**
-
-- What does de `cd` command withourt arguments do?
-- What is the `ls` command doing?
 
 This is the folder structure we will use for this training. Now we are going to list the files in the `REFERENCE` folder:
 
@@ -80,6 +85,24 @@ ls /home/alumno/wgs/REFERENCES/
 - Which one is relative path?
 - Which one is absolute path?
 
+Let's see different parameters for the `ls` command. Write:
+
+```
+ls
+ls -l
+ls -a
+ls -la
+```
+
+**Questions:**
+
+- What does de different arguments of `ls` do?
+- What does the new file special?
+
+⚠️ **REMINDER:** ⚠️ EVERY TIME YOU CHANGE DIRECTORY (cd) YOU HAVE TO CHECK YOUR PATH (pwd) AND LIST THE FILES INSIDE (ls) TO CHECK YOU DIDN'T MAKE MISTAKES
+
+##### Creating and removing directories (mkdir & rmdir)
+
 Now we are going to move to the ANALYSIS folder which is the folder were we will run all the exercises
 
 ```
@@ -88,32 +111,107 @@ pwd
 #Output: /home/alumno/wgs/ANALYSIS
 ls
 ```
-As you can see the folder is empty, so now we will fill this folder. 
 
-Create a directory for this handson: **Remember:** Linux is case sensitive and does not like white spaces in names
+As you can see the folder is empty, so now we will fill this folder. Create a directory for this handson: **Remember:** Linux is case sensitive and does not like white spaces in names
 
 ```
 mkdir 01-handsonLinux
+ls
+#Output: 01-handsonLinux
 ```
 
-Move to the new folder (using a relative pathway):
+Now type:
 
 ```
-cd 01-handsonLinux
+mkdir 01-handsonlinux 01-HandsOnLinux
+ls
+#Output: 01-handsonLinux 01-handsonlinux 01-HandsOnLinux
 ```
 
-Check our working directory (always do it before executing something):
+**Questions:**
+
+- Is it possible to create more than one directory at the same time?
+- If the names of the folders are the same, why it creates three different directories?
+
+Now we will remove the extra directories:
 
 ```
+rmdir 01-handsonLinux 01-HandsOnLinux
+ls
+#Output: 01-handsonlinux
+```
+
+##### Moving and renaming files (mv)
+
+Move to the new folder
+
+```
+cd 01-handsonlinux
 pwd
-#Output: /home/alumno/wgs/ANALYSIS/01-handsonLinux
+#Output: /home/alumno/wgs/ANALYSIS/01-handsonlinux
 ```
+
+We are going to move the hidden file in REFERENCE folder to this directory and then rename it:
+
+```
+mv ../../REFERENCES/.ThisIsAHiddenFile .
+ls
+ls -a
+ls -a ../../REFERENCES/
+mv .ThisIsAHiddenFile NowImNotHidden
+ls -a
+ls
+```
+
+**Questions:**
+
+- Which is the difference between the two `mv` commands?
+
+⚠️ **REMINDER:** ⚠️ LINUX DOES NOT REQUIRE FILE EXTENSIONS
+
+##### Editing files and displaying them (nano & cat)
+
+We are going to read the file and edit it:
+
+```
+cat NowImNotHidden
+#Output: I'm a hidden file.
+```
+This is not true, so we are going to edit it:
+
+```
+nano NowImNotHidden
+```
+
+Write: `I'm not a hidden file.`
+
+And **save** it:
+_Ctrl + O_
+_Intro_
+
+**Close** the new file:
+_Ctrl + X_
+
+Now read the new file:
+
+```
+cat NowImNotHidden
+#Output: I'm not a hidden file.
+ls
+#Output: NowImNotHidden
+```
+
+##### Creating a tree of a folder (tree)
 
 We are going to create a file with this course folder's tree:
 
 ```
 tree /home/alumno/wgs > bacterial_wgs_training_initial.tree
+ls
+#Output: NowImNotHidden bacterial_wgs_training_initial.tree
 ```
+
+##### Read files (less)
 
 And now we will read this file:
 
@@ -126,47 +224,21 @@ less bacterial_wgs_training_initial.tree
 - What do you see in this file?
 - What does the command `tree` do?
 
+##### Removing a file (rm)
 
-
-
-Create the folders "asdf", "AsDf", "ASDF" and "tmp" (at once, commands change their behavior depending on the parameters):
-
-```
-mkdir asdf AsDf ASDF tmp
-```
-
-Create a file inside "tmp" called "myFile.txt" (using a relative pathway, you can work with files outside your working directory):
+Now we will learn how to remove files:
 
 ```
-nano tmp/myFile.txt
+ls
+#Output: NowImNotHidden bacterial_wgs_training_initial.tree
+rm NowImNotHidden
+ls
+#Output: bacterial_wgs_training_initial.tree
 ```
 
-and write whatever you want and save it with __Ctrl + O__, then __Intro__ and close the new file with __Ctrl + X__
 
-Rename "myFile.txt" to "whateverIwant" (Linux does not require file extensions):
 
-```
-mv tmp/myFile.txt tmp/whateverIwant
-```
 
-See the contents of "whateverIwant":
-
-```
-less tmp/whateverIwant
-#Remember: To close less press "q"
-```
-
-Remove the file:
-
-```
-rm tmp/whateverIwant
-```
-
-Remove the folders inside "myDir" (wildcard character "\*" means "any character once or more times, or nothing"):
-
-```
-rmdir ./*
-```
 
 Go back to Desktop and remove everything you created (".." means parente directory, while "." refers to the directory itself):
 
