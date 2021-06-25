@@ -18,6 +18,8 @@
 - Try not to use spaces, accents or special characters like "Ñ" letter, when writting directory of file names.
 - Basic commands you should always remember: *pwd cd ls mkdir mv rm rmdir less nano*
 
+### Answering to main questions
+
 #### How do I use the command line?
 
 Open a terminal by clicking in the icon or typing __Ctrl+Shift+T__. Now you can type into it.
