@@ -8,7 +8,7 @@
 |**Questions:**| <ul><li>How do I use the command line?</li><li>How do I navigate the file system?</li></ul>|
 |**Objectives**:|<ul><li>Learn/Remember how to use the command line.</li><li>Learn/Remember how to navigate through the Linux file system.</li></ul>|
 |**Time estimation**:| 30 min |
-|**Key points**:|<ul><li>Remeber the shell basic commands: *pwd cd ls mkdir rmdir mv nano cat tree less rm*</li></ul>|
+|**Key points**:|<ul><li>Remeber the shell basic commands: *pwd cd ls mkdir rmdir mv nano cat tree less more head tail rm*</li></ul>|
 
 <div class="tables-end"></div>
 
@@ -228,7 +228,7 @@ ls
 #Output: NowImNotHidden bacterial_wgs_training_initial.tree
 ```
 
-##### Read files (less)
+##### Read files other ways (less & more & head & tail)
 
 And now we will read this file:
 
@@ -237,9 +237,29 @@ less bacterial_wgs_training_initial.tree
 #Remember: To close less press "q"
 ```
 
+```
+more bacterial_wgs_training_initial.tree
+#Remember: To close more press "q"
+```
+
+```
+head bacterial_wgs_training_initial.tree
+tail bacterial_wgs_training_initial.tree
+```
+
+```
+head -n1 bacterial_wgs_training_initial.tree
+tail -n2 bacterial_wgs_training_initial.tree
+```
+
+
+
 **Questions:**
 - What do you see in this file?
 - What does the command `tree` do?
+- Which is the difference between `less` and `more`?
+- Which is the difference between `head` and `tail`?
+- What does the argument `-nX` do to `tail` and `head`?
 
 ##### Removing a file (rm)
 
