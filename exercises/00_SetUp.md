@@ -26,13 +26,13 @@ pwd
 Create the project folder for the practises of the course:
 
 ```
-mkdir -p Documents/wgs
+mkdir -p wgs
 ```
 
 Navigate to the directory:
 
 ```
-cd Documents/wgs
+cd wgs
 ```
 
 Download git repository:
