@@ -5,7 +5,7 @@
 |**Title**| Linux command line.|
 |---------|-------------------------------------------|
 |**Training dataset:**| None
-|**Questions:**| <ul><li>How do I use the command line?</li><li>How do I navigate the file system?</li><li>How do I know which software I am using?</li></ul>|
+|**Questions:**| <ul><li>How do I use the command line?</li><li>How do I navigate the file system?</li></ul>|
 |**Objectives**:|<ul><li>Learn/Remember how to use the command line.</li><li>Learn/Remember how to navigate through the Linux file system.</li></ul>|
 |**Time estimation**:| 30 min |
 |**Key points**:|<ul><li>Remeber the shell basic commands</li></ul>|
@@ -52,16 +52,31 @@ cd
 pwd
 #Output: /home/alumno
 cd wgs
+pwd
+#Output: /home/alumno/wgs
+cd RAW/FULL_DATA
+pwd
+#Output: /home/alumno/wgs/RAW/FULL_DATA
+cd .
+pwd
+#Output: /home/alumno/wgs/RAW/FULL_DATA
+cd ..
+#Output: /home/alumno/wgs/RAW/
+cd ../..
+#Output: /home/alumno/
 ```
 
 **Questions:**
 
 - Which is the meaning of the "~" symbol?
 - What does de `cd` command without arguments do?
+- What does "." mean?
+- What does ".." mean?
 
 ##### Listing directories (ls)
 
 ```
+cd wgs
 ls
 #Output: ANALYSIS  RAW  REFERENCES  RESULTS
 ```
@@ -166,6 +181,8 @@ ls
 **Questions:**
 
 - Which is the difference between the two `mv` commands?
+- Do you remember what "." mean from the first questions?
+- And ".."?
 
 ⚠️ **REMINDER:** ⚠️ LINUX DOES NOT REQUIRE FILE EXTENSIONS
 
@@ -234,33 +251,4 @@ ls
 rm NowImNotHidden
 ls
 #Output: bacterial_wgs_training_initial.tree
-```
-
-
-
-
-
-Go back to Desktop and remove everything you created (".." means parente directory, while "." refers to the directory itself):
-
-```
-cd ..; rm -rf myDir
-```
-
-Return to your home directory (without parameters, the behavior of the command changes):
-
-```
-cd
-```
-
-#### How do I know which software I am using?
-
-Software may (and will) be installed in many different places. To discover the one you have loaded in your PATH use `which`, to see all the places where the shell is looking for software check the variable `$PATH`, to know the version of the software use the apropiate parameter (`-h --help -v --version`) and to check the manual of the software use `man`.
-
-```
-which git
-echo $PATH
-echo $USER
-git -h
-git --version
-man git
 ```
