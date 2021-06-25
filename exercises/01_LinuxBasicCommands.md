@@ -22,7 +22,7 @@
 
 #### How do I use the command line?
 
-Open a terminal by clicking in the icon or typing __Ctrl+Shift+T__. Now you can type into it.
+Open a terminal by clicking in the icon or typing __Ctrl+Alt+T__. Now you can type in the prompt.
 
 #### How do I navigate the file system?
 
@@ -35,30 +35,99 @@ pwd
 #Output: /home/alumno
 ```
 
-Move to our Desktop folder (using the absolute path and the alias "~", which means "path to your home folder"):
+Move to our Desktop folder:
 
 ```
 cd ~/Escritorio
+pwd
+#Output: /home/alumno/Escritorio
+```
+**Questions:**
+
+- Which is the meaning of the "~" symbol?
+
+Move to the course folder:
+
+```
+cd 
+pwd
+#Output: /home/alumno
+cd wgs
+ls
+#Output: ANALYSIS  RAW  REFERENCES  RESULTS
+```
+**Questions:**
+
+- What does de `cd` command withourt arguments do?
+- What is the `ls` command doing?
+
+This is the folder structure we will use for this training. Now we are going to list the files in the `REFERENCE` folder:
+
+```
+ls REFERENCES
 ```
 
-Create a directory called "myDir" (Linux is case sensitive and does not like white spaces in names):
+This command will output a big list of files, which are the files that we will usea as REFERENCE through the different exercises of the training. Now wi will run this other command:
 
 ```
-mkdir myDir
+ls /home/alumno/wgs/REFERENCES/
+```
+
+**Questions:**
+
+- Which is the difference between this las command and the previous one?
+- Do they display the same information?
+- Which one is relative path?
+- Which one is absolute path?
+
+Now we are going to move to the ANALYSIS folder which is the folder were we will run all the exercises
+
+```
+cd ANALYSIS
+pwd
+#Output: /home/alumno/wgs/ANALYSIS
+ls
+```
+As you can see the folder is empty, so now we will fill this folder. 
+
+Create a directory for this handson: **Remember:** Linux is case sensitive and does not like white spaces in names
+
+```
+mkdir 01-handsonLinux
 ```
 
 Move to the new folder (using a relative pathway):
 
 ```
-cd myDir
+cd 01-handsonLinux
 ```
 
 Check our working directory (always do it before executing something):
 
 ```
 pwd
-#Output: /home/alumno/Escritorio/myDir
+#Output: /home/alumno/wgs/ANALYSIS/01-handsonLinux
 ```
+
+We are going to create a file with this course folder's tree:
+
+```
+tree /home/alumno/wgs > bacterial_wgs_training_initial.tree
+```
+
+And now we will read this file:
+
+```
+less bacterial_wgs_training_initial.tree
+#Remember: To close less press "q"
+```
+
+**Questions:**
+- What do you see in this file?
+- What does the command `tree` do?
+
+
+
 
 Create the folders "asdf", "AsDf", "ASDF" and "tmp" (at once, commands change their behavior depending on the parameters):
 
