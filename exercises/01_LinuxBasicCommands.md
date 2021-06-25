@@ -12,9 +12,15 @@
 
 <div class="tables-end"></div>
 
+### :bangbang: Important things to remnenber:
+- Use Tab to automatically complete file names and paths, so it can be easiert to write in the terminal
+- Use keyboard arrows (:arrow_up: :arrow_down:) to move through your terminal's history, so you don't have to write the commands again.
+- Try not to use spaces, accents or special characters like "Ñ" letter, when writting directory of file names.
+- Basic commands you should always remember: *pwd cd ls mkdir mv rm rmdir less nano*
+
 #### How do I use the command line?
 
-Open a terminal and type into it. Remember to use TAB to autocomplete and suggest commands, paths and files!
+Open a terminal by clicking in the icon or typing __Ctrl+Shift+T__. Now you can type into it.
 
 #### How do I navigate the file system?
 
