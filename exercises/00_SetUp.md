@@ -14,11 +14,23 @@
 
 #### IMPORTANT: Make sure you understand and execute these commands in the right order.
 
-Open in your internet browser this URL: https://vcenter.isciii.es/. Then type your ISCIII e-mail and password. Select your working machine (e.g. bioinfo01) in the left pannel and then click on iniciar consola remota.
+FOLLOW THESE STEPS:
+In your computer:
 
-Now click on your user: alumno, and type the password we will tell you.
+- Open in your internet browser this URL: https://vcenter.isciii.es/.
+- Advanced options > Go to website
+- Go to `vSphere Client (HTML5): funcionalidad parcial`
+- Then type your ISCIII e-mail and password.
+- Select your working machine (e.g. bioinfo01) in the left pannel
+- Click on `iniciar consola remota`
 
-There open a firefox window and open this tutorial again by typing BU-ISCIII github on google. Then select bacterial_wgs_training and then select Exercise0.
+In the remote console:
+
+- Now click on your user: alumno, and type the password we will tell you.
+- There open a firefox window and open this tutorial again by:
+  - Google: BU-ISCIII github
+  - Select `bacterial_wgs_training`
+  - Exercise0.
 
 Now you are here again!
 
