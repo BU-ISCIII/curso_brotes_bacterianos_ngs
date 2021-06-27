@@ -78,7 +78,7 @@ cd ../..
 ```
 cd wgs
 ls
-#Output: ANALYSIS  RAW  REFERENCES  RESULTS
+#Output: ANALYSIS bacterial_wgs_training RAW  REFERENCES  RESULTS
 ```
 
 This is the folder structure we will use for this training. Now we are going to list the files in the `REFERENCE` folder:
