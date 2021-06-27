@@ -261,7 +261,7 @@ ls
 #Output: NowImNotHidden
 mv ../../REFERENCES/bacterial_wgs_training_initial.tree .
 ls
-#Output: NowImNotHidden bacterial_wgs_training_initial.tree
+#Output: bacterial_wgs_training_initial.tree NowImNotHidden
 rm NowImNotHidden
 ls
 #Output: bacterial_wgs_training_initial.tree
