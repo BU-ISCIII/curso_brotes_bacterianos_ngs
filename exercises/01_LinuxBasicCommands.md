@@ -224,6 +224,7 @@ cd ../../
 And now we will read this file:
 
 ```
+cat REFERENCES/bacterial_wgs_training_initial.tree
 less REFERENCES/bacterial_wgs_training_initial.tree
 #Remember: To close less press "q"
 ```
@@ -239,8 +240,8 @@ tail REFERENCES/bacterial_wgs_training_initial.tree
 ```
 
 ```
-head -n1 REFERENCES/bacterial_wgs_training_initial.tree
-tail -n2 REFERENCES/bacterial_wgs_training_initial.tree
+head -n4 REFERENCES/bacterial_wgs_training_initial.tree
+tail -n3 REFERENCES/bacterial_wgs_training_initial.tree
 ```
 
 
