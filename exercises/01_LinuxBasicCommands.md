@@ -8,7 +8,7 @@
 |**Questions:**| <ul><li>How do I use the command line?</li><li>How do I navigate the file system?</li></ul>|
 |**Objectives**:|<ul><li>Learn/Remember how to use the command line.</li><li>Learn/Remember how to navigate through the Linux file system.</li></ul>|
 |**Time estimation**:| 30 min |
-|**Key points**:|<ul><li>Remeber the shell basic commands: *pwd cd ls mkdir rmdir mv nano cat tree less more head tail rm*</li></ul>|
+|**Key points**:|<ul><li>Remeber the shell basic commands: *pwd cd ls mkdir rmdir mv nano cat less more head tail rm*</li></ul>|
 
 <div class="tables-end"></div>
 
