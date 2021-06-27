@@ -216,7 +216,6 @@ cat NowImNotHidden
 #Output: I'm not a hidden file.
 ls
 #Output: NowImNotHidden
-cd ../../
 ```
 
 ##### Read files other ways (less & more & head & tail)
@@ -224,16 +223,17 @@ cd ../../
 And now we will read this file:
 
 ```
-less REFERENCES/bacterial_wgs_training_initial.tree
+less NowImNotHidden
 #Remember: To close less press "q"
 ```
 
 ```
-more REFERENCES/bacterial_wgs_training_initial.tree
+more NowImNotHidden
 #Remember: To close more press "q"
 ```
 
 ```
+cd ../../
 head REFERENCES/bacterial_wgs_training_initial.tree
 tail REFERENCES/bacterial_wgs_training_initial.tree
 ```
