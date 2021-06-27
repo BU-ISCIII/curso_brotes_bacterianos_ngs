@@ -216,6 +216,7 @@ cat NowImNotHidden
 #Output: I'm not a hidden file.
 ls
 #Output: NowImNotHidden
+cd ../../
 ```
 
 ##### Read files other ways (less & more & head & tail)
@@ -223,17 +224,16 @@ ls
 And now we will read this file:
 
 ```
-less NowImNotHidden
+less REFERENCES/bacterial_wgs_training_initial.tree
 #Remember: To close less press "q"
 ```
 
 ```
-more NowImNotHidden
+more REFERENCES/bacterial_wgs_training_initial.tree
 #Remember: To close more press "q"
 ```
 
 ```
-cd ../../
 head REFERENCES/bacterial_wgs_training_initial.tree
 tail REFERENCES/bacterial_wgs_training_initial.tree
 ```
@@ -246,7 +246,6 @@ tail -n2 REFERENCES/bacterial_wgs_training_initial.tree
 
 
 **Questions:**
-- Which is the difference between `less` and `more`?
 - Which is the difference between `head` and `tail`?
 - What does the argument `-nX` do to `tail` and `head`?
 
