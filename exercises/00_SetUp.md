@@ -59,7 +59,7 @@ Check that everything is correct:
 
 ```
 ls
-#Output: ANALYSIS  RAW  REFERENCES  RESULTS
+#Output: ANALYSIS bacterial_wgs_training RAW  REFERENCES  RESULTS
 pwd
 #Output: /home/alumno/wgs
 ```
