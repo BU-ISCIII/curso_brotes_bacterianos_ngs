@@ -103,10 +103,10 @@ ls /home/alumno/wgs/REFERENCES/
 Let's see different parameters for the `ls` command. Write:
 
 ```
-ls
-ls -l
-ls -a
-ls -la
+ls REFERENCES
+ls -l REFERENCES
+ls -a REFERENCES
+ls -la REFERENCES
 ```
 
 **Questions:**
@@ -140,7 +140,7 @@ Now type:
 ```
 mkdir 01-handsonlinux 01-HandsOnLinux
 ls
-#Output: 01-handsonLinux 01-handsonlinux 01-HandsOnLinux
+#Output: 01-handsonlinux 01-handsonLinux 01-HandsOnLinux
 ```
 
 **Questions:**
@@ -216,16 +216,7 @@ cat NowImNotHidden
 #Output: I'm not a hidden file.
 ls
 #Output: NowImNotHidden
-```
-
-##### Creating a tree of a folder (tree)
-
-We are going to create a file with this course folder's tree:
-
-```
-tree /home/alumno/wgs > bacterial_wgs_training_initial.tree
-ls
-#Output: NowImNotHidden bacterial_wgs_training_initial.tree
+cd ../../
 ```
 
 ##### Read files other ways (less & more & head & tail)
@@ -233,30 +224,28 @@ ls
 And now we will read this file:
 
 ```
-less bacterial_wgs_training_initial.tree
+less REFERENCES/bacterial_wgs_training_initial.tree
 #Remember: To close less press "q"
 ```
 
 ```
-more bacterial_wgs_training_initial.tree
+more REFERENCES/bacterial_wgs_training_initial.tree
 #Remember: To close more press "q"
 ```
 
 ```
-head bacterial_wgs_training_initial.tree
-tail bacterial_wgs_training_initial.tree
+head REFERENCES/bacterial_wgs_training_initial.tree
+tail REFERENCES/bacterial_wgs_training_initial.tree
 ```
 
 ```
-head -n1 bacterial_wgs_training_initial.tree
-tail -n2 bacterial_wgs_training_initial.tree
+head -n1 REFERENCES/bacterial_wgs_training_initial.tree
+tail -n2 REFERENCES/bacterial_wgs_training_initial.tree
 ```
 
 
 
 **Questions:**
-- What do you see in this file?
-- What does the command `tree` do?
 - Which is the difference between `less` and `more`?
 - Which is the difference between `head` and `tail`?
 - What does the argument `-nX` do to `tail` and `head`?
@@ -266,6 +255,11 @@ tail -n2 bacterial_wgs_training_initial.tree
 Now we will learn how to remove files:
 
 ```
+cd ANALYSIS/01-handsonlinux/
+pwd
+ls
+#Output: NowImNotHidden
+mv ../../REFERENCES/bacterial_wgs_training_initial.tree .
 ls
 #Output: NowImNotHidden bacterial_wgs_training_initial.tree
 rm NowImNotHidden
