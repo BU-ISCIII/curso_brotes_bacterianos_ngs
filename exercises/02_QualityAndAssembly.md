@@ -137,7 +137,7 @@ This execution runs internally three programs: FastQC, fastp and MultiQC as foll
 For each sample those command are executed:
 - `fastqc reads_R1.fastq.gz reads_R2.fastq.gz`
     - reads_R1.fastq.gz and reads_R2.fastq.gz are the input Illumina reads which quality is analyzed
-- ```fastp --in1 reads_R1.fastq.gz --in1 reads_R2.fastq.gz \
+- `fastp --in1 reads_R1.fastq.gz --in1 reads_R2.fastq.gz \
 --out1 reads_trimmed_R1.fastq --out2 reads_trimmed_R2.fastq \
 --unpaired1 reads_unpaired_R1.fastq --unpaired2 reads_unpaired_R2.fastq \
  --detect_adapter_for_pe \
@@ -151,7 +151,7 @@ For each sample those command are executed:
 --thread 1 \
 --json sample.fastp.json \
 --html sample.fastp.html \
-2> sample.fastp.log```
+2> sample.fastp.log`
     - reads_R1.fastq.gz and reads_R2.fastq.gz are the input Illumina reads which will be trimmed
     - reads_trimmed_R[1|2].fastq reads_fail_R[1|2].fastq
         - trimmed refer to sequences trimmed that passed the quality filter for both R1 and R2
