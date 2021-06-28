@@ -180,10 +180,11 @@ This is the MultiQC output comparing the quality of trimmed and raw reads
 <br>
 <br>
 
+<!---
 <p align="center"><img src="img/Ex_2_4.png" alt="Trimmomatic_1" width="900"></p>
 This is the MultiQC output sumarizing reads that have been filtered after trimming step
 <br>
-<br>
+<br>-->
 
 
 ### Assembly
