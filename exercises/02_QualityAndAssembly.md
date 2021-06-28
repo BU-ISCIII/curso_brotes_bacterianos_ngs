@@ -171,7 +171,7 @@ For each sample those command are executed:
 
 | Before trimming |After trimming |
 | --- | --- |
-| ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Ex_2_1.png) | ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/one_week_format/exercises/img/Ex_2_02.png) |
+| ![](img/Ex_2_1.png) | ![](img/Ex_2_02.png) |
 
 Here we can see the quality of the R1 reads before and after trimming
 
