@@ -192,7 +192,7 @@ cd wgs/bacterial_wgs_training_dataset/ANALYSIS/
 pwd
 #Output: /home/alumno/wgs/bacterial_wgs_training_dataset/ANALYSIS/
 ls
-#Output: 01-handsonlinux 02-assembly
+#Output: 01-handsonlinux 02-assembly work
 ```
 
 Now we can run the assembly process
