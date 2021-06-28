@@ -175,7 +175,7 @@ For each sample those command are executed:
 
 Here we can see the quality of the R1 reads before and after trimming
 
-<p align="center"><img src="img/Ex_2_3.png" alt="Fastqc_4" width="900"></p>
+<p align="center"><img src="img/Ex_2_03.png" alt="Fastqc_4" width="900"></p>
 This is the MultiQC output comparing the quality of trimmed and raw reads
 <br>
 <br>
