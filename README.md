@@ -13,15 +13,14 @@ The material includes slides with theory concepts and a bunch of practical exerc
 - **Talk 2 and 3:** [Massive sequencing of bacterial genomes. State-of-the-art. & Bacterial genomes sequencing. Applications.](slides/talk1/20210628_3ED_curso_SeqGenBac_session1.1-2_Introduccion_ICuesta.pdf)
 
 ### Day 2
-- **Talk 4:** [Shell usage and basic commands.](slides/talk2/curso_SeqGenBac_session1.2_linux.pdf)
-[The computing revolution in Biosciences. Nextflow and Singularity introduction.](slides/talk3/curso_SeqGenBac_session1.3_ChangingComputingParadigm.pdf)
-- [**Exercise 1**](exercises/01_LinuxNextflowSingularity.md) -- [Download pdf](exercises/01_LinuxNextflowSingularity.pdf)
+- **Talk 4:** [The computing revolution in Biosciences. Nextflow and Singularity introduction.](slides/talk3/curso_SeqGenBac_session1.3_ChangingComputingParadigm.pdf)
+- [**Exercise 2**](exercises/02_LinuxNextflowSingularity.md) -- [Download pdf](exercises/02_LinuxNextflowSingularity.pdf)
 
 - **Talk 5:** [Quality analysis and control of HTS data](slides/talk5/curso_SeqGenBac_session2.2_quality_assesment.pdf)
 
 - **Talk 6:** [Bacterial genomes assembly](slides/talk6/curso_SeqGenBac_session2.3_assembly.pdf)
 
-- [**Exercise 2**](exercises/02_QualityAndAssembly.md) -- [Download pdf](exercises/02_QualityAndAssembly.pdf)
+- [**Exercise 3**](exercises/02_QualityAndAssembly.md) -- [Download pdf](exercises/02_QualityAndAssembly.pdf)
 
 ### Day 3
 - **Talk 7:** [Mapping against reference genome and Variant Calling.](slides/talk7/curso_SeqGenBac_session3.1_MappingAndVariantCalling.pdf)
