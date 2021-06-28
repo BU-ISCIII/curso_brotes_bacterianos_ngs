@@ -71,7 +71,7 @@ Check that everything is correct:
 
 ```
 ls
-#Output: ANALYSIS bacterial_wgs_training RAW  REFERENCES  RESULTS
+#Output: bacterial_wgs_training  bacterial_wgs_training_dataset
 pwd
 #Output: /home/alumno/wgs
 ```
