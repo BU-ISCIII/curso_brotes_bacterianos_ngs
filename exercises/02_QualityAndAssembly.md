@@ -75,10 +75,9 @@ FastQC aims to provide a simple way to do some quality control checks on raw seq
 
 ### How can I improve my data quality?
 
-Most modern aligners can filter out low quality reads and clip off low quality ends and adapters. In case it has to be done manually, because the sequencing was poor but you still need to use that data or because you want to have more control on the
-trimming of reads or use a particular method, there are standalone applications that allow you to do it. [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) (Bolger, Lohse, & Usadel, 2014) is one of the most broadly used. It is written in java and performs a variety of useful trimming tasks for illumina paired-end and single ended data.
+Most modern aligners can filter out low quality reads and clip off low quality ends and adapters. In case it has to be done manually, because the sequencing was poor but you still need to use that data or because you want to have more control on the trimming of reads or use a particular method, there are standalone applications that allow you to do it. [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) (Bolger, Lohse, & Usadel, 2014) is one of the most broadly used along with [fastp](https://bioinformaticshome.com/tools/rna-seq/descriptions/fastp.html) (Chen S. et al, 2018). Fastp is the one we will use in the training . It is written in C++, has multi-threading support and performs a variety of useful trimming tasks for illumina paired-end and single ended data.
 
-Common trimming includes removal of short reads, and cut off adapters and a number of bases, if below a threshold quality. Modern algorithms also include more complex methods, as the sliding window trimming in Trimmomatic. This is the method we will use in the exercises, and it allows to trimm a variable number of bases in each read, cutting once the average quality within the window falls below a threshold.
+Common trimming includes removal of short reads, and cut off adapters and a number of bases, if below a threshold quality. Modern algorithms also include more complex methods, as the sliding window trimming. This is the method we will use in the exercises, and it allows to trimm a variable number of bases in each read, cutting once the average quality within the window falls below a threshold.
 
 ### De novo or reference-based assembly?
 
@@ -116,12 +115,12 @@ nextflow run BU-ISCIII/bacterial_wgs_training --reads 'training_dataset/*_R{1,2}
 ------
 
 
-This execution runs internally three programs: FastQC, Trimmomatic and MultiQC as follow:
+This execution runs internally three programs: FastQC, fastp and MultiQC as follow:
 
 For each sample those command are executed:
 - `fastqc reads_R1.fastq.gz reads_R2.fastq.gz`
     - reads_R1.fastq.gz and reads_R2.fastq.gz are the input Illumina reads which quality is analyzed
-- `java -jar trimmomatic.jar PE -phred33 reads_R1.fastq.gz reads_R2.fastq.gz \
+- `fastp reads_R1.fastq.gz reads_R2.fastq.gz \
 reads_paired_R1.fastq reads_unpaired_R1.fastq \
 reads_paired_R2.fastq reads_unpaired_R2.fastq \
 ILLUMINACLIP:Truseq3-PE.fa:2:30:10 \
