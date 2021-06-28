@@ -14,7 +14,7 @@ The material includes slides with theory concepts and a bunch of practical exerc
 
 ### Day 2
 - **Talk 4:** [The computing revolution in Biosciences. Nextflow and Singularity introduction.](slides/talk3/curso_SeqGenBac_ChangingComputingParadigm.pdf)
-- [**Exercise 2**](exercises/02_LinuxNextflowSingularity.md) -- [Download pdf](exercises/02_LinuxNextflowSingularity.pdf)
+- [**Exercise 2**](exercises/02_NextflowSingularity.md) -- [Download pdf](exercises/02_LinuxNextflowSingularity.pdf)
 
 - **Talk 5:** [Quality analysis and control of HTS data](slides/talk5/curso_SeqGenBac_session2.2_quality_assesment.pdf)
 
