@@ -211,7 +211,7 @@ img { max-width: 800px; }
 </tr>
 <tr>
 <td><strong>Questions:</strong></td>
-<td><ul><li>How do I install the software for the course?</li><li>Where do I get the data for the exercises?</li></ul></td>
+<td><ul><li> Connect to VCenter</li><li>Copy course data</li></ul></td>
 </tr>
 <tr>
 <td><strong>Objectives</strong>:</td>
@@ -231,21 +231,49 @@ img { max-width: 800px; }
 
 <h4>IMPORTANT: Make sure you understand and execute these commands in the right order.</h4>
 
+<p>FOLLOW THESE STEPS:
+In your computer:</p>
+
+<ul>
+<li>Open in your internet browser this URL: <a href="https://vcenter.isciii.es/">https://vcenter.isciii.es/</a>.</li>
+<li>Advanced options &gt; Go to website</li>
+<li>Go to <code>vSphere Client (HTML5): funcionalidad parcial</code></li>
+<li>Then type your ISCIII e-mail and password.</li>
+<li>Select your working machine (e.g. bioinfo01) in the left pannel</li>
+<li>Click on <code>iniciar consola remota</code></li>
+</ul>
+
+<p>In the remote console:</p>
+
+<ul>
+<li>Now click on your user: alumno, and type the password we will tell you.</li>
+<li>There open a firefox window and open this tutorial again by:
+
+<ul>
+<li>Google: BU-ISCIII github</li>
+<li>Select <code>bacterial_wgs_training</code></li>
+<li>Exercise0.</li>
+</ul></li>
+</ul>
+
+<p>Now you are here again!</p>
+
 <p>Open a new terminal and navigate to your home directory if you are not already there:</p>
 
 <pre><code>pwd
 cd
 pwd
+#Output: /home/alumno
 </code></pre>
 
 <p>Create the project folder for the practises of the course:</p>
 
-<pre><code>mkdir -p Documents/wgs
+<pre><code>mkdir -p wgs
 </code></pre>
 
 <p>Navigate to the directory:</p>
 
-<pre><code>cd Documents/wgs
+<pre><code>cd wgs
 </code></pre>
 
 <p>Download git repository:</p>
@@ -255,81 +283,15 @@ pwd
 
 <p>Download training dataset:</p>
 
-<pre><code>wget https://github.com/BU-ISCIII/bacterial_wgs_training/releases/download/1.0/training_dataset.tar.gz
-tar -xvzf training_dataset.tar.gz
-rm -f training_dataset.tar.gz
+<pre><code>cp -r /mnt/ngs_course_shared/bacterial_wgs_training_dataset .
 </code></pre>
 
-<p>Download singularity image:</p>
+<p>Check that everything is correct:</p>
 
-<pre><code>rsync ~/course_shared_folder/wgs_bacterial.simg ./
-</code></pre>
-
-<h5>Final folder structure</h5>
-
-<pre><code>.
-├── bacterial_wgs_training
-│   ├── bin
-│   │   └── plotTreeHeatmap.R
-│   ├── conf
-│   │   ├── base.config
-│   │   ├── docker.config
-│   │   ├── multiqc_config.yaml
-│   │   └── singularity.config
-│   ├── config2.file
-│   ├── config.file
-│   ├── Dockerfile
-│   ├── exercises
-│   │   ├── 00_SetUp.md
-│   │   ├── 01_LinuxNextflowSingularity.md
-│   │   ├── 02_QualityAndAssembly.md
-│   │   ├── 03_outbreakSNP.md
-│   │   ├── 04_outbreakcgMLST
-│   │   └── img
-│   │       ├── Ex_2_1.png
-│   │       ├── Ex_2_2.png
-│   │       ├── itol_web1.png
-│   │       ├── itol_web2.png
-│   │       ├── tree_with_bad_sample_snps.png
-│   │       └── tree_with_bad_sample_snps.svg
-│   ├── main.nf
-│   ├── nextflow.config
-│   ├── README.md
-│   ├── scif_app_recipes
-│   ├── Singularity
-│   └── slides
-│       └── talk1
-│           └── PITCHME.md
-├── training_dataset
-│   ├── ARGannot.r1.fasta
-│   ├── downsampling_250K
-│   │   ├── RA-L2073_R1.fastq.gz
-│   │   ├── RA-L2073_R2.fastq.gz
-│   │   ├── RA-L2281_R1.fastq.gz
-│   │   ├── RA-L2281_R2.fastq.gz
-│   │   ├── RA-L2327_R1.fastq.gz
-│   │   ├── RA-L2327_R2.fastq.gz
-│   │   ├── RA-L2391_R1.fastq.gz
-│   │   ├── RA-L2391_R2.fastq.gz
-│   │   ├── RA-L2450_R1.fastq.gz
-│   │   ├── RA-L2450_R2.fastq.gz
-│   │   ├── RA-L2677_R1.fastq.gz
-│   │   ├── RA-L2677_R2.fastq.gz
-│   │   ├── RA-L2701_R1.fastq.gz
-│   │   ├── RA-L2701_R2.fastq.gz
-│   │   ├── RA-L2709_R1.fastq.gz
-│   │   ├── RA-L2709_R2.fastq.gz
-│   │   ├── RA-L2782_R1.fastq.gz
-│   │   ├── RA-L2782_R2.fastq.gz
-│   │   ├── RA-L2805_R1.fastq.gz
-│   │   ├── RA-L2805_R2.fastq.gz
-│   │   ├── RA-L2978_R1.fastq.gz
-│   │   └── RA-L2978_R2.fastq.gz
-│   ├── listeria_NC_021827.1_NoPhagues.fna
-│   ├── listeria_NC_021827.1_NoPhagues.gff
-│   ├── pcr_serogroup_listeria.fas
-│   └── pcr_serogroup_listeria.scheme
-└── wgs_bacterial.simg
+<pre><code>ls
+#Output: ANALYSIS bacterial_wgs_training RAW  REFERENCES  RESULTS
+pwd
+#Output: /home/alumno/wgs
 </code></pre>
 
 </body>
