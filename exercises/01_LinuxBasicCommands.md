@@ -54,14 +54,14 @@ pwd
 cd wgs
 pwd
 #Output: /home/alumno/wgs
-cd RAW/FULL_DATA
+cd bacterial_wgs_training_dataset/RAW/FULL_DATA
 pwd
-#Output: /home/alumno/wgs/RAW/FULL_DATA
+#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/RAW/FULL_DATA
 cd .
 pwd
-#Output: /home/alumno/wgs/RAW/FULL_DATA
+#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/RAW/FULL_DATA
 cd ..
-#Output: /home/alumno/wgs/RAW/
+#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/RAW/
 cd ../..
 #Output: /home/alumno/
 ```
@@ -77,8 +77,9 @@ cd ../..
 
 ```
 cd wgs
+cd bacterial_wgs_training_dataset
 ls
-#Output: ANALYSIS bacterial_wgs_training RAW  REFERENCES  RESULTS
+#Output: ANALYSIS RAW  REFERENCES  RESULTS
 ```
 
 This is the folder structure we will use for this training. Now we are going to list the files in the `REFERENCE` folder:
@@ -90,7 +91,7 @@ ls REFERENCES
 This command will output a big list of files, which are the files that we will usea as REFERENCE through the different exercises of the training. Now wi will run this other command:
 
 ```
-ls /home/alumno/wgs/REFERENCES/
+ls /home/alumno/wgs/bacterial_wgs_training_dataset/REFERENCES/
 ```
 
 **Questions:**
@@ -123,7 +124,7 @@ Now we are going to move to the ANALYSIS folder which is the folder were we will
 ```
 cd ANALYSIS
 pwd
-#Output: /home/alumno/wgs/ANALYSIS
+#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/ANALYSIS
 ls
 ```
 
@@ -163,7 +164,7 @@ Move to the new folder
 ```
 cd 01-handsonlinux
 pwd
-#Output: /home/alumno/wgs/ANALYSIS/01-handsonlinux
+#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/ANALYSIS/01-handsonlinux
 ```
 
 We are going to move the hidden file in REFERENCE folder to this directory and then rename it:
