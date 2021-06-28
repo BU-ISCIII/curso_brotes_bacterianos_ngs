@@ -105,12 +105,29 @@ In order to check quality and trim the reads wee have to execute this command:
 
 ```Bash
 cd
-cd Documents/wgs
-nextflow run BU-ISCIII/bacterial_wgs_training --reads 'training_dataset/*_R{1,2}.fastq.gz' \
-  -profile singularity \
-  --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
-  --step preprocessing
+pwd
+#Output: /home/alumno
+cd wgs/bacterial_wgs_training_dataset/ANALYSIS/
+pwd
+#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/ANALYSIS/
+ls
+#Output: 01-handsonlinux
+```
 
+Now we only have the folder from the first day of training. And here in `ANALYSIS` folder is where we will run the nextflow.
+First we activate the nextflow conda environment
+```
+conda activate nextflow
+```
+
+An now run the main nextflow command for pre-processing
+
+```
+nextflow run ../../bacterial_wgs_training/main.nf --reads '../RAW/FULL_DATA/*_R{1,2}.fastq.gz' \
+  -profile conda \
+  --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
+  --step preprocessing  \
+  --outdir 02-assembly
 ```
 ------
 
