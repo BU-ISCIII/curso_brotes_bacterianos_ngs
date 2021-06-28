@@ -123,7 +123,7 @@ conda activate nextflow
 An now run the main nextflow command for pre-processing
 
 ```
-nextflow run ../../bacterial_wgs_training/main.nf --reads '../RAW/FULL_DATA/*_R{1,2}.fastq.gz' \
+nextflow run ../../bacterial_wgs_training/main.nf --reads '../RAW/DOWNSAMPLED/*_R{1,2}.fastq.gz' \
   -profile conda \
   --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
   --step preprocessing  \
@@ -201,7 +201,7 @@ Now we can run the assembly process
 nextflow run ../../bacterial_wgs_training/main.nf \
   -resume \
   -profile conda \
-  --reads '../RAW/FULL_DATA/*_R{1,2}.fastq.gz' \
+  --reads '../RAW/DOWNSAMPLED/*_R{1,2}.fastq.gz' \
   --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
   --gtf ../REFERENCES/listeria_NC_021827.1_NoPhagues.gff \
   --step assembly \
