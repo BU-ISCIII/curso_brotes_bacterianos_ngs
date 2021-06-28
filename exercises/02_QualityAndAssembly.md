@@ -137,22 +137,32 @@ This execution runs internally three programs: FastQC, fastp and MultiQC as foll
 For each sample those command are executed:
 - `fastqc reads_R1.fastq.gz reads_R2.fastq.gz`
     - reads_R1.fastq.gz and reads_R2.fastq.gz are the input Illumina reads which quality is analyzed
-- `fastp reads_R1.fastq.gz reads_R2.fastq.gz \
-reads_paired_R1.fastq reads_unpaired_R1.fastq \
-reads_paired_R2.fastq reads_unpaired_R2.fastq \
-ILLUMINACLIP:Truseq3-PE.fa:2:30:10 \
-SLIDINGWINDOW:4:20 \
-MINLEN:50`
+- `fastp --in1 reads_R1.fastq.gz --in1 reads_R2.fastq.gz \
+--out1 reads_trimmed_R1.fastq --out2 reads_trimmed_R2.fastq \
+--unpaired1 reads_unpaired_R1.fastq --unpaired2 reads_unpaired_R2.fastq \
+ --detect_adapter_for_pe \
+          --cut_front \
+          --cut_tail \
+          --cut_mean_quality 20 \
+          --qualified_quality_phred 20 \
+          --unqualified_percent_limit 10 \
+          --length_required 50 \
+          --trim_poly_x \
+          --thread 1 \
+          --json sample.fastp.json \
+          --html sample.fastp.html \
+          2> sample.fastp.log`
     - reads_R1.fastq.gz and reads_R2.fastq.gz are the input Illumina reads which will be trimmed
-    - reads_paired_R[1|2].fastq reads_unpaired_R[1|2].fastq
-        - paired refer to sequences trimmed that passed the quality filter for both R1 and R2
-        - unpaired refer to sequences that did not pass the quality filter
-    - ILLUMINACLIP: cut adapter and other illumina-specific sequences from the read
-    - SLIDINGWINDOW: Perform a sliding window trimming, cutting once the average quality within the window falls below a threshold
-    - MINLEN: Drop the read if it is below a specified length
+    - reads_trimmed_R[1|2].fastq reads_fail_R[1|2].fastq
+        - trimmed refer to sequences trimmed that passed the quality filter for both R1 and R2
+        - fail refer to sequences that did not pass the quality filter
+    - cut_front and cut_tail: remove bases with low quality from 5' to tail and 3' to front respectively
+    - cut_mean_quality: mean quality requirement for cut_front and cut_tail
+    - length_required: reads shorter than 50 will be discarded
+    - trim_poly_x: enable polyX trimming in 3' ends.
 
-- `fastqc reads_paired_R[1|2].fastq reads_unpaired_R[1|2].fastq`
-    - reads_paired_R[1|2].fastq reads_unpaired_R[1|2].fastq are sequences after trimming step which quality will be assesed
+- `fastqc reads_trimmed_R[1|2].fastq reads_fail_R[1|2].fastq`
+    - reads_trimmed_R[1|2].fastq reads_fail_R[1|2].fastq are sequences after trimming step which quality will be assesed
 
 - `multiqc RESULTS_DIRECTORY`
     - MultiQC will automatically search for raw and trimmed reads quality results and will compare them in user-friendly graphs
