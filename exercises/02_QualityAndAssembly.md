@@ -181,18 +181,31 @@ This is the MultiQC output sumarizing reads that have been filtered after trimmi
 Reconstruct the source genome is a mandatory step for latter analysis such annotation, comparative analysis and cgMLST. In order to assemble all samples we need to run this command:
 
 ------
+First check that you are in the correct folder:
 
 ```Bash
+pwd
 cd
-cd Documents/wgs
-nextflow run BU-ISCIII/bacterial_wgs_training \
-  -resume \
-  -profile singularity \
-  --reads 'training_dataset/*_R{1,2}.fastq.gz' \
-  --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
-  --gtf training_dataset/listeria_NC_021827.1_NoPhagues.gff \
-  --step assembly
+pwd
+#Output: /home/alumno
+cd wgs/bacterial_wgs_training_dataset/ANALYSIS/
+pwd
+#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/ANALYSIS/
+ls
+#Output: 01-handsonlinux 02-assembly
+```
 
+Now we can run the assembly process
+
+```
+nextflow run ../../bacterial_wgs_training/main.nf \
+  -resume \
+  -profile conda \
+  --reads '../RAW/FULL_DATA/*_R{1,2}.fastq.gz' \
+  --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
+  --gtf ../REFERENCES/listeria_NC_021827.1_NoPhagues.gff \
+  --step assembly \
+  --outdir 02-assembly
 ```
 
 ------
