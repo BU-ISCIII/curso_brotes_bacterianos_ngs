@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Bacterial WGS training : Exercise 1</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+ 
+body {
+  padding: 3em;
+  /*margin-right: 350px;*/
+  max-width: 100%;
+}
+#toc {
+  position: fixed;
+  right: 20px;
+  width: 300px;
+  padding-top: 20px;
+  overflow: none;
+  height: calc(100% - 3em - 20px);
+}
+#toc_header {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+#toc > ul {
+  padding-left: 0;
+  list-style-type: none;
+}
+#toc > ul ul { padding-left: 20px; }
+#toc > ul > li > a { display: none; }
+img { max-width: 800px; }
+
+</style>
+
+
+
+</head>
+
+<body>
+<h2>Bacterial WGS training : Exercise 1</h2>
+
+<div class="tables-start"></div>
+
+<table><thead>
+<tr>
+<th><strong>Title</strong></th>
+<th>Linux command line.</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>Training dataset:</strong></td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Questions:</strong></td>
+<td><ul><li>How do I use the command line?</li><li>How do I navigate the file system?</li></ul></td>
+</tr>
+<tr>
+<td><strong>Objectives</strong>:</td>
+<td><ul><li>Learn/Remember how to use the command line.</li><li>Learn/Remember how to navigate through the Linux file system.</li></ul></td>
+</tr>
+<tr>
+<td><strong>Time estimation</strong>:</td>
+<td>30 min</td>
+</tr>
+<tr>
+<td><strong>Key points</strong>:</td>
+<td><ul><li>Remeber the shell basic commands: <em>pwd cd ls mkdir rmdir mv nano cat less more head tail rm</em></li></ul></td>
+</tr>
+</tbody></table>
+
+<div class="tables-end"></div>
+
+<h3>:bangbang: Important things to remnenber:</h3>
+
+<ul>
+<li>Use Tab to automatically complete file names and paths, so it can be easiert to write in the terminal</li>
+<li>Use keyboard arrows (:arrow_up: :arrow_down:) to move through your terminal&#39;s history, so you don&#39;t have to write the commands again.</li>
+<li>Try not to use spaces, accents or special characters like &quot;Ñ&quot; letter, when writting directory of file names.</li>
+<li>Basic commands you should always remember: <em>pwd cd ls mkdir mv rm rmdir less nano</em></li>
+</ul>
+
+<h3>Answering to main questions</h3>
+
+<h4>How do I use the command line?</h4>
+
+<p>Open a terminal by clicking in the icon or typing <strong>Ctrl+Alt+T</strong>. Now you can type in the prompt.</p>
+
+<h4>How do I navigate the file system?</h4>
+
+<p>Let&#39;s remember the basics: <em>pwd cd ls mkdir mv rm rmdir less nano</em>. We are going to use those commands to:</p>
+
+<h5>Checking the working directory (pwd)</h5>
+
+<p>Check our working directory:</p>
+
+<pre><code>pwd
+#Output: /home/alumno
+</code></pre>
+
+<h5>Moving between directories (cd)</h5>
+
+<p>Move to our Desktop folder:</p>
+
+<pre><code>cd ~/Escritorio
+pwd
+#Output: /home/alumno/Escritorio
+</code></pre>
+
+<p>Move to the course folder:</p>
+
+<pre><code>cd 
+pwd
+#Output: /home/alumno
+cd wgs
+pwd
+#Output: /home/alumno/wgs
+cd RAW/FULL_DATA
+pwd
+#Output: /home/alumno/wgs/RAW/FULL_DATA
+cd .
+pwd
+#Output: /home/alumno/wgs/RAW/FULL_DATA
+cd ..
+#Output: /home/alumno/wgs/RAW/
+cd ../..
+#Output: /home/alumno/
+</code></pre>
+
+<p><strong>Questions:</strong></p>
+
+<ul>
+<li>Which is the meaning of the &quot;~&quot; symbol?</li>
+<li>What does de <code>cd</code> command without arguments do?</li>
+<li>What does &quot;.&quot; mean?</li>
+<li>What does &quot;..&quot; mean?</li>
+</ul>
+
+<h5>Listing directories (ls)</h5>
+
+<pre><code>cd wgs
+ls
+#Output: ANALYSIS bacterial_wgs_training RAW  REFERENCES  RESULTS
+</code></pre>
+
+<p>This is the folder structure we will use for this training. Now we are going to list the files in the <code>REFERENCE</code> folder:</p>
+
+<pre><code>ls REFERENCES
+</code></pre>
+
+<p>This command will output a big list of files, which are the files that we will usea as REFERENCE through the different exercises of the training. Now wi will run this other command:</p>
+
+<pre><code>ls /home/alumno/wgs/REFERENCES/
+</code></pre>
+
+<p><strong>Questions:</strong></p>
+
+<ul>
+<li>Which is the difference between this las command and the previous one?</li>
+<li>Do they display the same information?</li>
+<li>Which one is relative path?</li>
+<li>Which one is absolute path?</li>
+</ul>
+
+<p>Let&#39;s see different parameters for the <code>ls</code> command. Write:</p>
+
+<pre><code>ls REFERENCES
+ls -l REFERENCES
+ls -a REFERENCES
+ls -la REFERENCES
+</code></pre>
+
+<p><strong>Questions:</strong></p>
+
+<ul>
+<li>What does de different arguments of <code>ls</code> do?</li>
+<li>What does the new file special?</li>
+</ul>
+
+<p>⚠️ <strong>REMINDER:</strong> ⚠️ EVERY TIME YOU CHANGE DIRECTORY (cd) YOU HAVE TO CHECK YOUR PATH (pwd) AND LIST THE FILES INSIDE (ls) TO CHECK YOU DIDN&#39;T MAKE MISTAKES</p>
+
+<h5>Creating and removing directories (mkdir &amp; rmdir)</h5>
+
+<p>Now we are going to move to the ANALYSIS folder which is the folder were we will run all the exercises</p>
+
+<pre><code>cd ANALYSIS
+pwd
+#Output: /home/alumno/wgs/ANALYSIS
+ls
+</code></pre>
+
+<p>As you can see the folder is empty, so now we will fill this folder. Create a directory for this handson: <strong>Remember:</strong> Linux is case sensitive and does not like white spaces in names</p>
+
+<pre><code>mkdir 01-handsonLinux
+ls
+#Output: 01-handsonLinux
+</code></pre>
+
+<p>Now type:</p>
+
+<pre><code>mkdir 01-handsonlinux 01-HandsOnLinux
+ls
+#Output: 01-handsonlinux 01-handsonLinux 01-HandsOnLinux
+</code></pre>
+
+<p><strong>Questions:</strong></p>
+
+<ul>
+<li>Is it possible to create more than one directory at the same time?</li>
+<li>If the names of the folders are the same, why it creates three different directories?</li>
+</ul>
+
+<p>Now we will remove the extra directories:</p>
+
+<pre><code>rmdir 01-handsonLinux 01-HandsOnLinux
+ls
+#Output: 01-handsonlinux
+</code></pre>
+
+<h5>Moving and renaming files (mv)</h5>
+
+<p>Move to the new folder</p>
+
+<pre><code>cd 01-handsonlinux
+pwd
+#Output: /home/alumno/wgs/ANALYSIS/01-handsonlinux
+</code></pre>
+
+<p>We are going to move the hidden file in REFERENCE folder to this directory and then rename it:</p>
+
+<pre><code>mv ../../REFERENCES/.ThisIsAHiddenFile .
+ls
+ls -a
+ls -a ../../REFERENCES/
+mv .ThisIsAHiddenFile NowImNotHidden
+ls -a
+ls
+</code></pre>
+
+<p><strong>Questions:</strong></p>
+
+<ul>
+<li>Which is the difference between the two <code>mv</code> commands?</li>
+<li>Do you remember what &quot;.&quot; mean from the first questions?</li>
+<li>And &quot;..&quot;?</li>
+</ul>
+
+<p>⚠️ <strong>REMINDER:</strong> ⚠️ LINUX DOES NOT REQUIRE FILE EXTENSIONS</p>
+
+<h5>Editing files and displaying them (nano &amp; cat)</h5>
+
+<p>We are going to read the file and edit it:</p>
+
+<pre><code>cat NowImNotHidden
+#Output: I&#39;m a hidden file.
+</code></pre>
+
+<p>This is not true, so we are going to edit it:</p>
+
+<pre><code>nano NowImNotHidden
+</code></pre>
+
+<p>Write: <code>I&#39;m not a hidden file.</code></p>
+
+<p>And <strong>save</strong> it:
+<em>Ctrl + O</em>
+<em>Intro</em></p>
+
+<p><strong>Close</strong> the new file:
+<em>Ctrl + X</em></p>
+
+<p>Now read the new file:</p>
+
+<pre><code>cat NowImNotHidden
+#Output: I&#39;m not a hidden file.
+ls
+#Output: NowImNotHidden
+cd ../../
+</code></pre>
+
+<h5>Read files other ways (less &amp; more &amp; head &amp; tail)</h5>
+
+<p>And now we will read this file:</p>
+
+<pre><code>cat REFERENCES/bacterial_wgs_training_initial.tree
+less REFERENCES/bacterial_wgs_training_initial.tree
+#Remember: To close less press &quot;q&quot;
+</code></pre>
+
+<pre><code>more REFERENCES/bacterial_wgs_training_initial.tree
+#Remember: To close more press &quot;q&quot;
+</code></pre>
+
+<pre><code>head REFERENCES/bacterial_wgs_training_initial.tree
+tail REFERENCES/bacterial_wgs_training_initial.tree
+</code></pre>
+
+<pre><code>head -n4 REFERENCES/bacterial_wgs_training_initial.tree
+tail -n3 REFERENCES/bacterial_wgs_training_initial.tree
+</code></pre>
+
+<p><strong>Questions:</strong></p>
+
+<ul>
+<li>Which is the difference between <code>head</code> and <code>tail</code>?</li>
+<li>What does the argument <code>-nX</code> do to <code>tail</code> and <code>head</code>?</li>
+</ul>
+
+<h5>Removing a file (rm)</h5>
+
+<p>Now we will learn how to remove files:</p>
+
+<pre><code>cd ANALYSIS/01-handsonlinux/
+pwd
+ls
+#Output: NowImNotHidden
+mv ../../REFERENCES/bacterial_wgs_training_initial.tree .
+ls
+#Output: bacterial_wgs_training_initial.tree NowImNotHidden
+rm NowImNotHidden
+ls
+#Output: bacterial_wgs_training_initial.tree
+</code></pre>
+
+</body>
+
+<script type="text/javascript">
+(function() {
+    $('div.tables-start').nextUntil('div.tables-end', 'table').addClass('table table-bordered');
+})();
+</script>
+</html>
