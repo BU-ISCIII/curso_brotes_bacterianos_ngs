@@ -221,7 +221,7 @@ nextflow run ../../bacterial_wgs_training/main.nf \
 
 ------
 
-This execution runs internally four programs: FastQC, Trimmomatic, __Unicycler__ , MultiQC and Quast:
+This execution runs internally four programs: FastQC, fastp, __Unicycler__ , MultiQC and Quast:
 
 Software for preprocessing are executed as noted before. This step includes an aditional assembly process that uses [Unicycler](https://github.com/rrwick/Unicycler) to assemble all samples. Nextflow runs Unicycler for each sample as follow:
 
