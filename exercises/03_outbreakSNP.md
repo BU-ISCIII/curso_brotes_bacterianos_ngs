@@ -1,4 +1,4 @@
-# Bacterial WGS training : Exercise 3
+# Bacterial WGS training : Exercise 4
 
 <div class="tables-start"></div>
 
@@ -256,6 +256,7 @@ clean.core.aln.treefile
 ```
 
 Now we are going to open firefox browser and go to [iTOL website](https://itol.embl.de/). This web allows us to visualize and annotate phylogenetics trees with a very user-friendly interface. Also, it has good exporting options for publication.
+<p align="center"><img src="img/itol_web0.png" width="1000"></p>
 
 Once in iTOL website we click in Upload in the top menu. Next we upload our tree as shown in the image:
 <p align="center"><img src="img/itol_web1.png" width="1000"></p>
