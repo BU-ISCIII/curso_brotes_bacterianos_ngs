@@ -1,8 +1,67 @@
-#### How do I use Nextflow with a Singularity image?
 
 ```
-nextflow
+cd
+pwd
+#Output: /home/alumno
+ls
 ```
+
+```
+cd wgs
+ls
+cd bacterial_wgs_training
+ls
+#vemos main.nf environment.yml
+```
+
+### Conda
+
+El yml permite instalar environments de conda.
+
+Conda es un gestor de paquetes para poder instalar software de cualquier tipo, en este caso de bioinfo.
+
+```
+cat environment.yml
+#Vemos todo el software que vamos a usar en el curso
+#Con el conda install -f environment.yml se nos crea un environment con todo lo que vamos a necesitar para el curso
+```
+
+```
+conda env list
+```
+
+```
+fastp --help
+conda activate bacterial_wgs_training
+#Se carga el ambiente entre parentesis delante del nombre de usuario
+fastp --help
+```
+
+```
+conda deactivate
+conda activate nextflow
+```
+
+#### How do I use Nextflow?
+
+```
+netflow info
+```
+
+```
+nextflow run bacterial_wgs_training/main.nf --help
+```
+
+Ejemplo desde github:
+
+```
+nextflow run BU-ISCIII/bacterial_wgs_training --help
+```
+
+```
+#Ejemplo de un pipeline de nfcore con versiones y eso
+```
+
 
 So, what now? In order to execute a nextflow pipeline, we need to tell it to `run` a project which contains a `main.nf` script written in groovy + the pipeline languages:
 
