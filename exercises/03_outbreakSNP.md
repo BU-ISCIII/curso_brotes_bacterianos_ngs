@@ -41,8 +41,9 @@ nextflow run ../../bacterial_wgs_training/main.nf \
   -profile conda \
   --reads '../RAW/DOWNSAMPLED/*_R{1,2}.fastq.gz' \
   --fasta '../REFERENCES/listeria_NC_021827.1_NoPhagues.fna' \
-  --output 03-mapping \
-  --step mapping
+  --outdir 03-mapping \
+  --step mapping \
+  -resume
 ```
 
 This command will internally execute the following programs with our samples:
@@ -177,51 +178,9 @@ nextflow run ../../bacterial_wgs_training/main.nf \
   -profile conda \
   --reads '../RAW/FULL_DATASET/*_R{1,2}.fastq.gz' \
   --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
-  --step outbreakSNP 
-```
-
-Output:
-
-```Bash
-N E X T F L O W  ~  version 0.29.0
-Launching `main.nf` [distracted_magritte] - revision: 3508cbd2da
-=========================================
- BU-ISCIII/bacterial_wgs_training : WGS analysis practice v1.0
-=========================================
-Reads                : test/full_dataset/*_R{1,2}*.fastq.gz
-Data Type            : Paired-End
-Fasta Ref            : test/listeria_NC_021827.1_NoPhagues.fna
-Keep Duplicates      : false
-Step                 : outbreakSNP
-Container            : ./wgs_bacterial.simg
-Current home         : /home/smonzon
-Current user         : smonzon
-Current path         : /home/smonzon/Documents/desarrollo/bacterial_wgs_training
-Working dir          : /home/smonzon/Documents/desarrollo/bacterial_wgs_training/work
-Output dir           : results
-Script dir           : /home/smonzon/Documents/desarrollo/bacterial_wgs_training
-Save Reference       : false
-Save Trimmed         : true
-Save Intermeds       : false
-Trimmomatic adapters file: $TRIMMOMATIC_PATH/adapters/NexteraPE-PE.fa
-Trimmomatic adapters parameters: 2:30:10
-Trimmomatic window length: 4
-Trimmomatic window value: 20
-Trimmomatic minimum length: 50
-Config Profile       : singularity
-====================================
-[warm up] executor > local
-[ca/cbb117] Submitted process > fastqc (RA-L2805)
-[4b/65f7a1] Submitted process > fastqc (RA-L2450)
-[32/8ebe88] Submitted process > fastqc (RA-L2281)
-[23/04ab41] Submitted process > fastqc (RA-L2073)
-[a7/f9e938] Submitted process > fastqc (RA-L2391)
-[75/709471] Submitted process > trimming (RA-L2073)
-[94/87b2b5] Submitted process > makeBWAindex (listeria_NC_021827.1_NoPhagues)
-[94/b39b86] Submitted process > trimming (RA-L2805)
-[df/e01505] Submitted process > fastqc (RA-L2709)
-..................
-BU-ISCIII - Pipeline complete
+  --step outbreakSNP \
+  --outdir 04-outbreakSNP \
+  -resume
 ```
 
 >This will take a while so we need to move forward and understand what we are doing and learn how to see and interpret our results.
@@ -230,18 +189,13 @@ BU-ISCIII - Pipeline complete
 Let's proceed to analyze the results. We can find them in:
 
 ```
-/home/alumno/course_shared_folder/wgs_outbreaker
+/home/alumno/wgs/bacterial_wgs_training_dataset/RESULTS/04-outbreakSNP
 ```
 
 This directory contains several folders including:
 
 ```
-├── Alignment -> already analyzed
-├── QC -> already analyzed
-├── raw -> symbolic links to raw reads
-├── RAXML -> phylogenetic results
-├── stats -> alignment and variant calling stats.
-└── variant_calling -> variant calling files.
+
 ```
 
 Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](02_QualityAndAssembly.md) and [Mapping Section](#Mapping)), we will proceed to analyze variant calling results.
@@ -347,18 +301,20 @@ We can check this file in:
 
 <div class="tables-start"></div>
 
-|dis_matrix.names|RA.L2073|RA.L2281|RA.L2327|RA.L2391|RA.L2450|RA.L2677|RA.L2701|RA.L2782|RA.L2805|RA.L2978|
-|----------------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|
-|RA-L2073|0|9403|9028|80|46|46|49|9120|4|2|
-|RA-L2281|9403|0|8777|9415|9397|9397|9402|9183|9403|9401|
-|RA-L2327|9028|8777|0|9040|9022|9022|9027|4277|9028|9026|
-|RA-L2391|80|9415|9040|0|74|74|79|9132|80|78|
-|RA-L2450|46|9397|9022|74|0|38|45|9114|46|44|
-|RA-L2677|46|9397|9022|74|38|0|45|9114|46|44|
-|RA-L2701|49|9402|9027|79|45|45|0|9119|49|47|
-|RA-L2782|9120|9183|4277|9132|9114|9114|9119|0|9120|9118|
-|RA-L2805|4|9403|9028|80|46|46|49|9120|0|2|
-|RA-L2978|2|9401|9026|78|44|44|47|9118|2|0|
+
+|samples|RA-L2073|RA-L2281|RA-L2327|RA-L2391|RA-L2450|RA-L2677|RA-L2701|RA-L2782|RA-L2805|RA-L2978|Reference|
+|-------|--------|--------|--------|--------|--------|--------|--------|--------|--------|--------|---------|
+|RA-L2073||||||||||											
+|RA-L2281|9128,00||||||||||										
+|RA-L2327|8718,00|8286,00||||||||									
+|RA-L2391|80,00|9140,00|8730,00|||||||							
+|RA-L2450|46,00|9122,00|8712,00|74,00||||||||					
+|RA-L2677|46,00|9122,00|8712,00|74,00|38,00||||||				
+|RA-L2701|49,00|9127,00|8717,00|79,00|45,00|45,00||||||		
+|RA-L2782|8725,00|8669,00|4159,00|8737,00|8719,00|8719,00|8724,00||||				
+|RA-L2805|4,00|9128,00|8718,00|80,00|46,00|46,00|49,00|8725,00|||			
+|RA-L2978|2,00|9126,00|8716,00|78,00|44,00|44,00|47,00|8723,00|2,00||		
+|Reference|227,00|9109,00|8699,00|239,00|221,00|221,00|226,00|8706,00|227,00|225,00|	
 
 <div class="tables-end"></div>
 
