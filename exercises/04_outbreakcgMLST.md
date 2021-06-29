@@ -1,4 +1,4 @@
-# Bacterial WGS training : Exercise 4
+# Bacterial WGS training : Exercise 5
 
 <div class="tables-start"></div>
 
@@ -25,17 +25,19 @@ Performing MLST, serogroup or resistance analysis can't be easing using WGS. Her
 ### Run the exercise
 ```
 cd
-cd Documents/wgs
-nextflow run BU-ISCIII/bacterial_wgs_training --reads 'training_dataset/*_R{1,2}*.fastq.gz' \
---fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
--profile singularity \
---step strainCharacterization \
---srst2_db_mlst training_dataset/mlst_pasteur_listeria.fas \
---srst2_def_mlst training_dataset/mlst_pasteur_listeria.scheme \
---srst2_db_sero training_dataset/pcr_serogroup_listeria.fas \
---srst2_def_sero training_dataset/pcr_serogroup_listeria.scheme \
---srst2_resistance training_dataset/ARGannot.r1.fasta \
--resume
+cd wgs/bacterial_wgs_training_dataset/ANALYSIS
+nextflow run ../../bacterial_wgs_training/main.nf \ 
+      --reads '../RAW/DOWNSAMPLED/*_R{1,2}*.fastq.gz' \
+      --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
+      -profile conda \
+      --step strainCharacterization \
+      --srst2_db_mlst ../REFERENCES/mlst_pasteur_listeria.fas \
+      --srst2_def_mlst ../REFERENCES/mlst_pasteur_listeria.scheme \
+      --srst2_db_sero ../REFERENCES/pcr_serogroup_listeria.fas \
+      --srst2_def_sero ../REFERENCES/pcr_serogroup_listeria.scheme \
+      --srst2_resistance ../REFERENCES/ARGannot.r1.fasta \
+      --outdir 05-strainCharacterization \
+      -resume
 ```
 
 Below this command two srst2 commands are performed using the mlst and serogroup schema downloaded from [Pasteur bigsdb](http://bigsdb.pasteur.fr/perl/bigsdb/bigsdb.pl?db=pubmlst_listeria_seqdef_public).
@@ -128,7 +130,7 @@ pwd
 ```
 Output:
 ```
-/home/alumno/Documents/wgs
+/home/alumno/wgs/bacterial_wgs_training_dataset/ANALYSIS
 ```
 And this one to list all the files in your working directory. Check there is the training_dataset folder and the results folder from previous sessions.
 ```Bash
@@ -136,7 +138,7 @@ ls
 ```
 Output:
 ```
-training_dataset results work
+02-assembly 03-mapping 04-outbreakSNP 05-strainCharacterization
 ```
 Once our localization is correct we will launch nextflow with the next parameters:
   - Raw reads
@@ -144,74 +146,22 @@ Once our localization is correct we will launch nextflow with the next parameter
   - gtf file needed for assembly step.
 
 ```
-nextflow run BU-ISCIII/bacterial_wgs_training \
---reads 'training_dataset/*R{1,2}*.fastq.gz' \
---fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
---step outbreakMLST \
---gtf training_dataset/listeria_NC_021827.1_NoPhagues.gff \
--profile singularity
+nextflow run ../../bacterial_wgs_training/main.nf \
+    --reads '../RAW/DOWNSAMPLED/*R{1,2}*.fastq.gz' \
+    --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
+    --step outbreakMLST \
+    --gtf ../REFERENCES/listeria_NC_021827.1_NoPhagues.gff \
+    --scheme ../REFERENCES/coregenes_listeria \
+    --outdir 06-outbreakMLST \
+    -profile conda
 ```
 
-**Output:**
-```
-N E X T F L O W  ~  version 0.32.0
-Launching `BU-ISCIII/bacterial_wgs_training` [sad_ptolemy] - revision: 068d646a9e [master]
-WARN: Process `multiqc` is defined two or more times
-WARN: Process `multiqc` is defined two or more times
-WARN: Process `multiqc` is defined two or more times
-=========================================
- BU-ISCIII/bacterial_wgs_training : WGS analysis practice v1.0
-=========================================
-Reads                : training_dataset/*_R{1,2}.fastq.gz
-Data Type            : Paired-End
-Fasta Ref            : training_dataset/listeria_NC_021827.1_NoPhagues.fna
-GTF File             : training_dataset/listeria_NC_021827.1_NoPhagues.gff
-Keep Duplicates      : false
-Step                 : outbreakMLST
-Container            : ./wgs_bacterial.simg
-Pipeline Release     : master
-Current home         : /home/alumno
-Current user         : alumno
-Current path         : /home/alumno/Documents/wgs
-Working dir          : /home/alumno/Documents/wgs/work
-Output dir           : results
-Script dir           : /home/alumno/.nextflow/assets/BU-ISCIII/bacterial_wgs_training
-Save Reference       : false
-Save Trimmed         : false
-Save Intermeds       : false
-Trimmomatic adapters file: $TRIMMOMATIC_PATH/adapters/NexteraPE-PE.fa
-Trimmomatic adapters parameters: 2:30:10
-Trimmomatic window length: 4
-Trimmomatic window value: 20
-Trimmomatic minimum length: 50
-Config Profile       : singularity
-====================================
-[warm up] executor > local
-[45/0e3862] Submitted process > fastqc (RA-L2281)
-[f2/417d0b] Submitted process > scheme_download (SchemeDownload)
-[34/ca35c2] Submitted process > fastqc (RA-L2701)
-[e4/4c2690] Submitted process > trimming (RA-L2281)
-................
-BU-ISCIII Workflow complete
-```
 This will take a while as usual, and it is performed with a downsampled dataset, so we will describe here the results with the full dataset for practice our interpretation.
 
 ### Results analysis
 Let's proceed to analyze the results. We can find them in:
 ```
-/home/alumno/course_shared_folder/results_final/Taranis
-```
-This directory contains several files including:
-```
-├── deletions.tsv -> sequence of alleles with deletions detected.
-├── inferred_alleles.tsv -> sequences for inferred alleles (not present in the scheme)
-├── insertions.tsv -> sequence of alleles with deletions detected.
-├── matching_contigs.tsv -> contigs where alleles are found.
-├── paralog.tsv -> paralogues genes found.
-├── plot.tsv -> locus found in end of start of a contig (possible broken cds)
-├── result.tsv -> allele matrix.
-├── snp.tsv -> snps found in inferred alleles (beta feature)
-└── summary_result.tsv -> summary of found/not found alleles.
+/home/alumno/bacterial_wgs_training_dataset/RESULTS/06-outbreakMLST
 ```
 Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](02_QualityAndAssembly.md), we will proceed to analyze cgMLST results.
 
