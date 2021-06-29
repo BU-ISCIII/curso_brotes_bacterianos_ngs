@@ -37,10 +37,11 @@ To map our samples with bwa, we only have to execute this command:
 ```
 cd
 cd wgs/bacterial_wgs_training_dataset/ANALYSIS
-nextflow run BU-ISCIII/bacterial_wgs_training \
-  -r one_week_format -profile conda \
+nextflow run ../../bacterial_wgs_training/main.nf \
+  -profile conda \
   --reads '../RAW/DOWNSAMPLED/*_R{1,2}.fastq.gz' \
   --fasta '../REFERENCES/listeria_NC_021827.1_NoPhagues.fna' \
+  --output 03-mapping \
   --step mapping
 ```
 
