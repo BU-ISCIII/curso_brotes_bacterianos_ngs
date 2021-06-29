@@ -39,8 +39,8 @@ cd
 cd bacterial_wgs_training_dataset
 nextflow run BU-ISCIII/bacterial_wgs_training \
   -r one_week_format -profile conda \
-  --reads 'RAW/FULL_DATA/*_R{1,2}.fastq.gz' \
-  --fasta 'REFERENCES/listeria_NC_021827.1_NoPhagues.fna' \
+  --reads '../RAW/DOWNSAMPLED/*_R{1,2}.fastq.gz' \
+  --fasta '../REFERENCES/listeria_NC_021827.1_NoPhagues.fna' \
   --step mapping
 ```
 
@@ -130,20 +130,17 @@ Finally, we can load as many as we want (or as many as the virtual machine survi
 
 ## Variant Calling
 
-We are using WGS-Outbreaker as the main software for variant calling, SNP-matrix creation and phylogeny performance. Following the development of the former exercises we are using nextflow, in this case using `outbreakSNP` step.
+We are using snippy as the main software for variant calling, SNP-matrix creation and phylogeny performance. Following the development of the former exercises we are using nextflow, in this case using `outbreakSNP` step.
 This step includes the following processes:
 - Preprocessing:
-    - Trimming with trimmomatic software.
+    - Trimming with fastp software.
     - Quality control with fastQC.
-- WGS-Outbreak software comprises the rest of steps:
+- Snippy software:
     - Mapping with bwa.
-    - Variant calling with GATK.
+    - Variant calling with freebayes.
     - SNP-Matrix creation.
-    - SNP-filtering:
-        * PhredQ > 30
-        * Strand-bias
-        * MAPQ
-        * SNP cluster, < 3 SNPs / 1000 pb
+    - SNP-core-filtering
+- Phylogeny with IQ-tree
 
 Everything clear..? So let's run it.
 
@@ -157,7 +154,7 @@ pwd
 ```
 Output:
 ```
-/home/alumno/Documents/wgs
+/home/alumno/Documents/wgs/bacterial_training_dataset/ANALYSIS
 ```
 And this one to list all the files in your working directory. Check there is the training_dataset folder and the results folder from previous sessions.
 ```Bash
@@ -165,7 +162,7 @@ ls
 ```
 Output:
 ```
-training_dataset results work
+01-handsonLinux 02-assembly work
 ```
 
 Once our localization is correct we will launch nextflow with the next parameters:
@@ -175,13 +172,11 @@ Once our localization is correct we will launch nextflow with the next parameter
   - outbreaker_config <- config file with all the parameters required by WGS-Outbreaker
 
 ```Bash
-nextflow run BU-ISCIII/bacterial_wgs_training \
-  -profile singularity \
-  --reads 'training_dataset/*_R{1,2}.fastq.gz' \
-  --fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
-  --step outbreakSNP \
-  --saveTrimmed \
-  --outbreaker_config training_dataset/wgsoutbreaker.config
+nextflow run ../../bacterial_wgs_training/main.nf \
+  -profile conda \
+  --reads '../RAW/FULL_DATASET/*_R{1,2}.fastq.gz' \
+  --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
+  --step outbreakSNP 
 ```
 
 Output:
@@ -189,9 +184,6 @@ Output:
 ```Bash
 N E X T F L O W  ~  version 0.29.0
 Launching `main.nf` [distracted_magritte] - revision: 3508cbd2da
-WARN: Process `multiqc` is defined two or more times
-WARN: Process `multiqc` is defined two or more times
-WARN: Process `multiqc` is defined two or more times
 =========================================
  BU-ISCIII/bacterial_wgs_training : WGS analysis practice v1.0
 =========================================
@@ -232,71 +224,6 @@ BU-ISCIII - Pipeline complete
 ```
 
 >This will take a while so we need to move forward and understand what we are doing and learn how to see and interpret our results.
-
-### Understanding WGS-Outbreaker config file
-First of all, let's take a look to the config file for a moment: [WGS-Outbreaker config_file](../config.file). This file will allow us to configure all necessary parameters for running WGS-Outbreaker.
-The file is organized in several sections.
-
-1. **Steps configuration:** in this section we can select with YES/NO which pipeline steps we would want to run, in this case we have prefilled the steps that we can run in this trainning.
-
-```
-############################# Pipeline steps: Fill in with YES or NO (capital letter) ###################################
-TRIMMING=NO
-CHECK_REFERENCES=YES
-MAPPING=YES
-DUPLICATE_FILTER=YES
-VARIANT_CALLING=YES
-KMERFINDER=NO
-SRST2=NO
-CFSAN=NO
-VCF_TO_MSA=YES
-RAXML=YES
-STATS=YES
-```
-
-2. **Input data:** we can provide the path where the input files are, and the path where we want our results. Also we can include our sample names and the raw reads filenames. These reads must be in the input directory provided.
-
-```
-# Directory with input files
-INPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/trimming
-
-# Directory for output files
-OUTPUT_DIR=/home/smonzon/Documents/desarrollo/bacterial_wgs_training/results/wgs_outbreaker
-
-############################### INPUT VARIABLES#############################################
-
-# Samples info:
-# All samples ID must be separated by ":", then for each sample there must be a line with the names for
-# R1 and R2 separated by tabulator
-# Example:
-	#=AAAA_01:BBBB_02
-	# AAAA_01=AAAA_01_R1.fastq.gz    AAAA_01_R2.fastq.gz
-	# BBBB_02=BBBB_02_R1.fastq.gz    BBBB_02_R2.fastq.gz
-```
-
-Moreover we have to include the path for our reference files:
-
-```
-#################################### Reference Variables ###########################################
-
-# Path to reference genome
-GENOME_REF=listeria_NC_021827.1_NoPhagues.fna
-
-# Path to reference genome without ".fasta"
-GENOME_NAME=listeria_NC_021827.1_NoPhagues
-```
-
-3. **Trimming, mapping, variant calling and phylogeny parameters:** The end of the config file includes a series of default parameters we use for our analysis, mainly in foodborne bacteria, but that can be modified in order to match other analysis or other species requirements.
-For example the most variable parameter we can probably find is the maximum number of SNPs we are going to allow in a sequence window. This parameter is going to depend on the species variability, and also on the similarity of our reference with the isolates being analyzed.
-
-```
-##############  SNP FILTERS #########################
-# The maximum number of SNPs allowed in a window.
-MAX_SNP=3
-
-# The length of the window in which the number of SNPs should be no more than max_num_snp
-WINDOW_SIZE=1000
-```
 
 ### Results analysis
 Let's proceed to analyze the results. We can find them in:
