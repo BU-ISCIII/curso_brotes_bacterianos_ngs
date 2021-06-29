@@ -153,6 +153,7 @@ nextflow run ../../bacterial_wgs_training/main.nf \
     --gtf ../REFERENCES/listeria_NC_021827.1_NoPhagues.gff \
     --scheme ../REFERENCES/coregenes_listeria \
     --outdir 06-outbreakMLST \
+    -resume \
     -profile conda
 ```
 
