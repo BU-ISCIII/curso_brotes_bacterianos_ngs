@@ -26,15 +26,15 @@ The material includes slides with theory concepts and a bunch of practical exerc
 - **Talk 7:** [Mapping against reference genome and Variant Calling.](slides/talk7/curso_SeqGenBac_session3.1_MappingAndVariantCalling.pdf)
 - **Talk 8:** [SNP matrix and phylogenetics.](slides/talk8/curso_SeqGenBac_session3.2_SNPMatrixAndPhylogenetics.pdf)
 
-- [**Exercise 3**](exercises/03_outbreakSNP.md) -- [Download pdf](exercises/03_outbreakSNP.pdf)
+- [**Exercise 4**](exercises/03_outbreakSNP.md) -- [Download pdf](exercises/03_outbreakSNP.pdf)
 
 ### Day 4
 - **Talk 9:** [Typing based on allelic profile or gene-by-gene](slides/talk9/curso_SeqGenBac_session4.1_tipificacion-gen-by-gene_ICuesta.pdf)
 - **Talk 10:** [Gene-by-gene WGS analysis](slides/talk10/curso_SeqGenBac_session4.2_GeneByGenevsSNPs_v2.pdf)
 
-- [**Exercise 4**](exercises/04_outbreakcgMLST.md) -- [Download pdf](exercises/04_outbreakcgMLST.pdf)
+- [**Exercise 5**](exercises/04_outbreakcgMLST.md) -- [Download pdf](exercises/04_outbreakcgMLST.pdf)
 
 ### Day 5
 - **Talk 11:** [Sequence annotation](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/slides/talk11/curso_SeqGenBac_session5.1_annotation.pdf)
 - **Talk 12:** [Genome characterization, Resistance and Virulence genes]
-- [**Exercise 5**](exercises/05_annotation.md) -- [Download pdf](exercises/05_annotation.pdf)
+- [**Exercise 6**](exercises/05_annotation.md) -- [Download pdf](exercises/05_annotation.pdf)
