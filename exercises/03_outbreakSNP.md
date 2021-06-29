@@ -192,76 +192,67 @@ Let's proceed to analyze the results. We can find them in:
 /home/alumno/wgs/bacterial_wgs_training_dataset/RESULTS/04-outbreakSNP
 ```
 
-This directory contains several folders including:
-
-```
-
-```
-
 Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](02_QualityAndAssembly.md) and [Mapping Section](#Mapping)), we will proceed to analyze variant calling results.
 
 #### Variant calling results
 Variants are stored in plain text files in vcf format (variant calling format). Vcf files can be found in:
 
 ```
-wgs_outbreaker/variant_calling/variants_gatk/variants
+/home/alumno/wgs/bacterial_wgs_training_dataset/RESULTS/04-outbreakSNP/Snippy/{sample_name}/snps.vcf
 ```
 
-Here we can find a bunch of vcf files for each filtering steps we made:
-- *.g.vcf <- this file contains a special vcf format that includes both variant and invariants sites information.
-- snps_indels.vcf <- contains raw variants, both indels and snps found by GATK in the samples. This is a multisample vcf file and contains genotype information for all the samples at the same time.
-- In order to follow GATK's best practice protocol for high quality variant filtering, snps and indels must be treated separately, so we have snps_only_flags.vcf and indels_only_flags.vcf with quality flags for each type of variants.
+Vcf file for one sample, looks like:
 
 ```
 ##fileformat=VCFv4.2
-##FILTER=<ID="p-value StrandBias",Description="FS > 60.0">
-##FILTER=<ID=LowQD,Description="QD < 2.0">
-##FILTER=<ID=LowQual,Description="Low quality">
-##FILTER=<ID=MaxDepth,Description="DP < 5">
-##FILTER=<ID=RMSMappingQuality,Description="MQ < 40.0">
-##FILTER=<ID=SnpCluster,Description="SNPs found in clusters">
-##FILTER=<ID=StandOddRatio,Description="SOR > 3.0">
-##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Allelic depths for the ref and alt alleles in the order listed">
-##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth (reads with MQ=255 or with bad mates are filtered)">
-##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
-##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
-##INFO=<ID=AC,Number=A,Type=Integer,Description="Allele count in genotypes, for each ALT allele, in the same order as listed">
-##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency, for each ALT allele, in the same order as listed">
-##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
-##INFO=<ID=BaseQRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt Vs. Ref base qualities">
-##INFO=<ID=QD,Number=1,Type=Float,Description="Variant Confidence/Quality by Depth">
-##INFO=<ID=RAW_MQ,Number=1,Type=Float,Description="Raw data for RMS Mapping Quality">
-##INFO=<ID=ReadPosRankSum,Number=1,Type=Float,Description="Z-score from Wilcoxon rank sum test of Alt vs. Ref read position bias">
-##INFO=<ID=SOR,Number=1,Type=Float,Description="Symmetric Odds Ratio of 2x2 contingency table to detect strand bias">
+##FILTER=<ID=PASS,Description="All filters passed">
+##fileDate=20210623
+##source=freeBayes v1.3.2-dirty
+##reference=reference/ref.fa
 ##contig=<ID=NC_021827.1,length=2953716>
 ##contig=<ID=NC_022047.1,length=55804>
-##reference=file:///home/smonzon/Documents/bacterial_wgs_training/work/ba/20837f0b9838403205e62589d7ac8b/listeria_NC_021827.1_NoPhagues.fna
-##source=SelectVariants
+##phasing=none
+##commandline="freebayes -p 2 -P 0 -C 10 --min-repeat-entropy 1.5 --strict-vcf -q 13 -m 60 --min-coverage 10 -F 0.05 -f reference/ref.fa snps.bam --region NC_021827.1:0-2953716"
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Total read depth at the locus">
+##INFO=<ID=RO,Number=1,Type=Integer,Description="Count of full observations of the reference haplotype.">
+##INFO=<ID=AO,Number=A,Type=Integer,Description="Count of full observations of this alternate haplotype.">
+##INFO=<ID=QR,Number=1,Type=Integer,Description="Reference allele quality sum in phred">
+##INFO=<ID=QA,Number=A,Type=Integer,Description="Alternate allele quality sum in phred">
+##INFO=<ID=AB,Number=A,Type=Float,Description="Allele balance at heterozygous sites: a number between 0 and 1 representing the ratio of reads showing the reference allele to all reads, considering only reads from individuals called as heterozygous">
+##INFO=<ID=TYPE,Number=A,Type=String,Description="The type of allele, either snp, mnp, ins, del, or complex.">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GL,Number=G,Type=Float,Description="Genotype Likelihood, log10-scaled likelihoods of the data given the called genotype for each possible genotype generated from the reference and alternate alleles given the sample ploidy">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read Depth">
+##FORMAT=<ID=RO,Number=1,Type=Integer,Description="Reference allele observation count">
+##FORMAT=<ID=QR,Number=1,Type=Integer,Description="Sum of quality of the reference observations">
+##FORMAT=<ID=AO,Number=A,Type=Integer,Description="Alternate allele observation count">
+##FORMAT=<ID=QA,Number=A,Type=Integer,Description="Sum of quality of the alternate observations">
+##bcftools_viewVersion=1.9+htslib-1.9
+##bcftools_viewCommand=view --include 'FMT/GT="1/1" && QUAL>=100 && FMT/DP>=10 && (FMT/AO)/(FMT/DP)>=0' snps.raw.vcf; Date=Wed Jun 23 17:52:35 2021
+##bcftools_annotateVersion=1.9+htslib-1.9
+##bcftools_annotateCommand=annotate --remove ^INFO/TYPE,^INFO/DP,^INFO/RO,^INFO/AO,^INFO/AB,^FORMAT/GT,^FORMAT/DP,^FORMAT/RO,^FORMAT/AO,^FORMAT/QR,^FORMAT/QA,^FORMAT/GL; Date=Wed Jun 23 17:52:35 2021
 #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	RA-L2073
-NC_021827.1	276	.	C	A	291.68	RMSMappingQuality;SnpCluster;StandOddRatio	AC=1;AF=0.100;AN=10;DP=35;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=38.49;QD=34.24;SOR=4.407	GT:AD:DP:GQ:PL	0:3,0:3:99:0,117
-NC_021827.1	731	.	A	G	2313.68	SnpCluster	AC=1;AF=0.100;AN=10;DP=101;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=60.00;QD=33.05;SOR=0.811	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
-NC_021827.1	921	.	C	T	1841.68	SnpCluster	AC=1;AF=0.100;AN=10;DP=110;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=60.00;QD=29.70;SOR=0.826	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
-NC_021827.1	1067	.	C	T	2250.68	SnpCluster	AC=1;AF=0.100;AN=10;DP=168;FS=0.000;MLEAC=1;MLEAF=0.100;MQ=60.00;QD=31.70;SOR=0.779	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
-NC_021827.1	2114	.	C	T	8324.89	SnpCluster	AC=3;AF=0.300;AN=10;DP=341;FS=0.000;MLEAC=3;MLEAF=0.300;MQ=60.00;QD=30.49;SOR=0.841	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
-NC_021827.1	2180	.	G	A	7855.89	SnpCluster	AC=3;AF=0.300;AN=10;DP=342;FS=0.000;MLEAC=3;MLEAF=0.300;MQ=60.00;QD=28.67;SOR=0.832	GT:AD:DP:GQ:PL	0:3,0:3:99:0,101
+NC_021827.1	5507	.	T	G	657.752	.	AB=0;AO=21;DP=21;QA=754;QR=0;RO=0;TYPE=snp	GT:DP:RO:QR:AO:QA:GL	1/1:21:0:0:21:754:-68.177,-6.32163,0
+NC_021827.1	5659	.	A	C	848.065	.	AB=0;AO=27;DP=27;QA=993;QR=0;RO=0;TYPE=snp	GT:DP:RO:QR:AO:QA:GL	1/1:27:0:0:27:993:-89.6783,-8.12781,0
+NC_021827.1	18836	.	T	C	1946.82	.	AB=0;AO=61;DP=61;QA=2194;QR=0;RO=0;TYPE=snp	GT:DP:RO:QR:AO:QA:GL	1/1:61:0:0:61:2194:-197.698,-18.3628,0
+NC_021827.1	33004	.	A	T	1940.53	.	AB=0;AO=59;DP=59;QA=2188;QR=0;RO=0;TYPE=snp	GT:DP:RO:QR:AO:QA:GL	1/1:59:0:0:59:2188:-197.165,-17.7608,0
+NC_021827.1	36868	.	T	C	1415.17	.	AB=0;AO=44;DP=44;QA=1601;QR=0;RO=0;TYPE=snp	GT:DP:RO:QR:AO:QA:GL	1/1:44:0:0:44:1601:-144.361,-13.2453,0
+NC_021827.1	37145	.	T	C	1951.32	.	AB=0;AO=60;DP=60;QA=2200;QR=0;RO=0;TYPE=snp	GT:DP:RO:QR:AO:QA:GL	1/1:60:0:0:60:2200:-198.241,-18.0618,0
+NC_021827.1	49245	.	G	A	1613.73	.	AB=0;AO=52;DP=52;QA=1824;QR=0;RO=0;TYPE=snp	GT:DP:RO:QR:AO:QA:GL	1/1:52:0:0:52:1824:-164.412,-15.6536,0
 ```
-
-- Finally we continue to filter snps calls for our SNP matrix, and we filter SNPs which are included in a window of 1000 pb with an acumulation of more than 3 snps. We process two files snps_Pass.fasta and snps_PassCluster.fasta, one including only SNPs that PASS all the filters, and one that includes PASS snps and also those filtered by our cluster filter. We do this because usually we haven't select the window size and max snps properly for our samples and we need to analyze the complete set of SNPs.
 
 #### Phylogeny results
 
 Phylogenetic tree reconstruction is performed using RAxML with 100 inferences and 100 bootstrap repetitions. RAxML results can be checked in RAxML folder:
 
 ```
-/home/Alumno/Documents/wgs/results/RAxML/{variant_caller}
+/home/Alumno/Documents/wgs/bacterial_wgs_training_dataset/04-outbreakSNP/iqtree/
 ```
 
-Two different trees are generated one with only SNPs passing all filters (preser) and one with all snps (all_snp). Both trees are outputed for evaluation. In this case we are going to use the tree with the filtered SNPs because snp cluster filter has performed correctly.
-
-RAxML outputs one file per inference and per bootstrap so the folder is full of files. Don't worry we only need the final tree file, which is in newick format for visualization. The file is called:
+Don't worry we only need the final tree file, which is in newick format for visualization. The file is called:
 
 ```
-RAxML_bipartitions.RAXML_TREE_ANNOT
+clean.core.aln.treefile
 ```
 
 Now we are going to open firefox browser and go to [iTOL website](https://itol.embl.de/). This web allows us to visualize and annotate phylogenetics trees with a very user-friendly interface. Also, it has good exporting options for publication.
@@ -291,13 +282,7 @@ Does it have more than 80 boostrap value?
 #### SNPs distance
 As we have studied in the theory class, maximum likelihood methods for phylogeny only offers as branch lenght the average nucleotide substitution rate, this means the branch lenght is only a estimation of the number of nucleotide changes a strain has suffer respect to another.
 
-In order to know exactly the SNPs differences between the strains WGS-Outbreaker outputs a distance matrix showing the paired diffences among the samples.
-
-We can check this file in:
-
-```
-/home/alumno/Documents/wgs/results/wgs_outbreaker/stats
-```
+In order to know exactly the SNPs differences between the strains WGS-Outbreaker outputs a distance matrix showing the paired diffences among the samples, we can use MEGA software, we are not covering this on this course but it should be straight-forward.
 
 <div class="tables-start"></div>
 
