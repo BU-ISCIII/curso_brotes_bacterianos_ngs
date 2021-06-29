@@ -36,7 +36,7 @@ There are multiple mapping algorithms and softwares, but for this exercise we wi
 To map our samples with bwa, we only have to execute this command:
 ```
 cd
-cd bacterial_wgs_training_dataset
+cd wgs/bacterial_wgs_training_dataset/ANALYSIS
 nextflow run BU-ISCIII/bacterial_wgs_training \
   -r one_week_format -profile conda \
   --reads '../RAW/DOWNSAMPLED/*_R{1,2}.fastq.gz' \
