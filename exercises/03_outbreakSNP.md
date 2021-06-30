@@ -176,7 +176,7 @@ Once our localization is correct we will launch nextflow with the next parameter
 ```Bash
 nextflow run ../../bacterial_wgs_training/main.nf \
   -profile conda \
-  --reads '../RAW/FULL_DATASET/*_R{1,2}.fastq.gz' \
+  --reads '../RAW/FULL_DATA/*_R{1,2}.fastq.gz' \
   --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
   --step outbreakSNP \
   --outdir 04-outbreakSNP \
