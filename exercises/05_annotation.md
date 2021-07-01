@@ -42,14 +42,14 @@ To execute srst2, which maps the reads against a antibiotic resistance genes dat
 
 ```Bash
 cd
-cd Documents/wgs
-nextflow run BU-ISCIII/bacterial_wgs_training \
--profile singularity \
---reads 'training_dataset/plasmidid_test/KPN_TEST_R{1,2}.fastq.gz' \
---fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
---gtf training_dataset/listeria_NC_021827.1_NoPhagues.gff \
---srst2_resistance training_dataset/ARGannot.r1.fasta \
---srst2_virulence training_dataset/EcOH.fasta \
+cd wgs/bacterial_wgs_training_dataset/ANALYSIS
+nextflow run ../../bacterial_wgs_training/main.nf \ 
+--reads '../RAW/DOWNSAMPLED/*_R{1,2}*.fastq.gz' \
+--fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
+-profile conda \
+--gtf ../REFERENCES/listeria_NC_021827.1_NoPhagues.gff \
+--srst2_resistance ../REFERENCES/ARGannot.r1.fasta \
+--srst2_virulence ../REFERENCES/EcOH.fasta \
 --step mapAnnotation
 ```
 ------
@@ -85,14 +85,14 @@ Now, using the contigs assembled using those same reads, we can determine the ex
 
 ```Bash
 cd
-cd Documents/wgs
-nextflow run BU-ISCIII/bacterial_wgs_training \
--profile singularity \
---reads 'training_dataset/plasmidid_test/KPN_TEST_R{1,2}.fastq.gz' \
---fasta training_dataset/listeria_NC_021827.1_NoPhagues.fna \
---gtf training_dataset/listeria_NC_021827.1_NoPhagues.gff \
---plasmidid_database training_dataset/plasmidid_test/plasmids_TEST_database.fasta \
---plasmidid_config training_dataset/plasmidid_test/plasmidid_config.txt \
+cd wgs/bacterial_wgs_training_dataset/ANALYSIS
+nextflow run ../../bacterial_wgs_training/main.nf \ 
+--reads '../RAW/DOWNSAMPLED/*_R{1,2}*.fastq.gz' \
+--fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
+-profile conda \
+--gtf ../REFERENCES/listeria_NC_021827.1_NoPhagues.gff \
+--plasmidid_database ../REFERENCES/plasmidid_test/plasmids_TEST_database.fasta \
+--plasmidid_config ../REFERENCES/plasmidid_test/plasmidid_config.txt \
 --step plasmidID
 ```
 
