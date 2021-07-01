@@ -50,7 +50,9 @@ nextflow run ../../bacterial_wgs_training/main.nf \
 --gtf ../REFERENCES/listeria_NC_021827.1_NoPhagues.gff \
 --srst2_resistance ../REFERENCES/ARGannot.r1.fasta \
 --srst2_virulence ../REFERENCES/EcOH.fasta \
---step mapAnnotation
+--step mapAnnotation \
+--outdir 07-mapAnnotation \
+-resume
 ```
 ------
 
@@ -93,7 +95,9 @@ nextflow run ../../bacterial_wgs_training/main.nf \
 --gtf ../REFERENCES/listeria_NC_021827.1_NoPhagues.gff \
 --plasmidid_database ../REFERENCES/plasmidid_test/plasmids_TEST_database.fasta \
 --plasmidid_config ../REFERENCES/plasmidid_test/plasmidid_config.txt \
---step plasmidID
+--step plasmidID \
+--outdir 08-plasmidID \
+-resume
 ```
 
 ------
