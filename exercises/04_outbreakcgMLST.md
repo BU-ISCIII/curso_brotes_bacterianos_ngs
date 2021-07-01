@@ -26,7 +26,7 @@ Performing MLST, serogroup or resistance analysis can't be easing using WGS. Her
 ```
 cd
 cd wgs/bacterial_wgs_training_dataset/ANALYSIS
-nextflow run ../../bacterial_wgs_training/main.nf \ 
+nextflow run ../../bacterial_wgs_training/main.nf \
       --reads '../RAW/DOWNSAMPLED/*_R{1,2}*.fastq.gz' \
       --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
       -profile conda \
