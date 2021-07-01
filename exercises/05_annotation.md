@@ -87,7 +87,14 @@ Now, using the contigs assembled using those same reads, we can determine the ex
 
 ```Bash
 cd
-cd wgs/bacterial_wgs_training_dataset/ANALYSIS
+cd wgs/bacterial_wgs_training_dataset/REFERENCES/
+cp -r /mnt/ngs_course_shared/bacterial_wgs_training_dataset/REFERENCES/plasmidid_test .
+```
+
+Now we can run the nextflow 
+
+```
+cd ../ANALYSIS/
 nextflow run ../../bacterial_wgs_training/main.nf \ 
 --reads '../RAW/DOWNSAMPLED/*_R{1,2}*.fastq.gz' \
 --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
