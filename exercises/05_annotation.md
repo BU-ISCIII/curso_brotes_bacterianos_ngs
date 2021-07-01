@@ -96,7 +96,7 @@ Now we can run the nextflow
 ```
 cd ../ANALYSIS/
 nextflow run ../../bacterial_wgs_training/main.nf \
---reads '../REFERENCES/plasmidid_test/KPN_TEST_R{1,2}.fastq.gz' \
+--reads '../REFERENCES/plasmidid_test/KPN*_R{1,2}.fastq.gz' \
 --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
 -profile conda \
 --gtf ../REFERENCES/listeria_NC_021827.1_NoPhagues.gff \
