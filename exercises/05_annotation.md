@@ -9,14 +9,9 @@
 |**Objectives**:|<ul><li>Annotate virulence and ABR genes</li><li>Determine gene variants</li><li>Determine plasmidome</li><li>Locate annotated genes</li><li>Results interpretation</li></ul>|
 |**Time estimation**:| 1 h|
 |**Key points**:|<ul><li>Comparing annotation using mapping vs assembly</li><li>Plasmid, virulence and resistance determination</li></ul>|
-<<<<<<< HEAD
-
-=======
 
   <p align="center"><img src="img/bacterial_wgs_training.png" alt="Fastqc_1" width="500"></p>
 
-
->>>>>>> 1ac4d30d8ca8e4a68ff238b9bba5705ab11fea69
 - [Introduction](#introduction)
 - [Exercise](#exercise)
     - [Mapping based annotation](#mapping-based-annotation)
@@ -43,7 +38,7 @@ To execute srst2, which maps the reads against a antibiotic resistance genes dat
 ```Bash
 cd
 cd wgs/bacterial_wgs_training_dataset/ANALYSIS
-nextflow run ../../bacterial_wgs_training/main.nf \ 
+nextflow run ../../bacterial_wgs_training/main.nf \
 --reads '../RAW/DOWNSAMPLED/*_R{1,2}*.fastq.gz' \
 --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
 -profile conda \
