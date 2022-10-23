@@ -1,7 +1,7 @@
 [![CircleCI Build Status](https://circleci.com/gh/circleci/circleci-docs.svg?style=shield)](https://circleci.com/gh/BU-ISCIII/bacterial_wgs_training) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![CircleCi Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com) [![Nextflow version](https://img.shields.io/badge/nextflow->0.29.0-green.svg)](http://nextflow.io) [![Scif](https://img.shields.io/badge/Filesystem-Scientific-brightgreen.svg)](https://sci-f.github.io)
 
 # Bacterial WGS training
-In this training course you will find theory and practice material for introducing yourself to wgs analysis for bacterial, including outbreak investigation.
+In this training course you will find theory and practice material for introducing yourself to wgs analysis for bacterial, including outbreak investigation. Here you will find the agenda.
 
 The material includes slides with theory concepts and a bunch of practical exercises using nextflow and singularity, focusing on the interpretation of results.
 
