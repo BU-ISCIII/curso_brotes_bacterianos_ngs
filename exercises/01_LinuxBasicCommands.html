@@ -21,12 +21,6 @@ window.onload = function() {
 
 
 
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-
 <style type="text/css">
 body, td {
    font-family: sans-serif;
@@ -165,7 +159,7 @@ hr {
  
 body {
   padding: 3em;
-  /*margin-right: 350px;*/
+  margin-right: 350px;
   max-width: 100%;
 }
 #toc {
@@ -173,7 +167,7 @@ body {
   right: 20px;
   width: 300px;
   padding-top: 20px;
-  overflow: none;
+  overflow: scroll;
   height: calc(100% - 3em - 20px);
 }
 #toc_header {
@@ -195,7 +189,59 @@ img { max-width: 800px; }
 </head>
 
 <body>
-<h2>Bacterial WGS training : Exercise 1</h2>
+<div id="toc">
+<div id="toc_header">Table of Contents</div>
+<ul>
+<li>
+<a href="#toc_0">Bacterial WGS training : Exercise 1</a>
+<ul>
+<li>
+<a href="#toc_1">:bangbang: Important things to remnenber:</a>
+</li>
+<li>
+<a href="#toc_2">Answering to main questions</a>
+<ul>
+<li>
+<a href="#toc_3">How do I use the command line?</a>
+</li>
+<li>
+<a href="#toc_4">How do I navigate the file system?</a>
+<ul>
+<li>
+<a href="#toc_5">Checking the working directory (pwd)</a>
+</li>
+<li>
+<a href="#toc_6">Moving between directories (cd)</a>
+</li>
+<li>
+<a href="#toc_7">Listing directories (ls)</a>
+</li>
+<li>
+<a href="#toc_8">Creating and removing directories (mkdir &amp; rmdir)</a>
+</li>
+<li>
+<a href="#toc_9">Moving and renaming files (mv)</a>
+</li>
+<li>
+<a href="#toc_10">Editing files and displaying them (nano &amp; cat)</a>
+</li>
+<li>
+<a href="#toc_11">Read files other ways (less &amp; more &amp; head &amp; tail)</a>
+</li>
+<li>
+<a href="#toc_12">Removing a file (rm)</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+<h2 id="toc_0">Bacterial WGS training : Exercise 1</h2>
 
 <div class="tables-start"></div>
 
@@ -229,7 +275,7 @@ img { max-width: 800px; }
 
 <div class="tables-end"></div>
 
-<h3>:bangbang: Important things to remnenber:</h3>
+<h3 id="toc_1">:bangbang: Important things to remnenber:</h3>
 
 <ul>
 <li>Use Tab to automatically complete file names and paths, so it can be easiert to write in the terminal</li>
@@ -238,17 +284,17 @@ img { max-width: 800px; }
 <li>Basic commands you should always remember: <em>pwd cd ls mkdir mv rm rmdir less nano</em></li>
 </ul>
 
-<h3>Answering to main questions</h3>
+<h3 id="toc_2">Answering to main questions</h3>
 
-<h4>How do I use the command line?</h4>
+<h4 id="toc_3">How do I use the command line?</h4>
 
 <p>Open a terminal by clicking in the icon or typing <strong>Ctrl+Alt+T</strong>. Now you can type in the prompt.</p>
 
-<h4>How do I navigate the file system?</h4>
+<h4 id="toc_4">How do I navigate the file system?</h4>
 
 <p>Let&#39;s remember the basics: <em>pwd cd ls mkdir mv rm rmdir less nano</em>. We are going to use those commands to:</p>
 
-<h5>Checking the working directory (pwd)</h5>
+<h5 id="toc_5">Checking the working directory (pwd)</h5>
 
 <p>Check our working directory:</p>
 
@@ -256,7 +302,7 @@ img { max-width: 800px; }
 #Output: /home/alumno
 </code></pre>
 
-<h5>Moving between directories (cd)</h5>
+<h5 id="toc_6">Moving between directories (cd)</h5>
 
 <p>Move to our Desktop folder:</p>
 
@@ -287,14 +333,31 @@ cd ../..
 
 <p><strong>Questions:</strong></p>
 
-<ul>
-<li>Which is the meaning of the &quot;~&quot; symbol?</li>
-<li>What does de <code>cd</code> command without arguments do?</li>
-<li>What does &quot;.&quot; mean?</li>
-<li>What does &quot;..&quot; mean?</li>
-</ul>
+<p><details>
+<summary>Which is the meaning of the &quot;~&quot; symbol?</summary></p>
 
-<h5>Listing directories (ls)</h5>
+<p>It is the abreviation of <code>/home/user/</code> path</p>
+
+<p></details></p>
+
+<p><details>
+<summary>What does de <code>cd</code> command without arguments do?</summary></p>
+
+<p>It changes the current directory to <code>/home/user/</code> path.</p>
+
+<p></details></p>
+
+<p><details>
+<summary>What does &quot;.&quot; mean?</summary>
+Current directory
+</details></p>
+
+<p><details>
+<summary>What does &quot;..&quot; mean? </summary>
+Parent directory
+</details></p>
+
+<h5 id="toc_7">Listing directories (ls)</h5>
 
 <pre><code>cd wgs
 cd bacterial_wgs_training_dataset
@@ -314,12 +377,34 @@ ls
 
 <p><strong>Questions:</strong></p>
 
-<ul>
-<li>Which is the difference between this las command and the previous one?</li>
-<li>Do they display the same information?</li>
-<li>Which one is relative path?</li>
-<li>Which one is absolute path?</li>
-</ul>
+<p><details>
+<summary>What does &quot;..&quot; mean? </summary>
+Parent directory
+</details></p>
+
+<p><details>
+<summary>Which is the difference between this last command and the previous one? </summary>
+There is no difference, they are listing the content of the exact same directory.
+</details></p>
+
+<p><details>
+<summary> Do they display the same information? </summary>
+Yes!
+</details></p>
+
+<p><details>
+<summary> Which one is relative path? </summary></p>
+
+<p><code>ls REFERENCES</code></p>
+
+<p></details></p>
+
+<p><details>
+<summary> Which one is absolute path? </summary></p>
+
+<p><code>ls /home/alumno/wgs/bacterial_wgs_training_dataset/REFERENCES/</code></p>
+
+<p></details></p>
 
 <p>Let&#39;s see different parameters for the <code>ls</code> command. Write:</p>
 
@@ -331,14 +416,27 @@ ls -la REFERENCES
 
 <p><strong>Questions:</strong></p>
 
-<ul>
-<li>What does de different arguments of <code>ls</code> do?</li>
-<li>What does the new file special?</li>
-</ul>
+<p><details>
+<summary></p>
+
+<p>What does de different arguments of <code>ls</code> do? 
+</summary>
+<br>
+-l : Long listing format: Displays the permission information</br>
+<br>
+-a : All files: Lists also hiddent files</br>
+<br>
+-la : Long format listing and hidden files together. </br>
+</details></p>
+
+<p><details>
+<summary> What does the new file special? </summary>
+It is a hidden file, whose file name starts by dot.
+</details></p>
 
 <p>⚠️ <strong>REMINDER:</strong> ⚠️ EVERY TIME YOU CHANGE DIRECTORY (cd) YOU HAVE TO CHECK YOUR PATH (pwd) AND LIST THE FILES INSIDE (ls) TO CHECK YOU DIDN&#39;T MAKE MISTAKES</p>
 
-<h5>Creating and removing directories (mkdir &amp; rmdir)</h5>
+<h5 id="toc_8">Creating and removing directories (mkdir &amp; rmdir)</h5>
 
 <p>Now we are going to move to the ANALYSIS folder which is the folder were we will run all the exercises</p>
 
@@ -364,10 +462,15 @@ ls
 
 <p><strong>Questions:</strong></p>
 
-<ul>
-<li>Is it possible to create more than one directory at the same time?</li>
-<li>If the names of the folders are the same, why it creates three different directories?</li>
-</ul>
+<p><details>
+<summary> Is it possible to create more than one directory at the same time? </summary>
+Yes, it is!
+</details></p>
+
+<p><details>
+<summary> If the names of the folders are the same, why it creates three different directories? </summary>
+Because it is case sensitive, so the names are not exactly the same!
+</details></p>
 
 <p>Now we will remove the extra directories:</p>
 
@@ -376,7 +479,7 @@ ls
 #Output: 01-handsonlinux
 </code></pre>
 
-<h5>Moving and renaming files (mv)</h5>
+<h5 id="toc_9">Moving and renaming files (mv)</h5>
 
 <p>Move to the new folder</p>
 
@@ -398,15 +501,24 @@ ls
 
 <p><strong>Questions:</strong></p>
 
-<ul>
-<li>Which is the difference between the two <code>mv</code> commands?</li>
-<li>Do you remember what &quot;.&quot; mean from the first questions?</li>
-<li>And &quot;..&quot;?</li>
-</ul>
+<p><details>
+<summary> Which is the difference between the two <code>mv</code> commands? </summary>
+The first one moves a file to a different folder and the second one renames the file.
+</details></p>
+
+<p><details>
+<summary> Do you remember what &quot;.&quot; mean from the first questions? </summary>
+Current directory
+</details></p>
+
+<p><details>
+<summary> And &quot;..&quot;? </summary>
+Parent directory
+</details></p>
 
 <p>⚠️ <strong>REMINDER:</strong> ⚠️ LINUX DOES NOT REQUIRE FILE EXTENSIONS</p>
 
-<h5>Editing files and displaying them (nano &amp; cat)</h5>
+<h5 id="toc_10">Editing files and displaying them (nano &amp; cat)</h5>
 
 <p>We are going to read the file and edit it:</p>
 
@@ -437,7 +549,7 @@ ls
 cd ../../
 </code></pre>
 
-<h5>Read files other ways (less &amp; more &amp; head &amp; tail)</h5>
+<h5 id="toc_11">Read files other ways (less &amp; more &amp; head &amp; tail)</h5>
 
 <p>And now we will read this file:</p>
 
@@ -460,12 +572,24 @@ tail -n3 REFERENCES/bacterial_wgs_training_initial.tree
 
 <p><strong>Questions:</strong></p>
 
-<ul>
-<li>Which is the difference between <code>head</code> and <code>tail</code>?</li>
-<li>What does the argument <code>-nX</code> do to <code>tail</code> and <code>head</code>?</li>
-</ul>
+<p><details>
+<summary> </p>
 
-<h5>Removing a file (rm)</h5>
+<p>Which is the difference between <code>head</code> and <code>tail</code>?<br>
+</summary>
+<br>Head displays first lines of a file.</br>
+<br>Tail displays the last lines of a file</br>
+</details></p>
+
+<p><details>
+<summary></p>
+
+<p>What does the argument <code>-nX</code> do to <code>tail</code> and <code>head</code>?
+</summary>
+Displays de X numbers of lines from the begining (head) or end (tail) of a file.
+</details></p>
+
+<h5 id="toc_12">Removing a file (rm)</h5>
 
 <p>Now we will learn how to remove files:</p>
 
@@ -483,9 +607,4 @@ ls
 
 </body>
 
-<script type="text/javascript">
-(function() {
-    $('div.tables-start').nextUntil('div.tables-end', 'table').addClass('table table-bordered');
-})();
-</script>
 </html>
