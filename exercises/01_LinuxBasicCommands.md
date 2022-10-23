@@ -68,10 +68,29 @@ cd ../..
 
 **Questions:**
 
-- Which is the meaning of the "~" symbol?
-- What does de `cd` command without arguments do?
-- What does "." mean?
-- What does ".." mean?
+<details>
+<summary>Which is the meaning of the "~" symbol?</summary>
+  
+It is the abreviation of `/home/user/` path
+
+</details>
+
+<details>
+<summary>What does de `cd` command without arguments do?</summary>
+
+It changes the current directory to `/home/user/` path.
+
+</details>
+
+<details>
+<summary>What does "." mean?</summary>
+Current directory
+</details>
+
+<details>
+<summary>What does ".." mean? </summary>
+Parent directory
+</details>
 
 ##### Listing directories (ls)
 
@@ -96,10 +115,35 @@ ls /home/alumno/wgs/bacterial_wgs_training_dataset/REFERENCES/
 
 **Questions:**
 
-- Which is the difference between this las command and the previous one?
-- Do they display the same information?
-- Which one is relative path?
-- Which one is absolute path?
+<details>
+<summary>What does ".." mean? </summary>
+Parent directory
+</details>
+
+<details>
+<summary>Which is the difference between this last command and the previous one? </summary>
+There is no difference, they are listing the content of the exact same directory.
+</details>
+
+
+<details>
+<summary> Do they display the same information? </summary>
+Yes!
+</details>
+
+<details>
+<summary> Which one is relative path? </summary>
+
+`ls REFERENCES`
+
+</details>
+
+<details>
+<summary> Which one is absolute path? </summary>
+
+`ls /home/alumno/wgs/bacterial_wgs_training_dataset/REFERENCES/`
+
+</details>
 
 Let's see different parameters for the `ls` command. Write:
 
@@ -112,8 +156,23 @@ ls -la REFERENCES
 
 **Questions:**
 
-- What does de different arguments of `ls` do?
-- What does the new file special?
+<details>
+<summary>
+
+What does de different arguments of `ls` do? 
+</summary>
+<br>
+-l : Long listing format: Displays the permission information</br>
+<br>
+-a : All files: Lists also hiddent files</br>
+<br>
+-la : Long format listing and hidden files together. </br>
+</details>
+
+<details>
+<summary> What does the new file special? </summary>
+It is a hidden file, whose file name starts by dot.
+</details>
 
 ⚠️ **REMINDER:** ⚠️ EVERY TIME YOU CHANGE DIRECTORY (cd) YOU HAVE TO CHECK YOUR PATH (pwd) AND LIST THE FILES INSIDE (ls) TO CHECK YOU DIDN'T MAKE MISTAKES
 
@@ -146,8 +205,15 @@ ls
 
 **Questions:**
 
-- Is it possible to create more than one directory at the same time?
-- If the names of the folders are the same, why it creates three different directories?
+<details>
+<summary> Is it possible to create more than one directory at the same time? </summary>
+Yes, it is!
+</details>
+
+<details>
+<summary> If the names of the folders are the same, why it creates three different directories? </summary>
+Because it is case sensitive, so the names are not exactly the same!
+</details>
 
 Now we will remove the extra directories:
 
@@ -181,9 +247,21 @@ ls
 
 **Questions:**
 
-- Which is the difference between the two `mv` commands?
-- Do you remember what "." mean from the first questions?
-- And ".."?
+<details>
+<summary> Which is the difference between the two `mv` commands? </summary>
+The first one moves a file to a different folder and the second one renames the file.
+</details>
+
+<details>
+<summary> Do you remember what "." mean from the first questions? </summary>
+Current directory
+</details>
+
+
+<details>
+<summary> And ".."? </summary>
+Parent directory
+</details>
 
 ⚠️ **REMINDER:** ⚠️ LINUX DOES NOT REQUIRE FILE EXTENSIONS
 
@@ -248,8 +326,23 @@ tail -n3 REFERENCES/bacterial_wgs_training_initial.tree
 
 
 **Questions:**
-- Which is the difference between `head` and `tail`?
-- What does the argument `-nX` do to `tail` and `head`?
+
+<details>
+<summary> 
+  
+Which is the difference between `head` and `tail`?  
+</summary>
+<br>Head displays first lines of a file.</br>
+<br>Tail displays the last lines of a file</br>
+</details>
+
+<details>
+<summary>
+  
+What does the argument `-nX` do to `tail` and `head`?
+</summary>
+Displays de X numbers of lines from the begining (head) or end (tail) of a file.
+</details>
 
 ##### Removing a file (rm)
 
