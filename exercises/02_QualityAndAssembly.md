@@ -156,8 +156,11 @@ For each sample those command are executed:
     - reads_trimmed_R[1|2].fastq reads_fail_R[1|2].fastq
         - trimmed refer to sequences trimmed that passed the quality filter for both R1 and R2
         - fail refer to sequences that did not pass the quality filter
-    - cut_front and cut_tail: remove bases with low quality from 5' to tail and 3' to front respectively
-    - cut_mean_quality: mean quality requirement for cut_front and cut_tail
+    - detect_adapter_for_pe: Detects automatically adapters for pair-end data
+    - cut_front and cut_tail: remove bases with low quality from 5' to tail and 3' to front respectively using a sliding window.
+    - cut_mean_quality: mean quality requirement for cut_front and cut_tail. The bases in the sliding window with mean quality below 20 will be cut.
+    - qualified_quality_phred: The quality value that a base is qualified. Bases below 20Q Phred are unqualified.
+    - unqualified_percent_limit: How many percents of bases are allowed to be unqualified. Maximum 10% of bases can be unqualified.
     - length_required: reads shorter than 50 will be discarded
     - trim_poly_x: enable polyX trimming in 3' ends.
 
