@@ -148,7 +148,7 @@ Everything clear..? So let's run it.
 
 ### Run the exercise
 
-First of all we need to be clear in which folder we are. We need to be in our working directory `/home/alumno/Documents/wgs` and our training dataset downloaded the first day must be there (If you had any problem the previous sessions please refere to the [setup tutorial](00_SetUp.md)).
+First of all we need to be clear in which folder we are. We need to be in our working directory `/home/alumno/wgs` and our training dataset downloaded the first day must be there (If you had any problem the previous sessions please refere to the [setup tutorial](00_SetUp.md)).
 
 You can run this command to check where you are:
 ```Bash
@@ -156,7 +156,7 @@ pwd
 ```
 Output:
 ```
-/home/alumno/Documents/wgs/bacterial_training_dataset/ANALYSIS
+/home/alumno/wgs/bacterial_training_dataset/ANALYSIS
 ```
 And this one to list all the files in your working directory. Check there is the training_dataset folder and the results folder from previous sessions.
 ```Bash
@@ -246,7 +246,7 @@ NC_021827.1	49245	.	G	A	1613.73	.	AB=0;AO=52;DP=52;QA=1824;QR=0;RO=0;TYPE=snp	GT
 Phylogenetic tree reconstruction is performed using RAxML with 100 inferences and 100 bootstrap repetitions. RAxML results can be checked in RAxML folder:
 
 ```
-/home/Alumno/Documents/wgs/bacterial_wgs_training_dataset/04-outbreakSNP/iqtree/
+/home/alumno/wgs/bacterial_wgs_training_dataset/04-outbreakSNP/iqtree/
 ```
 
 Don't worry we only need the final tree file, which is in newick format for visualization. The file is called:
