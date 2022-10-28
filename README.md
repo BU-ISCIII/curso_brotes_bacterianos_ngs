@@ -36,5 +36,4 @@ The material includes slides with theory concepts and a bunch of practical exerc
 
 ### Day 5
 - **Talk 11:** [Sequence annotation](slides/talk11/20221028_4ED_curso_SeqGenBac_session5.1_annotation_ICuesta.pdf)
-- **Talk 12:** [Genome characterization, Resistance and Virulence genes]
 - [**Exercise 6**](exercises/05_annotation.md) -- [Download pdf](exercises/05_annotation.pdf)
