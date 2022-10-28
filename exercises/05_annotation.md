@@ -39,7 +39,7 @@ To execute srst2, which maps the reads against a antibiotic resistance genes dat
 cd
 cd wgs/bacterial_wgs_training_dataset/ANALYSIS
 nextflow run ../../bacterial_wgs_training/main.nf \
---reads '../RAW/DOWNSAMPLED/*_R{1,2}*.fastq.gz' \
+--reads '../REFERENCES/plasmidid_test/KPN*_R{1,2}.fastq.gz' \
 --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
 -profile conda \
 --gtf ../REFERENCES/listeria_NC_021827.1_NoPhagues.gff \
