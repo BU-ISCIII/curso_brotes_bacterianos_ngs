@@ -15,6 +15,9 @@
 #### IMPORTANT: Make sure you understand and execute these commands in the right order.
 
 FOLLOW [THESE STEPS](https://github.com/BU-ISCIII/introduction_to_bioinformatics/blob/one_week_format/slides/tutorial_access_VirtualMachine.pdf): 
+
+Summarized is:
+
 In your computer:
 
 - Open in your internet browser this URL: https://vcenter.isciii.es/.
