@@ -105,7 +105,7 @@ nextflow run ../../bacterial_wgs_training/main.nf \
 ------
 
 
-##Results should look like that
+## Results should look like that
 
 | NC_016838.1 | NC_016839.1 | NC_016840.1 |
 | :---: | :---: | :---: |
