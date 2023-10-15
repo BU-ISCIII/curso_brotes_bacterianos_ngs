@@ -124,7 +124,6 @@ An now run the main nextflow command for pre-processing
 
 ```
 nextflow run ../../bacterial_wgs_training/main.nf
-  -c ../../bacterial_wgs_training/nextflow_2.config \
   --reads '../RAW/DOWNSAMPLED/*_R{1,2}.fastq.gz' \
   -profile conda \
   --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
@@ -215,7 +214,6 @@ Now we can run the assembly process
 
 ```
 nextflow run ../../bacterial_wgs_training/main.nf \
-  -c ../../bacterial_wgs_training/nextflow_2.config \
   -resume \
   -profile conda \
   --reads '../RAW/DOWNSAMPLED/*_R{1,2}.fastq.gz' \
