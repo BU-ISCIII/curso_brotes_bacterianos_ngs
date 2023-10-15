@@ -45,11 +45,11 @@ conda activate nextflow
 #### How do I use Nextflow?
 
 ```
-netflow info
+nextflow info
 ```
 
 ```
-nextflow run bacterial_wgs_training/main.nf --help
+nextflow run main.nf --help
 ```
 
 Ejemplo desde github:
@@ -66,7 +66,7 @@ nextflow run BU-ISCIII/bacterial_wgs_training --help
 So, what now? In order to execute a nextflow pipeline, we need to tell it to `run` a project which contains a `main.nf` script written in groovy + the pipeline languages:
 
 ```
-nextflow run /home/$USER/wgs/bacterial_wgs_training
+nextflow run /home/$USER/wgs/bacterial_wgs_training --help
 ```
 
 Optionally, we can pass a config file, and specify the .nf script inside a project:
