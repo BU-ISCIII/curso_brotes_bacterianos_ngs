@@ -123,7 +123,8 @@ conda activate nextflow
 An now run the main nextflow command for pre-processing
 
 ```
-nextflow run ../../bacterial_wgs_training/main.nf -c ../../bacterial_wgs_training/nextflow_2.config \
+nextflow run ../../bacterial_wgs_training/main.nf
+  -c ../../bacterial_wgs_training/nextflow_2.config \
   --reads '../RAW/DOWNSAMPLED/*_R{1,2}.fastq.gz' \
   -profile conda \
   --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
