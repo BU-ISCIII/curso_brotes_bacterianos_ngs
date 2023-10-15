@@ -32,7 +32,7 @@ conda env list
 
 ```
 fastp --help
-conda activate bacterial_wgs_training
+conda activate fastp
 #Se carga el ambiente entre parentesis delante del nombre de usuario
 fastp --help
 ```
