@@ -76,26 +76,14 @@ nextflow -C /home/$USER/wgs/bacterial_wgs_training/nextflow_2.config \
 run /home/$USER/wgs/bacterial_wgs_training/main.nf --help
 ```
 
-There is no need to download the software you want to execute, you can also execute a github repository:
-
-```
-nextflow run BU-ISCIII/bacterial_wgs_training -r one_week_format --help
-```
-
-This is how we will execute the exercises during this course, so let's remove the downloaded repository to fre some space:
-
-```
-rm -rf /home/$USER/wgs/bacterial_wgs_training
-```
-
 Finally, let's ask how to use the pipeline:
 
 ```
 nextflow run BU-ISCIII/bacterial_wgs_training -r one_week_format --help
 ```
 
-There is one big detail left. The software needed to execute the pipeline is no installed in our machine. Thankfully, we have a singularity image (container) ready for this course, and our pipeline has already being configurated to know where to find it and how to use it. Use the right argument and go for it:
+There is one big detail left. The software needed to execute the pipeline is no installed in our machine. Thankfully, we have a conda environment ready for this course, and our pipeline has already being configurated to know where to find it and how to use it. Use the right argument and go for it:
 
 ```
-nextflow run BU-ISCIII/bacterial_wgs_training -r one_week_format -profile singularity --help
+nextflow run BU-ISCIII/bacterial_wgs_training -r one_week_format -profile conda --help
 ```
