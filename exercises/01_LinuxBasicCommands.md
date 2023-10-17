@@ -62,7 +62,7 @@ pwd
 #Output: /home/alumno/wgs/bacterial_wgs_training_dataset/RAW/FULL_DATA
 cd ..
 #Output: /home/alumno/wgs/bacterial_wgs_training_dataset/RAW/
-cd ../..
+cd ../../..
 #Output: /home/alumno/
 ```
 
