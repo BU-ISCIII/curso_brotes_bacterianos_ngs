@@ -62,8 +62,6 @@ A correct measuring of the sequencing quality is essential for identifying probl
 |20|1/100|99%|
 |30|1/1000|99.9%|
 |40|1/10000|99.99%|
-|50|1/100000|99.999%|
-|60|1/1000000|99.99999%|
 
 There are multiple software to read and generate statistics to help with the interpretation of the quality of a sequence. One of the most commonly used methods for this task is [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) (Andrews, 2010), a java program that run on any system and has both command line and graphic interface.
 
@@ -123,7 +121,7 @@ conda activate nextflow
 An now run the main nextflow command for pre-processing
 
 ```
-nextflow run ../../bacterial_wgs_training/main.nf
+nextflow run ../../bacterial_wgs_training/main.nf \
   --reads '../RAW/DOWNSAMPLED/*_R{1,2}.fastq.gz' \
   -profile conda \
   --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
