@@ -35,5 +35,5 @@ The material includes slides with theory concepts and a bunch of practical exerc
 - [**Exercise 5**](exercises/04_outbreakcgMLST.md) -- [Download pdf](exercises/04_outbreakcgMLST.pdf)
 
 ### Day 5
-- **Talk 11:** [Sequence annotation](slides/talk11/20221028_4ED_curso_SeqGenBac_session5.1_annotation_ICuesta.pdf)
+- **Talk 11:** [Sequence annotation](slides/talk11/20231020_5ED_curso_SeqGenBac_session5.1_annotation_ICuesta.pdf)
 - [**Exercise 6**](exercises/05_annotation.md) -- [Download pdf](exercises/05_annotation.pdf)
