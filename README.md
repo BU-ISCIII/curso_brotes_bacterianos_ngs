@@ -29,7 +29,7 @@ The material includes slides with theory concepts and a bunch of practical exerc
 - [**Exercise 4**](exercises/03_outbreakSNP.md) -- [Download pdf](exercises/03_outbreakSNP.pdf)
 
 ### Day 4
-- **Talk 9:** [Typing based on allelic profile or gene-by-gene](slides/talk9/20221027_4ED_curso_SeqGenBac_session4.1_tipificacion-gen-by-gene_ICuesta.pdf)
+- **Talk 9:** [Typing based on allelic profile or gene-by-gene](slides/talk9/20231019_5ED_curso_SeqGenBac_session4.1_tipificacion-gen-by-gene_ICuesta.pdf)
 - **Talk 10:** [Gene-by-gene WGS analysis](slides/talk10/curso_SeqGenBac_session4.2_GeneByGenevsSNPs.pdf)
 
 - [**Exercise 5**](exercises/04_outbreakcgMLST.md) -- [Download pdf](exercises/04_outbreakcgMLST.pdf)
