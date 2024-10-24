@@ -64,8 +64,10 @@ cd .
 pwd
 #Output: /home/alumno/wgs/bacterial_wgs_training_dataset/RAW/FULL_DATA
 cd ..
+pwd
 #Output: /home/alumno/wgs/bacterial_wgs_training_dataset/RAW/
 cd ../../..
+pwd
 #Output: /home/alumno/
 ```
 
@@ -242,7 +244,6 @@ We are going to move the hidden file in REFERENCE folder to this directory and t
 mv ../../REFERENCES/.ThisIsAHiddenFile .
 ls
 ls -a
-ls -a ../../REFERENCES/
 mv .ThisIsAHiddenFile NowImNotHidden
 ls -a
 ls
@@ -285,8 +286,7 @@ nano NowImNotHidden
 Write: `I'm not a hidden file.`
 
 And **save** it:
-_Ctrl + O_
-_Intro_
+_Ctrl + O_ + _Intro_
 
 **Close** the new file:
 _Ctrl + X_
@@ -310,13 +310,13 @@ cat REFERENCES/bacterial_wgs_training_initial.tree
 less REFERENCES/bacterial_wgs_training_initial.tree
 ```
 
-Remember: To close less press "q"
+⚠️ Remember: To close less press "q"
 
 ```bash
 more REFERENCES/bacterial_wgs_training_initial.tree
 ```
 
-Remember: To close more press "q"
+⚠️ Remember: To close more press "q"
 
 ```bash
 head REFERENCES/bacterial_wgs_training_initial.tree
