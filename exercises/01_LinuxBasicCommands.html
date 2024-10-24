@@ -1,256 +1,380 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>01_LinuxBasicCommands.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
-<title>Bacterial WGS training : Exercise 1</title>
-
-<script type="text/javascript">
-window.onload = function() {
-  var imgs = document.getElementsByTagName('img'), i, img;
-  for (i = 0; i < imgs.length; i++) {
-    img = imgs[i];
-    // center an image if it is the only element of its parent
-    if (img.parentElement.childElementCount === 1)
-      img.parentElement.style.textAlign = 'center';
-  }
-};
-</script>
-
-
-
-
-
-<style type="text/css">
-body, td {
-   font-family: sans-serif;
-   background-color: white;
-   font-size: 13px;
-}
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
 
 body {
-  max-width: 800px;
-  margin: auto;
-  padding: 1em;
-  line-height: 20px;
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
 }
 
-tt, code, pre {
-   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
 }
 
-h1 {
-   font-size:2.2em;
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
 }
 
-h2 {
-   font-size:1.8em;
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
 }
 
-h3 {
-   font-size:1.4em;
+body.showEditorSelection .code-line {
+	position: relative;
 }
 
-h4 {
-   font-size:1.0em;
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
 }
 
-h5 {
-   font-size:0.9em;
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
 }
 
-h6 {
-   font-size:0.8em;
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
 }
 
-a:visited {
-   color: rgb(50%, 0%, 50%);
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
 }
 
-pre, img {
-  max-width: 100%;
-}
-pre {
-  overflow-x: auto;
-}
-pre code {
-   display: block; padding: 0.5em;
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
 }
 
-code {
-  font-size: 92%;
-  border: 1px solid #ccc;
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
 }
 
-code[class] {
-  background-color: #F8F8F8;
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
 }
 
-table, td, th {
-  border: none;
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
 }
 
-blockquote {
-   color:#666666;
-   margin:0;
-   padding-left: 1em;
-   border-left: 0.5em #EEE solid;
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
 }
 
 hr {
-   height: 0px;
-   border-bottom: none;
-   border-top-width: thin;
-   border-top-style: dotted;
-   border-top-color: #999999;
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
 }
 
-@media print {
-   * {
-      background: transparent !important;
-      color: black !important;
-      filter:none !important;
-      -ms-filter: none !important;
-   }
-
-   body {
-      font-size:12pt;
-      max-width:100%;
-   }
-
-   a, a:visited {
-      text-decoration: underline;
-   }
-
-   hr {
-      visibility: hidden;
-      page-break-before: always;
-   }
-
-   pre, blockquote {
-      padding-right: 1em;
-      page-break-inside: avoid;
-   }
-
-   tr, img {
-      page-break-inside: avoid;
-   }
-
-   img {
-      max-width: 100% !important;
-   }
-
-   @page :left {
-      margin: 15mm 20mm 15mm 10mm;
-   }
-
-   @page :right {
-      margin: 15mm 10mm 15mm 20mm;
-   }
-
-   p, h2, h3 {
-      orphans: 3; widows: 3;
-   }
-
-   h2, h3 {
-      page-break-after: avoid;
-   }
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
 }
- 
-body {
-  padding: 3em;
-  margin-right: 350px;
-  max-width: 100%;
+
+h1, h2, h3 {
+	font-weight: normal;
 }
-#toc {
-  position: fixed;
-  right: 20px;
-  width: 300px;
-  padding-top: 20px;
-  overflow: scroll;
-  height: calc(100% - 3em - 20px);
+
+table {
+	border-collapse: collapse;
 }
-#toc_header {
-  font-size: 1.8em;
-  font-weight: bold;
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
 }
-#toc > ul {
-  padding-left: 0;
-  list-style-type: none;
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
 }
-#toc > ul ul { padding-left: 20px; }
-#toc > ul > li > a { display: none; }
-img { max-width: 800px; }
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
 
 </style>
+<link rel="stylesheet" href="file:///home/s.varona/Repositories/bacterial_wgs_training/C%3A%5CUsers%5CSara%5CGoogle%20Drive%5Coposiciones%5Copos_tecnologo%5Coposiciones%5Ccss%5Ccustom_md_style.css" type="text/css">
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
 
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
 
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
 
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file:///home/s.varona/Repositories/bacterial_wgs_training/C%3A%5CUsers%5CSara%5CGoogle%20Drive%5Coposiciones%5Copos_tecnologo%5Coposiciones%5Ccss%5Ccustom_md_style.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
 </head>
-
 <body>
-<div id="toc">
-<div id="toc_header">Table of Contents</div>
-<ul>
-<li>
-<a href="#toc_0">Bacterial WGS training : Exercise 1</a>
-<ul>
-<li>
-<a href="#toc_1">:bangbang: Important things to remnenber:</a>
-</li>
-<li>
-<a href="#toc_2">Answering to main questions</a>
-<ul>
-<li>
-<a href="#toc_3">How do I use the command line?</a>
-</li>
-<li>
-<a href="#toc_4">How do I navigate the file system?</a>
-<ul>
-<li>
-<a href="#toc_5">Checking the working directory (pwd)</a>
-</li>
-<li>
-<a href="#toc_6">Moving between directories (cd)</a>
-</li>
-<li>
-<a href="#toc_7">Listing directories (ls)</a>
-</li>
-<li>
-<a href="#toc_8">Creating and removing directories (mkdir &amp; rmdir)</a>
-</li>
-<li>
-<a href="#toc_9">Moving and renaming files (mv)</a>
-</li>
-<li>
-<a href="#toc_10">Editing files and displaying them (nano &amp; cat)</a>
-</li>
-<li>
-<a href="#toc_11">Read files other ways (less &amp; more &amp; head &amp; tail)</a>
-</li>
-<li>
-<a href="#toc_12">Removing a file (rm)</a>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-
-
-<h2 id="toc_0">Bacterial WGS training : Exercise 1</h2>
-
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="bacterial-wgs-training--exercise-1">Bacterial WGS training : Exercise 1</h1>
 <div class="tables-start"></div>
-
-<table><thead>
+<table>
+<thead>
 <tr>
 <th><strong>Title</strong></th>
 <th>Linux command line.</th>
 </tr>
-</thead><tbody>
+</thead>
+<tbody>
 <tr>
 <td><strong>Training dataset:</strong></td>
 <td>None</td>
@@ -271,155 +395,110 @@ img { max-width: 800px; }
 <td><strong>Key points</strong>:</td>
 <td><ul><li>Remeber the shell basic commands: <em>pwd cd ls mkdir rmdir mv nano cat less more head tail rm</em></li></ul></td>
 </tr>
-</tbody></table>
-
+</tbody>
+</table>
 <div class="tables-end"></div>
-
-<h3 id="toc_1">:bangbang: Important things to remnenber:</h3>
-
+<h2 id="bangbang-important-things-to-remnenber"><img class="emoji" alt="bangbang" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAFMklEQVR4Xu2az4ukVxWGn3u/nuqe7raTmZ4ZMlHHyZDZTAgEA8FFDCGSCQTiWkQhcRFduPIfaCIB3fgPTCAEBF0oKJoo4kLBINobQYgxTBaGrumqnk512VXVXTV97z1vyKoY6B9VmXxnM/XCXT/w1OHw3vtVkMT9nMh9m5mAmYCZgJmAmYCZgDmmSPvao3rw2SdhaR5MExIq0s0NOuv//cvl5q3nOCEfXly9tnzmzHv3yqlFQHN7d9N+/+7DczGgKUasnwqbOf3nMifn5uBg+3y+d04tAlLk/yWVh6exJuBAIsMGE2R9MOheX1y4N05dAoqxlSquNUJAUwhIgMEmE2RNyu+eP39vnNomADUzIIGFaQSInNX24tQmwALNIrDIVBNQpITU8uLUJgCjmSowxCQJQBYksVdS2nLj1LYEoZUQIkzhDLK0vTUY9L04tQlAahczK6GKYcKWlYEMrVfgzstenNoEmLXSXDUyWIwT/ipFYNCWJDdOXQIU40427eaKxQagyTY6RWp5cmoTsL6zs//0uXNtExcFaNIOEMKGF6fWy9CalAu0s4RgopMQJVjTk1PfEgSKqZXmQICFCTqACctqOnEcBETdyhIlBNDJy+kA7lDlj704tQswYyNXoAnKSQEMumWkrhenfgFSMwM2oYBs6m4PBl0nTv0CkFpJpkIIFccnAzmE7Vel5MWp/UnMoJtFzwIA2BFHQJbIUhPAi1P7BAxj7C6EsFPEAxWgY9uZMNgA8OC4CPjOzk7/d6ur3YIesRjQcTe0AFZoAnhwXARI0m/Ont3Mc/GrDRMKx7ezEnILwIPjIgDAoFkkFALG0cmSUGwDeHD8BESaSWAChSMlkQKjbNYC8OC4CSjEW/mEipoFBXqDGDsAHhy/CZBaKYIIRy4mCyIXa9Pt7gN4cNw+jZlZO5lSDmCADjlFUKA1LicOHC8Bo5TaReybBALdfTBBBkoIbcZx4DgJ6O/t9QrqFIEBBd11DEgIK9pkHAeOk4AfwahAqwh02KOFRBGUOG5nHhy3JShJvziz2i4RDnuyUoAsENO2M39O5DMmB7XSEU9WBmSZitmUo+nPmeOzxqxpVSQA4bCPFCH0C3QZx4HjKGAY463bMnYVDm1nQ9nQYtxhHAeOo4Cu2ftdaT1xeJbg5uu9Xu9Vpok/Z/ZXWT6fzAS8FsKxMh04/gL+ePXqyp+eePwH/3jmqV+/9OIzf//X9a//9W9fe/LGHx6/9jyHxIHjtwPevnLlqTMrC29eWn3wsbkKUsqEEGicatDfG/JRp/fWZrf3w++223uM48Bx6AHvPPTQlZXl0799NJeLGx98xHZ/iJkgwPxcxVfOfoEr842X03wD4BUAD47bBLxz4cIvv3R64Vu9/RG9g0yMgQAACMgGX16epx8C3eHo+jc7nT8DLpzad8CvFhe/GEt5sT+8Qy8VYgzA3V29qmBrlOAgY5lvA3hwXIrQ3vz81VPGSlSBCOLwFBn7RQyDnvh0c69J5sWpVUAqZWVUBU4BAOLojCQO0DLQAEZenHonADoRcZpAPKFgJMEA9YADT06tAnbhg2x2eynEC0vhmNEEejJ60j/XJPPi1L4E13q9j/vSz29jJLhrMYlxBogtM+0l3gLw4Lg1wQ78ZKOUf//PCvuAGCcLOjI+tMJtyk9f399dB/DguDbB7y8uXoqxurES4wsPhMACYMAeoiv6w2I/u7E/+LHGAA+O/3X4e8vLL1QxfgPTJQgjw96LIbz9Rr//PlPHnzN7D+B+zkzATMBMwCdiasQMS7B3XQAAAABJRU5ErkJggg==" /> Important things to remnenber:</h2>
 <ul>
 <li>Use Tab to automatically complete file names and paths, so it can be easiert to write in the terminal</li>
-<li>Use keyboard arrows (:arrow_up: :arrow_down:) to move through your terminal&#39;s history, so you don&#39;t have to write the commands again.</li>
+<li>Use keyboard arrows (<img class="emoji" alt="arrow_up" src="data:image/png;base64,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" /> <img class="emoji" alt="arrow_down" src="data:image/png;base64,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" />) to move through your terminal's history, so you don't have to write the commands again.</li>
 <li>Try not to use spaces, accents or special characters like &quot;Ñ&quot; letter, when writting directory of file names.</li>
 <li>Basic commands you should always remember: <em>pwd cd ls mkdir mv rm rmdir less nano</em></li>
 </ul>
-
-<h3 id="toc_2">Answering to main questions</h3>
-
-<h4 id="toc_3">How do I use the command line?</h4>
-
+<h2 id="answering-to-main-questions">Answering to main questions</h2>
+<h3 id="how-do-i-use-the-command-line">How do I use the command line?</h3>
 <p>Open a terminal by clicking in the icon or typing <strong>Ctrl+Alt+T</strong>. Now you can type in the prompt.</p>
-
-<h4 id="toc_4">How do I navigate the file system?</h4>
-
-<p>Let&#39;s remember the basics: <em>pwd cd ls mkdir mv rm rmdir less nano</em>. We are going to use those commands to:</p>
-
-<h5 id="toc_5">Checking the working directory (pwd)</h5>
-
+<h3 id="how-do-i-navigate-the-file-system">How do I navigate the file system?</h3>
+<p>Let's remember the basics: <em>pwd cd ls mkdir mv rm rmdir less nano</em>. We are going to use those commands to:</p>
+<h3 id="checking-the-working-directory-pwd">Checking the working directory (pwd)</h3>
 <p>Check our working directory:</p>
-
-<pre><code>pwd
-#Output: /home/alumno
-</code></pre>
-
-<h5 id="toc_6">Moving between directories (cd)</h5>
-
+<pre class="hljs"><code><div><span class="hljs-built_in">pwd</span>
+<span class="hljs-comment">#Output: /home/alumno</span>
+</div></code></pre>
+<h4 id="moving-between-directories-cd">Moving between directories (cd)</h4>
 <p>Move to our Desktop folder:</p>
-
-<pre><code>cd ~/Escritorio
-pwd
-#Output: /home/alumno/Escritorio
-</code></pre>
-
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> ~/Escritorio
+<span class="hljs-built_in">pwd</span>
+<span class="hljs-comment">#Output: /home/alumno/Escritorio</span>
+</div></code></pre>
 <p>Move to the course folder:</p>
-
-<pre><code>cd 
-pwd
-#Output: /home/alumno
-cd wgs
-pwd
-#Output: /home/alumno/wgs
-cd bacterial_wgs_training_dataset/RAW/FULL_DATA
-pwd
-#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/RAW/FULL_DATA
-cd .
-pwd
-#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/RAW/FULL_DATA
-cd ..
-#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/RAW/
-cd ../..
-#Output: /home/alumno/
-</code></pre>
-
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> 
+<span class="hljs-built_in">pwd</span>
+<span class="hljs-comment">#Output: /home/alumno</span>
+<span class="hljs-built_in">cd</span> wgs
+<span class="hljs-built_in">pwd</span>
+<span class="hljs-comment">#Output: /home/alumno/wgs</span>
+<span class="hljs-built_in">cd</span> bacterial_wgs_training_dataset/RAW/FULL_DATA
+<span class="hljs-built_in">pwd</span>
+<span class="hljs-comment">#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/RAW/FULL_DATA</span>
+<span class="hljs-built_in">cd</span> .
+<span class="hljs-built_in">pwd</span>
+<span class="hljs-comment">#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/RAW/FULL_DATA</span>
+<span class="hljs-built_in">cd</span> ..
+<span class="hljs-comment">#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/RAW/</span>
+<span class="hljs-built_in">cd</span> ../../..
+<span class="hljs-comment">#Output: /home/alumno/</span>
+</div></code></pre>
 <p><strong>Questions:</strong></p>
-
-<p><details>
-<summary>Which is the meaning of the &quot;~&quot; symbol?</summary></p>
-
+<details>
+<summary>Which is the meaning of the "~" symbol?</summary>
 <p>It is the abreviation of <code>/home/user/</code> path</p>
-
-<p></details></p>
-
-<p><details>
-<summary>What does de <code>cd</code> command without arguments do?</summary></p>
-
+</details>
+<details>
+<summary>What does de `cd` command without arguments do?</summary>
 <p>It changes the current directory to <code>/home/user/</code> path.</p>
-
-<p></details></p>
-
-<p><details>
-<summary>What does &quot;.&quot; mean?</summary>
+</details>
+<details>
+<summary>What does "." mean?</summary>
 Current directory
-</details></p>
-
-<p><details>
-<summary>What does &quot;..&quot; mean? </summary>
+</details>
+<details>
+<summary>What does ".." mean? </summary>
 Parent directory
-</details></p>
-
-<h5 id="toc_7">Listing directories (ls)</h5>
-
-<pre><code>cd wgs
-cd bacterial_wgs_training_dataset
+</details>
+<h4 id="listing-directories-ls">Listing directories (ls)</h4>
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> wgs
+<span class="hljs-built_in">cd</span> bacterial_wgs_training_dataset
 ls
-#Output: ANALYSIS RAW  REFERENCES  RESULTS
-</code></pre>
-
+<span class="hljs-comment">#Output: ANALYSIS RAW  REFERENCES  RESULTS</span>
+</div></code></pre>
 <p>This is the folder structure we will use for this training. Now we are going to list the files in the <code>REFERENCE</code> folder:</p>
-
-<pre><code>ls REFERENCES
-</code></pre>
-
+<pre class="hljs"><code><div>ls REFERENCES
+</div></code></pre>
 <p>This command will output a big list of files, which are the files that we will usea as REFERENCE through the different exercises of the training. Now wi will run this other command:</p>
-
-<pre><code>ls /home/alumno/wgs/bacterial_wgs_training_dataset/REFERENCES/
-</code></pre>
-
+<pre class="hljs"><code><div>ls /home/alumno/wgs/bacterial_wgs_training_dataset/REFERENCES/
+</div></code></pre>
 <p><strong>Questions:</strong></p>
-
-<p><details>
-<summary>What does &quot;..&quot; mean? </summary>
+<details>
+<summary>What does ".." mean? </summary>
 Parent directory
-</details></p>
-
-<p><details>
+</details>
+<details>
 <summary>Which is the difference between this last command and the previous one? </summary>
 There is no difference, they are listing the content of the exact same directory.
-</details></p>
-
-<p><details>
+</details>
+<details>
 <summary> Do they display the same information? </summary>
 Yes!
-</details></p>
-
-<p><details>
-<summary> Which one is relative path? </summary></p>
-
+</details>
+<details>
+<summary> Which one is relative path? </summary>
 <p><code>ls REFERENCES</code></p>
-
-<p></details></p>
-
-<p><details>
-<summary> Which one is absolute path? </summary></p>
-
+</details>
+<details>
+<summary> Which one is absolute path? </summary>
 <p><code>ls /home/alumno/wgs/bacterial_wgs_training_dataset/REFERENCES/</code></p>
-
-<p></details></p>
-
-<p>Let&#39;s see different parameters for the <code>ls</code> command. Write:</p>
-
-<pre><code>ls REFERENCES
+</details>
+<p>Let's see different parameters for the <code>ls</code> command. Write:</p>
+<pre class="hljs"><code><div>ls REFERENCES
 ls -l REFERENCES
 ls -a REFERENCES
 ls -la REFERENCES
-</code></pre>
-
+</div></code></pre>
 <p><strong>Questions:</strong></p>
-
-<p><details>
-<summary></p>
-
-<p>What does de different arguments of <code>ls</code> do? 
+<details>
+<summary>
+<p>What does de different arguments of <code>ls</code> do?</p>
 </summary>
 <br>
 -l : Long listing format: Displays the permission information</br>
@@ -427,184 +506,135 @@ ls -la REFERENCES
 -a : All files: Lists also hiddent files</br>
 <br>
 -la : Long format listing and hidden files together. </br>
-</details></p>
-
-<p><details>
+</details>
+<details>
 <summary> What does the new file special? </summary>
 It is a hidden file, whose file name starts by dot.
-</details></p>
-
-<p>⚠️ <strong>REMINDER:</strong> ⚠️ EVERY TIME YOU CHANGE DIRECTORY (cd) YOU HAVE TO CHECK YOUR PATH (pwd) AND LIST THE FILES INSIDE (ls) TO CHECK YOU DIDN&#39;T MAKE MISTAKES</p>
-
-<h5 id="toc_8">Creating and removing directories (mkdir &amp; rmdir)</h5>
-
+</details>
+<p>⚠️ <strong>REMINDER:</strong> ⚠️ EVERY TIME YOU CHANGE DIRECTORY (cd) YOU HAVE TO CHECK YOUR PATH (pwd) AND LIST THE FILES INSIDE (ls) TO CHECK YOU DIDN'T MAKE MISTAKES</p>
+<h5 id="creating-and-removing-directories-mkdir--rmdir">Creating and removing directories (mkdir &amp; rmdir)</h5>
 <p>Now we are going to move to the ANALYSIS folder which is the folder were we will run all the exercises</p>
-
-<pre><code>cd ANALYSIS
-pwd
-#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/ANALYSIS
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> ANALYSIS
+<span class="hljs-built_in">pwd</span>
+<span class="hljs-comment">#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/ANALYSIS</span>
 ls
-</code></pre>
-
+</div></code></pre>
 <p>As you can see the folder is empty, so now we will fill this folder. Create a directory for this handson: <strong>Remember:</strong> Linux is case sensitive and does not like white spaces in names</p>
-
-<pre><code>mkdir 01-handsonLinux
+<pre class="hljs"><code><div>mkdir 01-handsonLinux
 ls
-#Output: 01-handsonLinux
-</code></pre>
-
+<span class="hljs-comment">#Output: 01-handsonLinux</span>
+</div></code></pre>
 <p>Now type:</p>
-
-<pre><code>mkdir 01-handsonlinux 01-HandsOnLinux
+<pre class="hljs"><code><div>mkdir 01-handsonlinux 01-HandsOnLinux
 ls
-#Output: 01-handsonlinux 01-handsonLinux 01-HandsOnLinux
-</code></pre>
-
+<span class="hljs-comment">#Output: 01-handsonlinux 01-handsonLinux 01-HandsOnLinux</span>
+</div></code></pre>
 <p><strong>Questions:</strong></p>
-
-<p><details>
+<details>
 <summary> Is it possible to create more than one directory at the same time? </summary>
 Yes, it is!
-</details></p>
-
-<p><details>
+</details>
+<details>
 <summary> If the names of the folders are the same, why it creates three different directories? </summary>
 Because it is case sensitive, so the names are not exactly the same!
-</details></p>
-
+</details>
 <p>Now we will remove the extra directories:</p>
-
-<pre><code>rmdir 01-handsonLinux 01-HandsOnLinux
+<pre class="hljs"><code><div>rmdir 01-handsonLinux 01-HandsOnLinux
 ls
-#Output: 01-handsonlinux
-</code></pre>
-
-<h5 id="toc_9">Moving and renaming files (mv)</h5>
-
+<span class="hljs-comment">#Output: 01-handsonlinux</span>
+</div></code></pre>
+<h5 id="moving-and-renaming-files-mv">Moving and renaming files (mv)</h5>
 <p>Move to the new folder</p>
-
-<pre><code>cd 01-handsonlinux
-pwd
-#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/ANALYSIS/01-handsonlinux
-</code></pre>
-
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> 01-handsonlinux
+<span class="hljs-built_in">pwd</span>
+<span class="hljs-comment">#Output: /home/alumno/wgs/bacterial_wgs_training_dataset/ANALYSIS/01-handsonlinux</span>
+</div></code></pre>
 <p>We are going to move the hidden file in REFERENCE folder to this directory and then rename it:</p>
-
-<pre><code>mv ../../REFERENCES/.ThisIsAHiddenFile .
+<pre class="hljs"><code><div>mv ../../REFERENCES/.ThisIsAHiddenFile .
 ls
 ls -a
 ls -a ../../REFERENCES/
 mv .ThisIsAHiddenFile NowImNotHidden
 ls -a
 ls
-</code></pre>
-
+</div></code></pre>
 <p><strong>Questions:</strong></p>
-
-<p><details>
-<summary> Which is the difference between the two <code>mv</code> commands? </summary>
+<details>
+<summary> Which is the difference between the two `mv` commands? </summary>
 The first one moves a file to a different folder and the second one renames the file.
-</details></p>
-
-<p><details>
-<summary> Do you remember what &quot;.&quot; mean from the first questions? </summary>
+</details>
+<details>
+<summary> Do you remember what "." mean from the first questions? </summary>
 Current directory
-</details></p>
-
-<p><details>
-<summary> And &quot;..&quot;? </summary>
+</details>
+<details>
+<summary> And ".."? </summary>
 Parent directory
-</details></p>
-
+</details>
 <p>⚠️ <strong>REMINDER:</strong> ⚠️ LINUX DOES NOT REQUIRE FILE EXTENSIONS</p>
-
-<h5 id="toc_10">Editing files and displaying them (nano &amp; cat)</h5>
-
+<h5 id="editing-files-and-displaying-them-nano--cat">Editing files and displaying them (nano &amp; cat)</h5>
 <p>We are going to read the file and edit it:</p>
-
-<pre><code>cat NowImNotHidden
-#Output: I&#39;m a hidden file.
-</code></pre>
-
+<pre class="hljs"><code><div>cat NowImNotHidden
+<span class="hljs-comment">#Output: I'm a hidden file.</span>
+</div></code></pre>
 <p>This is not true, so we are going to edit it:</p>
-
-<pre><code>nano NowImNotHidden
-</code></pre>
-
-<p>Write: <code>I&#39;m not a hidden file.</code></p>
-
+<pre class="hljs"><code><div>nano NowImNotHidden
+</div></code></pre>
+<p>Write: <code>I'm not a hidden file.</code></p>
 <p>And <strong>save</strong> it:
 <em>Ctrl + O</em>
 <em>Intro</em></p>
-
 <p><strong>Close</strong> the new file:
 <em>Ctrl + X</em></p>
-
 <p>Now read the new file:</p>
-
-<pre><code>cat NowImNotHidden
-#Output: I&#39;m not a hidden file.
+<pre class="hljs"><code><div>cat NowImNotHidden
+<span class="hljs-comment">#Output: I'm not a hidden file.</span>
 ls
-#Output: NowImNotHidden
-cd ../../
-</code></pre>
-
-<h5 id="toc_11">Read files other ways (less &amp; more &amp; head &amp; tail)</h5>
-
+<span class="hljs-comment">#Output: NowImNotHidden</span>
+<span class="hljs-built_in">cd</span> ../../
+</div></code></pre>
+<h5 id="read-files-other-ways-less--more--head--tail">Read files other ways (less &amp; more &amp; head &amp; tail)</h5>
 <p>And now we will read this file:</p>
-
-<pre><code>cat REFERENCES/bacterial_wgs_training_initial.tree
+<pre class="hljs"><code><div>cat REFERENCES/bacterial_wgs_training_initial.tree
 less REFERENCES/bacterial_wgs_training_initial.tree
-#Remember: To close less press &quot;q&quot;
-</code></pre>
-
-<pre><code>more REFERENCES/bacterial_wgs_training_initial.tree
-#Remember: To close more press &quot;q&quot;
-</code></pre>
-
-<pre><code>head REFERENCES/bacterial_wgs_training_initial.tree
+</div></code></pre>
+<p>Remember: To close less press &quot;q&quot;</p>
+<pre class="hljs"><code><div>more REFERENCES/bacterial_wgs_training_initial.tree
+</div></code></pre>
+<p>Remember: To close more press &quot;q&quot;</p>
+<pre class="hljs"><code><div>head REFERENCES/bacterial_wgs_training_initial.tree
 tail REFERENCES/bacterial_wgs_training_initial.tree
-</code></pre>
-
-<pre><code>head -n4 REFERENCES/bacterial_wgs_training_initial.tree
+</div></code></pre>
+<pre class="hljs"><code><div>head -n4 REFERENCES/bacterial_wgs_training_initial.tree
 tail -n3 REFERENCES/bacterial_wgs_training_initial.tree
-</code></pre>
-
+</div></code></pre>
 <p><strong>Questions:</strong></p>
-
-<p><details>
-<summary> </p>
-
-<p>Which is the difference between <code>head</code> and <code>tail</code>?<br>
+<details>
+<summary> 
+<p>Which is the difference between <code>head</code> and <code>tail</code>?</p>
 </summary>
 <br>Head displays first lines of a file.</br>
 <br>Tail displays the last lines of a file</br>
-</details></p>
-
-<p><details>
-<summary></p>
-
-<p>What does the argument <code>-nX</code> do to <code>tail</code> and <code>head</code>?
+</details>
+<details>
+<summary>
+<p>What does the argument <code>-nX</code> do to <code>tail</code> and <code>head</code>?</p>
 </summary>
 Displays de X numbers of lines from the begining (head) or end (tail) of a file.
-</details></p>
-
-<h5 id="toc_12">Removing a file (rm)</h5>
-
+</details>
+<h5 id="removing-a-file-rm">Removing a file (rm)</h5>
 <p>Now we will learn how to remove files:</p>
-
-<pre><code>cd ANALYSIS/01-handsonlinux/
-pwd
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> ANALYSIS/01-handsonlinux/
+<span class="hljs-built_in">pwd</span>
 ls
-#Output: NowImNotHidden
+<span class="hljs-comment">#Output: NowImNotHidden</span>
 mv ../../REFERENCES/bacterial_wgs_training_initial.tree .
 ls
-#Output: bacterial_wgs_training_initial.tree NowImNotHidden
+<span class="hljs-comment">#Output: bacterial_wgs_training_initial.tree NowImNotHidden</span>
 rm NowImNotHidden
 ls
-#Output: bacterial_wgs_training_initial.tree
-</code></pre>
+<span class="hljs-comment">#Output: bacterial_wgs_training_initial.tree</span>
+</div></code></pre>
 
 </body>
-
 </html>
