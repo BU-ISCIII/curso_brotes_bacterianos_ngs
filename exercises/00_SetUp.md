@@ -35,9 +35,15 @@ In the remote console:
   - Select `bacterial_wgs_training`
   - Exercise0.
 
+![alt text](./img/firefox.png)
+![alt text](./img/firefox_search.png)
+![alt text](./img/github.png)
+![alt text](./img/training.png)
+![alt text](./img/ex0.png)
+
 Now you are here again!
 
-Open a new terminal and navigate to your home directory if you are not already there:
+Open a new terminal (ctrl+alt+t) and navigate to your home directory if you are not already there:
 
 ```bash
 pwd
