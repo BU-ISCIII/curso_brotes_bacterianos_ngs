@@ -126,7 +126,7 @@ nextflow run ../../bacterial_wgs_training/main.nf \
   -profile conda \
   --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
   --step preprocessing  \
-  --outdir 01-assembly
+  --outdir 01-preprocessing
 ```
 ------
 
