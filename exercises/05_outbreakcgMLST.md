@@ -164,7 +164,7 @@ Let's proceed to analyze the results. We can find them in:
 ```
 /home/alumno/bacterial_wgs_training_dataset/RESULTS/06-outbreakMLST
 ```
-Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](02_QualityAndAssembly.md), we will proceed to analyze cgMLST results.
+Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](03_QualityAndAssembly.md), we will proceed to analyze cgMLST results.
 
 The most important files at this point for cgMLST analsysis are ```results.tsv``` and ```summary_result.tsv``` files. Remaining files are useful for particular analysis where we may want to look at things not present at the cgMLST, or to explain some phenotipic behaviour.
 

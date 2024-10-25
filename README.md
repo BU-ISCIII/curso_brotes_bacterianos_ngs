@@ -22,17 +22,17 @@ The material includes slides with theory concepts and a bunch of practical exerc
 - **Talk 5:** [Quality analysis and control of HTS data](slides/talk5/curso_SeqGenBac_session2.2_quality_assesment.pdf)
 - **Talk 6:** [Bacterial genomes assembly](slides/talk6/20221017_5ED_curso_SeqGenBac_session2.3_assembly_ICuesta.pdf)
 - **Talk 7:** [Sequence annotation](slides/talk11/20231020_5ED_curso_SeqGenBac_session5.1_annotation_ICuesta.pdf)
-- [**Exercise 3**](exercises/02_QualityAndAssembly.md) -- [Download pdf](exercises/02_QualityAndAssembly.pdf)
+- [**Exercise 3**](exercises/03_QualityAndAssembly.md) -- [Download pdf](exercises/03_QualityAndAssembly.pdf)
 
 ### Day 3
 
 - **Talk 8:** [Mapping against reference genome and Variant Calling.](slides/talk7/curso_SeqGenBac_session3.1_MappingAndVariantCalling.pdf)
 - **Talk 9:** [SNP matrix and phylogenetics.](slides/talk8/curso_SeqGenBac_session3.2_SNPMatrixAndPhylogenetics.pdf)
-- [**Exercise 4**](exercises/03_outbreakSNP.md) -- [Download pdf](exercises/03_outbreakSNP.pdf)
+- [**Exercise 4**](exercises/04_outbreakSNP.md) -- [Download pdf](exercises/04_outbreakSNP.pdf)
 
 ### Day 4
 
 - **Talk 10:** [Typing based on allelic profile or gene-by-gene](slides/talk9/20231019_5ED_curso_SeqGenBac_session4.1_tipificacion-gen-by-gene_ICuesta.pdf)
 - **Talk 11:** [Gene-by-gene WGS analysis](slides/talk10/curso_SeqGenBac_session4.2_GeneByGenevsSNPs.pdf)
-- [**Exercise 5**](exercises/04_outbreakcgMLST.md) -- [Download pdf](exercises/04_outbreakcgMLST.pdf)
-- [**Exercise 6**](exercises/05_annotation.md) -- [Download pdf](exercises/05_annotation.pdf)
+- [**Exercise 5**](exercises/04_outbreakcgMLST.md) -- [Download pdf](exercises/05_outbreakcgMLST.pdf)
+- [**Exercise 6**](exercises/06_annotation.md) -- [Download pdf](exercises/06_annotation.pdf)

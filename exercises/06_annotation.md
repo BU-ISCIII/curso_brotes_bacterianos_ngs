@@ -1,4 +1,4 @@
-# Bacterial WGS training : Exercise 5
+# Bacterial WGS training : Exercise 6
 
 <div class="tables-start"></div>
 
@@ -12,10 +12,14 @@
 
   <p align="center"><img src="img/bacterial_wgs_training.png" alt="Fastqc_1" width="500"></p>
 
-- [Introduction](#introduction)
-- [Exercise](#exercise)
+- [Bacterial WGS training : Exercise 6](#bacterial-wgs-training--exercise-6)
+  - [Introduction](#introduction)
+    - [Training dataset description](#training-dataset-description)
+  - [Exercise](#exercise)
     - [Mapping based annotation](#mapping-based-annotation)
+    - [Results should look like that](#results-should-look-like-that)
     - [Assembly based annotation](#assembly-based-annotation)
+  - [Results should look like that](#results-should-look-like-that-1)
 
 <div class="tables-start"></div>
 

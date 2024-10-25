@@ -192,7 +192,7 @@ Let's proceed to analyze the results. We can find them in:
 /home/alumno/wgs/bacterial_wgs_training_dataset/RESULTS/04-outbreakSNP
 ```
 
-Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](02_QualityAndAssembly.md) and [Mapping Section](#Mapping)), we will proceed to analyze variant calling results.
+Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](03_QualityAndAssembly.md) and [Mapping Section](#Mapping)), we will proceed to analyze variant calling results.
 
 #### Variant calling results
 Variants are stored in plain text files in vcf format (variant calling format). Vcf files can be found in:
