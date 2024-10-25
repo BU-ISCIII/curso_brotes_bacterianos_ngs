@@ -19,7 +19,7 @@
     - [Mapping based annotation](#mapping-based-annotation)
     - [Results should look like that](#results-should-look-like-that)
     - [Assembly based annotation](#assembly-based-annotation)
-  - [Results should look like that](#results-should-look-like-that-1)
+  - [Results should look like these](#results-should-look-like-these)
 
 <div class="tables-start"></div>
 
@@ -29,6 +29,7 @@ In this exercise we are going to determine the genomic content of a multidrug-re
 First we will usse [srst2](https://github.com/katholt/srst2) to asses the resistome and later, we will use [plasmidID](https://github.com/BU-ISCIII/plasmidID) to infer biological and positional information to sequences and see where the genes, detected with mapping strategy, are located.
 
 ### Training dataset description
+
 The sample we are going to analyse is an *in silico* dataset obtained with [wgsim](https://github.com/lh3/wgsim) using a sample of [*Klebsiella pneumoniae subsp. pneumoniae HS11286*](https://www.ncbi.nlm.nih.gov/genome/?term=klebsiella+pneumoniae) available at ncbi.
 
 ## Exercise
@@ -53,11 +54,10 @@ nextflow run ../../bacterial_wgs_training/main.nf \
 --outdir 07-mapAnnotation \
 -resume
 ```
+
 ------
 
-
 ### Results should look like that
-
 
 | Sample | DB | gene | allele | coverage | depth | diffs | uncertainty | divergence | length | maxMAF | clusterid | seqid | annotation |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -75,7 +75,6 @@ nextflow run ../../bacterial_wgs_training/main.nf \
 | KPN_TEST_R | ARGannot.r1 | TetG_Tet | TetG_632 | 100.0 | 9.963 |  |  | 0.0 | 1176 | 0.25 | 80 | 632 | no;no;TetG;Tet;NC_010410;3672607-3671432;1176 |
 | KPN_TEST_R | ARGannot.r1 | SulII_Sul | SulII_1219 | 100.0 | 11.094 | 1snp |  | 0.123 | 816 | 0.2 | 256 | 1219 | no;no;SulII;Sul;KR091911;167466-168281;816 |
 
-
 This table is a full report of all the ARG found with all mapping stats.
 
 ### Assembly based annotation
@@ -90,9 +89,9 @@ cd wgs/bacterial_wgs_training_dataset/REFERENCES/
 cp -r /mnt/ngs_course_shared/bacterial_wgs_training_dataset/REFERENCES/plasmidid_test .
 ```
 
-Now we can run the nextflow 
+Now we can run the nextflow
 
-```
+```bash
 cd ../ANALYSIS/
 nextflow run ../../bacterial_wgs_training/main.nf \
 --reads '../REFERENCES/plasmidid_test/KPN*_R{1,2}.fastq.gz' \
@@ -108,8 +107,7 @@ nextflow run ../../bacterial_wgs_training/main.nf \
 
 ------
 
-
-## Results should look like that
+## Results should look like these
 
 | NC_016838.1 | NC_016839.1 | NC_016840.1 |
 | :---: | :---: | :---: |

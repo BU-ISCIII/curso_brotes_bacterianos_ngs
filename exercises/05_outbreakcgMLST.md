@@ -17,13 +17,16 @@
 <p align="center"><img src="img/taranis_diagram_identify_alleles.jpg" width="1000"></p>
 
 ## Preprocessing
+
 Addressed in previous exercises.
 
 ## Strain characterization: Serogroup and sequence type (ST) determination using WGS data.
+
 Performing MLST, serogroup or resistance analysis can't be easing using WGS. Here we are going to use a mapping approach using [srst2](https://github.com/katholt/srst2) software for determining ST and serogroup of the listeria isolates without doing any PCR.
 
 ### Run the exercise
-```
+
+```bash
 cd
 cd wgs/bacterial_wgs_training_dataset/ANALYSIS
 nextflow run ../../bacterial_wgs_training/main.nf \
@@ -41,13 +44,16 @@ nextflow run ../../bacterial_wgs_training/main.nf \
 ```
 
 Below this command two srst2 commands are performed using the mlst and serogroup schema downloaded from [Pasteur bigsdb](http://bigsdb.pasteur.fr/perl/bigsdb/bigsdb.pl?db=pubmlst_listeria_seqdef_public).
-```
+
+```bash
 srst2 --input_pe reads_R1.fastq.gz readsR2 \
 --forward "_R1" --reverse "_R2" --output output \
 --log --mlst_db db_mlst --mlst_definition mlst_scheme \
 --mlst_delimiter "_"
 ```
+
 Parameters:
+
 - input_pe: fastq reads
 - forward/reverse: name of R1-R2 reads for file name parsing.
 - output: how to name the results.
@@ -99,6 +105,7 @@ The MLST results look like this other table, and can be found in:```/home/alumno
 <div class="tables-end"></div>
 
 We will describe here the meaning of each column:
+
 - Sample: sample name
 - ST: serotype or serogroup determined.
 - lmo0737-prs: names of the genes present in the MLST schema in this case. This column will vary depending on the species and the schema used. Each column shows the allele number determined for each sample.
@@ -112,40 +119,54 @@ And finally we can plot a clustering using MLST profile with a resistance heatma
 <p align="center"><img src="img/mlst_resistance.png" width="1000"></p>
 
 ## Assembly
+
 Addressed in previous exercises.
+
 ## cgMLST Analysis
+
 We are using Taranis as the main software for cgMLST analysis. Following the development of the former exercises we are using nextflow, in this case using `outbreakMLST` step.
 This step includes the following processes:
-  - Preprocessing with trimmomatic and FastQC.
-  - Assembly and quality control.
-  - Download of cgMLST schema for L. monocytogenes from Pasteur bigsdb site.
-  - cgMLST analysis using Taranis app.
+
+- Preprocessing with trimmomatic and FastQC.
+- Assembly and quality control.
+- Download of cgMLST schema for L. monocytogenes from Pasteur bigsdb site.
+- cgMLST analysis using Taranis app.
 
 ### Run the exercise
+
 First of all we need to be clear in which folder we are. We need to be in our working directory `/home/alumno/Documents/wgs` and our training dataset downloaded the first day must be there (If you had any problem the previous sessions please refere to the [setup tutorial](00_SetUp.md)).
 
 You can run this command to check where you are:
+
 ```Bash
 pwd
 ```
+
 Output:
-```
+
+```bash
 /home/alumno/wgs/bacterial_wgs_training_dataset/ANALYSIS
 ```
+
 And this one to list all the files in your working directory. Check there is the training_dataset folder and the results folder from previous sessions.
+
 ```Bash
 ls
 ```
+
 Output:
-```
+
+```bash
 02-assembly 03-mapping 04-outbreakSNP 05-strainCharacterization
 ```
-Once our localization is correct we will launch nextflow with the next parameters:
-  - Raw reads
-  - step outbreakMLST
-  - gtf file needed for assembly step.
 
-```
+Once our localization is correct we will launch nextflow with the next parameters:
+
+- Raw reads
+- step outbreakMLST
+- gtf file needed for assembly step.
+
+```bash
 nextflow run ../../bacterial_wgs_training/main.nf \
     --reads '../RAW/DOWNSAMPLED/*R{1,2}*.fastq.gz' \
     --fasta ../REFERENCES/listeria_NC_021827.1_NoPhagues.fna \
@@ -160,10 +181,13 @@ nextflow run ../../bacterial_wgs_training/main.nf \
 This will take a while as usual, and it is performed with a downsampled dataset, so we will describe here the results with the full dataset for practice our interpretation.
 
 ### Results analysis
+
 Let's proceed to analyze the results. We can find them in:
-```
+
+```bash
 /home/alumno/bacterial_wgs_training_dataset/RESULTS/06-outbreakMLST
 ```
+
 Since alignment and quality control results has been previously addresed in this course (see [02_QualityAndAssembly.md](03_QualityAndAssembly.md), we will proceed to analyze cgMLST results.
 
 The most important files at this point for cgMLST analsysis are ```results.tsv``` and ```summary_result.tsv``` files. Remaining files are useful for particular analysis where we may want to look at things not present at the cgMLST, or to explain some phenotipic behaviour.
@@ -192,11 +216,10 @@ In this case we obtain something like this:
 
 But...it may be useful for you taking a look at the downsampling results this time, what happens with the cgMLST analysis when we use data with low coverage, and consequently a fragmented analysis? The summary results changes and we see this:
 
-**TODO INCLUDE TABLE**
-
 >PLOT alleles rise notably, this is because fragmented genome makes more probable the appearance of broken cds that fall in the start of end of a contig.
 
 ## Minimum spanning tree visualization
+
 In order to generate the minimum spanning tree from our ```results.tsv``` file we are going to use [Phyloviz](https://online.phyloviz.net/index), an online tool for MST visualization.
 
 So..open click [here](https://online.phyloviz.net/index) and phyloviz website should open
@@ -222,7 +245,6 @@ Finally we have out pretty MST, do you see any cluster? You can compare this res
 
 <p align="center"><img src="img/phyloviz5.PNG" width="1000"></p>
 
-
 ## Conclusion
-cgMLST and SNP-based approach generate the same result for this outbreak, we have between 0-5 different SNPs, and between 1-3 different alleles among the isolates belonging to the outbreak.
 
+cgMLST and SNP-based approach generate the same result for this outbreak, we have between 0-5 different SNPs, and between 1-3 different alleles among the isolates belonging to the outbreak.
