@@ -21,7 +21,9 @@ Summarized is:
 In your computer:
 
 - Open in your internet browser this URL: [https://vcsa.isciii.es/](https://vcsa.isciii.es/).
-- Advanced options > Go to website
+- Configuración avanzada > Acceder a vcsa.isciii.es (sitio no seguro)
+![alt text](./img/sitio_no_seguro.png)
+![alt text](./img/acceder.png)
 - Go to `Iniciar VSPHERE CLIENT (HTML5)`
 - Then type your ISCIII e-mail and password.
 - Select your working machine (e.g. bioinfo01) in the left pannel
