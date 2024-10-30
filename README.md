@@ -20,7 +20,7 @@ The material includes slides with theory concepts and a bunch of practical exerc
 ### Day 2
 
 - **Talk 5:** [Quality analysis and control of HTS data](slides/talk5/curso_SeqGenBac_session2.2_quality_assesment.pdf)
-- **Talk 6:** [Bacterial genomes assembly](slides/talk6/20221017_5ED_curso_SeqGenBac_session2.3_assembly_ICuesta.pdf)
+- **Talk 6:** [Bacterial genomes assembly](slides/talk6/slidestalk620221017_5ED_curso_SeqGenBac_session2.3_assembly_ICuesta.pdf.pdf)
 - **Talk 7:** [Sequence annotation](slides/talk11/20231020_5ED_curso_SeqGenBac_session5.1_annotation_ICuesta.pdf)
 - [**Exercise 3**](exercises/03_QualityAndAssembly.md) -- [Download pdf](exercises/03_QualityAndAssembly.pdf)
 
