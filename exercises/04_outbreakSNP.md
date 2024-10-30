@@ -149,7 +149,7 @@ Let's launch IGV! Navigate to your desktop and find the icon we have left for yo
 
 First we have to load the reference genome. Click on "Genomes" and "Load Genome from File...", navigate to our training_dataset folder and select the reference genome "listeria_NC_021827.1_NoPhagues.fna".
 
-Now, load our mapped genomes by clicking on "File" and "load from File...", navigate to our mapped genomes (HINT: they are in the shared folder inside the "results/picard" folder), and load one of them:
+Now, load our mapped genomes by clicking on "File" and "load from File...", navigate to our mapped genomes (HINT: they are in the results folder inside the "picard" folder `03-mapping/picard/sample.dedup.sorted.bam`), and load one of them:
 
 ![](https://github.com/BU-ISCIII/bacterial_wgs_training/blob/master/exercises/img/Screenshot-IGV-loaded.png?raw=true)
 
